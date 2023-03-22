@@ -1,7 +1,8 @@
 import React from "react";
+import "./styles/reset.css";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Sidbar from "./components/Sidbar";
+import Sidbar from "./components/Sidbar.tsx";
 import Beautyboard from "./pages/Beautyboard";
 import Boardingboard from "./pages/Boardingboard";
 import Careboard from "./pages/Careboard";
