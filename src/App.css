@@ -10,8 +10,8 @@
   background: #eee;
 }
 main {
-  width: 100%;
   padding: 20px;
+  margin: 0 auto;
 }
 .sidebar {
   background: #fff;
@@ -58,7 +58,7 @@ main {
   transition: all 0.5s;
 }
 
-.link_text {
+.link-text {
   font-size: 14px;
   font-weight: 400;
   transition: all 0.5s;
