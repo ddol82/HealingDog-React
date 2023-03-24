@@ -1,0 +1,9 @@
+.header-btns {
+  display: flex;
+  width: 1180px;
+  flex-direction: row-reverse;
+  margin-bottom: 20px;
+}
+.login-btn {
+  width: 40px;
+}

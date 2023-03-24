@@ -2,28 +2,35 @@ import React from "react";
 import "./styles/reset.css";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Sidbar from "./components/Sidbar.tsx";
 import Beautyboard from "./pages/Beautyboard";
 import Boardingboard from "./pages/Boardingboard";
 import Careboard from "./pages/Careboard";
-import Kindergarden from "./pages/Kindergarden";
+import Kindergardenboard from "./pages/Kindergardenboard";
 import Trainingboard from "./pages/Trainingboard";
 import Walkingboard from "./pages/Walkingboard";
-
+import LayoutProvider from "./layouts/LayoutProvider";
+import LayoutUser from "./layouts/LayoutUser";
 function App() {
   return (
     <BrowserRouter>
-      <Sidbar>
-        <Routes>
-          <Route path="/" element={<Careboard />} />
-          <Route path="/careboard" element={<Careboard />} />
-          <Route path="/walkingboard" element={<Walkingboard />} />
-          <Route path="/trainingboard" element={<Trainingboard />} />
-          <Route path="/beautyboard" element={<Beautyboard />} />
-          <Route path="/boardingboard" element={<Boardingboard />} />
-          <Route path="/kindergarden" element={<Kindergarden />} />
-        </Routes>
-      </Sidbar>
+      <Routes>
+        <Route path="/" element={<LayoutProvider />}>
+          <Route path="/care-board" element={<Careboard />} />
+          <Route path="/walking-board" element={<Walkingboard />} />
+          <Route path="/training-board" element={<Trainingboard />} />
+          <Route path="/beauty-board" element={<Beautyboard />} />
+          <Route path="/boarding-board" element={<Boardingboard />} />
+          <Route path="/kindergarden-board" element={<Kindergardenboard />} />
+        </Route>
+        <Route path="/" element={<LayoutUser />}>
+          {/* <Route path="/care" element={<Care />} />
+          <Route path="/walking" element={<Walking />} />
+          <Route path="/training" element={<Training />} />
+          <Route path="/beauty" element={<Beauty />} />
+          <Route path="/boarding" element={<Boarding />} />
+          <Route path="/kindergarden" element={<Kindergarden />} /> */}
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
