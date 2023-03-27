@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import IconBeforeLogin from "../../assets/icon/Login=false.svg";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
 import { useState } from "react";
-import { decodeJwt } from "../../utils/tokenUtils.ts";
+import { decodeJwt } from "../../utils/tokenUtils";
 import "../../styles/Header.css";
 
 const Header = () => {
