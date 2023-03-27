@@ -46,6 +46,7 @@
     "eslint": "^8.36.0",
     "eslint-plugin-react": "^7.32.2",
     "jwt-decode": "^3.1.2",
+    "process": "^0.11.10",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
     "redux": "^4.2.1",
