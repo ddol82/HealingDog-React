@@ -1,5 +1,4 @@
 import { GET_REVIEWS } from "../modules/ReviewModule";
-
 // export const initializerAPI = () => {
 
 //     return (dispatch) => {
@@ -24,7 +23,7 @@ export const callSelectReviewsAPI = ({ serviceCategoryCode }) => {
 
     console.log("[ReviewAPICalls] callSelectReviewsAPI RESULT : ", result);
 
-    alert(result.message);
+    // alert(result.message);
 
     if (result.status === 200) {
       dispatch({ type: GET_REVIEWS, payload: result });
