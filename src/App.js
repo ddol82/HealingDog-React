@@ -11,6 +11,8 @@ import Walkingboard from "./pages/Walkingboard";
 import LayoutProvider from "./layouts/LayoutProvider";
 import LayoutUser from "./layouts/LayoutUser";
 import Review from "./components/review/Review";
+import Login from "./pages/login/Login";
+import Register from "./pages/login/Register";
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +34,8 @@ function App() {
           <Route path="/boarding" element={<Boarding />} />
           <Route path="/kindergarden" element={<Kindergarden />} /> */}
         </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
