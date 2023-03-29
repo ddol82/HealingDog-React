@@ -10,6 +10,7 @@ import Trainingboard from "./pages/Trainingboard";
 import Walkingboard from "./pages/Walkingboard";
 import LayoutProvider from "./layouts/LayoutProvider";
 import LayoutUser from "./layouts/LayoutUser";
+import Review from "./components/review/Review";
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/kindergarden-board" element={<Kindergardenboard />} />
         </Route>
         <Route path="/" element={<LayoutUser />}>
+          <Route path="reviews/:serviceCategoryCode" element={<Review />} />
           {/* <Route path="/care" element={<Care />} />
           <Route path="/walking" element={<Walking />} />
           <Route path="/training" element={<Training />} />
