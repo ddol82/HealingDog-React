@@ -1,13 +1,14 @@
 .review {
     width: 100%;
     background-color: gainsboro;
+    border-radius: 10px;
 }
 
 .review-user {
     width: 90%;
     margin: 5% 5% 5% 5%;
     background-color: white;
-    
+    border-radius: 10px;
 }
 
 .review-user-regdate {
@@ -28,10 +29,12 @@
     height: 50%;
     margin: 5% 5% 5% 5%;
     background-color: white;
+    border-radius: 10px;
 }
 
 .review-contest {
     width: 90%;
     margin: 5% 5% 5% 5%;
     background-color: white;
+    border-radius: 10px;
 }
