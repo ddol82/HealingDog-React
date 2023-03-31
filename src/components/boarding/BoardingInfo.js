@@ -1,3 +1,4 @@
+import { callSelectBoardingInfoAPI } from "apis/BoardingAPICalls ";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,17 +7,30 @@ function BoardingInfo() {
 
     // redux
     const dispatch = useDispatch();
-    const getReviews = useSelector((state) => state.boardingManagementReducer.data);
+    const getBoardingInfo = useSelector((state) => state.boardingReducer.data);
 
     // useState
     const [form, setForm] = useState({
-        itemNo: 0,
+        boardingServiceCode: '',
+        providerCode: '',
+        title: '',
+        address: '',
+        hashtag: '',
+        introduce: '',
+        daysCostS: '',
+        daysCostM: '',
+        daysCostL: '',
+        timeCostS: '',
+        timeCostM: '',
+        timeCostL: '',
+        state: ''
     });
 
     // useEffect
     useEffect(
     () => {
         console.log(`[component-rendering] : BoardingInfo`);
+        dispatch(callSelectBoardingInfoAPI(1))
     }, // eslint-disable-next-line
     []
     );
@@ -26,7 +40,7 @@ function BoardingInfo() {
     
     return (
         <>
-            
+            <p>{form.boardingServiceCode}</p>
         </>
     )
 }

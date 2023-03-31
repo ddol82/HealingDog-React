@@ -1,4 +1,4 @@
-import { GET_REVIEWS } from "../modules/ReviewModule";
+import { GET_BOARDING_INFO } from "../modules/BoardingModule";
 // export const initializerAPI = () => {
 
 //     return (dispatch) => {
@@ -9,8 +9,8 @@ import { GET_REVIEWS } from "../modules/ReviewModule";
 //     }
 // }
 
-export const callSelectReviewsAPI = ({ serviceCategoryCode }) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/reviews/${serviceCategoryCode}`;
+export const callSelectBoardingInfoAPI = ({ providerCode }) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/boarding-management/info`;
 
   return async (dispatch) => {
     const result = await fetch(requestURL, {
@@ -18,15 +18,18 @@ export const callSelectReviewsAPI = ({ serviceCategoryCode }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
-      }
+      },
+      body: JSON.stringify({                
+        providerCode: providerCode            
+      })
     }).then((response) => response.json());
 
-    console.log("[ReviewAPICalls] callSelectReviewsAPI RESULT : ", result);
+    console.log("[ReviewAPICalls] callSelectBoardingInfoAPI RESULT : ", result);
 
     // alert(result.message);
 
     if (result.status === 200) {
-      dispatch({ type: GET_REVIEWS, payload: result });
+      dispatch({ type: GET_BOARDING_INFO, payload: result });
     }
   };
 };

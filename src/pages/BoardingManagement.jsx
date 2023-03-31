@@ -1,7 +1,11 @@
+import BoardingInfo from "components/boarding/BoardingInfo";
 import React from "react";
 import "../styles/BoardingManagement.css";
 
 const BoardingManagement = () => {
+
+// evenet handler
+
   return (
     <div>
       <div className="top-section">
@@ -24,7 +28,9 @@ const BoardingManagement = () => {
         </div>
 
         <div className="all-section-right">
-          <div className="boarding-booking-info">예약정보</div>
+          <div className="boarding-booking-info">
+            <BoardingInfo/>
+          </div>
           <div className="boarding-reviews">위탁돌봄리뷰</div>
           <div className="boarding-income">위탁돌봄수익</div>
           <div className="boarding-active">현재 서비스 활성</div>
