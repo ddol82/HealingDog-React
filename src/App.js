@@ -36,7 +36,7 @@ function App() {
           <Route path="/provider/walking-board" element={<Walkingboard />} />
           <Route path="/provider/training-board" element={<Trainingboard />} />
           <Route path="/provider/beauty-board" element={<Beautyboard />} />
-          <Route path="/provider/boarding-board" element={<Boardingboard />} />
+          <Route path="/provider/boarding-board" element={<BoardingManagement />} />
           <Route path="/provider/kindergarden-board" element={<Kindergardenboard />} />
         </Route>
         <Route path="/login" element={<Login />} />
