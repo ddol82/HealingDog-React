@@ -1,4 +1,6 @@
-export const callSelectBeautyAPI = ({ search }) => {
+import { GET_BEAUTY, GET_BEAUTIES } from "../modules/BeautyModule";
+
+export const callSelectBeautyInfoAPI = ({ search }) => {
   console.log("[BeautyAPICalls] callSelectBeautyAPI Call");
 
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/beauty-manage/info`;
@@ -12,7 +14,7 @@ export const callSelectBeautyAPI = ({ search }) => {
       },
     }).then((response) => response.json());
 
-    console.log("[BeautyAPICalls] callSelectBeautyAPI RESULT : ", result);
+    console.log("[BeautyAPICalls] callSelectBeautyInfoAPI RESULT : ", result);
 
     dispatch({ type: GET_BEAUTIES, payload: result.data });
   };
