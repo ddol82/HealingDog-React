@@ -77,4 +77,15 @@ export const callLoginProviderAPI = ({form}) => {
 }
 
 
+export const callLogoutAPI = () => {
+    
+
+    return async (dispatch, getState) => {            
+
+        dispatch({ type: POST_LOGIN,  payload: '' });        
+        console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
+    };
+}
+
+
 
