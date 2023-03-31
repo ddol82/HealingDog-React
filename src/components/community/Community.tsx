@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Community = () => {
     const navigate = useNavigate();
 
-    const onClickWriteHandler = (e: MouseEvent): void => {
+    const onClickWriteHandler = (e: MouseEvent): v => {
         const token: any = null;
     }
 
@@ -14,11 +14,6 @@ const Community = () => {
                 <h1>배너 위치. 700x260</h1>
             </div>
             <div>
-                <button
-                    onClick={ onClickWriteHandle }
-                >
-                    
-                </button>
             </div>
         </>
     );

@@ -18,34 +18,34 @@ const Sidebar = () => {
   }
   const menuItem: MenuItem[] = [
     {
-      path: "/care-board",
+      path: "/provider/care-board",
       name: "케어관리",
       icon: <img src={iconCare} alt="care" />,
     },
     {
-      path: "/walking-board",
+      path: "/provider/walking-board",
       name: "산책관리",
-      icon: <img src={iconWalking} alt="care" />,
+      icon: <img src={iconWalking} alt="walking" />,
     },
     {
-      path: "/training-board",
+      path: "/provider/training-board",
       name: "훈련관리",
-      icon: <img src={iconTraining} alt="care" />,
+      icon: <img src={iconTraining} alt="training" />,
     },
     {
-      path: "/beauty-board",
+      path: "/provider/beauty-board",
       name: "미용관리",
-      icon: <img src={iconBeauty} alt="care" />,
+      icon: <img src={iconBeauty} alt="beauty" />,
     },
     {
-      path: "/boarding-board",
+      path: "/provider/boarding-board",
       name: "위탁돌봄관리",
-      icon: <img src={iconBoarding} alt="care" />,
+      icon: <img src={iconBoarding} alt="boarding" />,
     },
     {
-      path: "/kindergarden-board",
+      path: "/provider/kindergarden-board",
       name: "개치원관리",
-      icon: <img src={iconKindergarden} alt="care" />,
+      icon: <img src={iconKindergarden} alt="kindergarden" />,
     },
   ];
   return (
