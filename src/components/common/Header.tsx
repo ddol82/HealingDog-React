@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 import IconBeforeLogin from "../../assets/icon/Login=false.svg";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
@@ -18,11 +17,11 @@ const Header = () => {
       exp: number;
       // whatever else is in the JWT.
     }
-    const token: any = decodeJwt<MyToken>(
+    const token: MyToken | null = decodeJwt<MyToken>(
       window.localStorage.getItem("accessToken")
     );
 
-    if (token.exp * 1000 < Date.now()) {
+    if (token?.exp === undefined || (token.exp * 1000 < Date.now())) {
       setLoginModal(true);
       return;
     }
@@ -51,7 +50,7 @@ const Header = () => {
     );
   };
   return (
-    <div className="heder">
+    <div className="header">
       <div className="header-btns">
         {/* 로그인상태가 null or undefined 이면 비로그인출력, 아니면 로그인상태 출력 */}
         {isLogin == null || isLogin === undefined ? (
