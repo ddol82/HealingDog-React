@@ -1,7 +1,14 @@
-import React from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "../styles/Beauty.css";
 
+import { callSelectBeautyInfoAPI } from "../apis/BeautyAPICalls";
+
 const Beautyboard = () => {
+  // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
+  const dispatch = useDispatch();
+  const beautyInfo = useSelector(state => state.)
+
   return (
     <div>
       <div className="top-section">
