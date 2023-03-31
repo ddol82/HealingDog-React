@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Header from "../components/common/Header.tsx";
-import Sidebar from "../components/Sidebar.tsx";
+import Header from "../components/common/provider/Header";
+import Sidebar from "../components/Sidebar";
 
 const LayoutProvider = () => {
   return (

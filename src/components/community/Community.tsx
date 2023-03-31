@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Community = () => {
     const navigate = useNavigate();
 
-    const onClickWriteHandler = (e: MouseEvent): v => {
+    const onClickWriteHandler = (e: MouseEvent): any => {
         const token: any = null;
     }
 

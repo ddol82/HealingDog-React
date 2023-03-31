@@ -1,29 +1,30 @@
-import { NavLink } from "react-router-dom";
-import IconBeforeLogin from "../../assets/icon/Login=false.svg";
-import IconAfterLogin from "../../assets/icon/Login=true.svg";
-import { useState } from "react";
-import { decodeJwt } from "../../utils/tokenUtils";
-import "../../styles/Header.css";
+import { NavLink, Navigate } from "react-router-dom";
+import IconBeforeLogin from "../../../assets/icon/Login=false.svg";
+import IconAfterLogin from "../../../assets/icon/Login=true.svg";
+//import { useState } from "react";
+import { decodeJwt } from "../../../utils/tokenUtils";
+import "../../../styles/Header.css";
+
+interface MyToken {
+  name: string;
+  exp: number;
+}
 
 const Header = () => {
-  const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
-  const [loginModal, setLoginModal] = useState(false);
+  const isLogin: string | null = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
+  //const [loginModal, setLoginModal] = useState(false);
 
   const onClickMypageHandler = () => {
     // 토근이 만료되었을때 다시 로그인
 
-    interface MyToken {
-      name: string;
-      exp: number;
-      // whatever else is in the JWT.
-    }
+    
     const token: MyToken | null = decodeJwt<MyToken>(
       window.localStorage.getItem("accessToken")
     );
 
     if (token?.exp === undefined || (token.exp * 1000 < Date.now())) {
-      setLoginModal(true);
-      return;
+      //setLoginModal(true);
+      return <Navigate to="/login"/>;
     }
   };
 

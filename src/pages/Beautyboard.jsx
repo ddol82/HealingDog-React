@@ -7,7 +7,7 @@ import { callSelectBeautyInfoAPI } from "../apis/BeautyAPICalls";
 const Beautyboard = () => {
   // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
   const dispatch = useDispatch();
-  const beautyInfo = useSelector(state => state.)
+  //const beautyInfo = useSelector(state => state.)
 
   return (
     <div>
