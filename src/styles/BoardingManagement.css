@@ -1,0 +1,98 @@
+.top-section {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.title {
+  display: flex;
+  width: 280px;
+  height: 60px;
+  background: #fff;
+  border-radius: 10px;
+}
+.sub-menu {
+  display: flex;
+  width: 880px;
+  height: 60px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+.all-section-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+}
+.boarding-images {
+  display: flex;
+  width: 280px;
+  height: 280px;
+
+  background: #ffffff;
+  border-radius: 10px;
+}
+.boarding-info {
+  width: 280px;
+  height: 560px;
+
+  background: #ffffff;
+  border-radius: 10px;
+}
+.all-section-center {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+}
+.boarding-calendar {
+  width: 580px;
+  height: 560px;
+
+  background: #ffffff;
+  border-radius: 10px;
+}
+.boarding-booking-list {
+  width: 580px;
+  height: 280px;
+
+  background: #ffffff;
+  border-radius: 10px;
+}
+.all-section-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+}
+.boarding-booking-info {
+  width: 280px;
+  height: 560px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+.boarding-reviews {
+  width: 280px;
+  height: 70px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+.boarding-income {
+  width: 280px;
+  height: 130px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+.boarding-active {
+  width: 280px;
+  height: 40px;
+  background: #32B784;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

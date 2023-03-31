@@ -3,7 +3,7 @@ import "./styles/reset.css";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Beautyboard from "./pages/Beautyboard";
-import Boardingboard from "./pages/Boardingboard";
+import BoardingManagement from "./pages/BoardingManagement";
 import Careboard from "./pages/Careboard";
 import Kindergardenboard from "./pages/Kindergardenboard";
 import Trainingboard from "./pages/Trainingboard";
@@ -22,7 +22,7 @@ function App() {
           <Route path="/walking-board" element={<Walkingboard />} />
           <Route path="/training-board" element={<Trainingboard />} />
           <Route path="/beauty-board" element={<Beautyboard />} />
-          <Route path="/boarding-board" element={<Boardingboard />} />
+          <Route path="/boarding-management/" element={<BoardingManagement />} />
           <Route path="/kindergarden-board" element={<Kindergardenboard />} />
         </Route>
         <Route path="/" element={<LayoutUser />}>

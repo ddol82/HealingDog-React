@@ -38,7 +38,7 @@ const Sidebar = () => {
       icon: <img src={iconBeauty} alt="care" />,
     },
     {
-      path: "/boarding-board",
+      path: "/boarding-management",
       name: "위탁돌봄관리",
       icon: <img src={iconBoarding} alt="care" />,
     },
