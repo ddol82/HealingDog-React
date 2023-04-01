@@ -24,9 +24,14 @@ export const callLoginUserAPI = ({form}) => {
                 userPassword: form.password
             })
         })
-        .then(response => response.json());
+        .then(response => response.json())
+        .catch(error => {
+            console.error(`[MemberAPICalls] callLoginUserAPI : ${error}`);
+            console.log(`${process.env.REACT_APP_RESTAPI_IP} 실행 확인해주세요~`);
+            alert('연결 오류가 발생했습니다.');
+        });
 
-        console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
+        console.log('[MemberAPICalls] callLoginUserAPI RESULT : ', result);
 
         alert(result.message);  
 
@@ -60,9 +65,14 @@ export const callLoginProviderAPI = ({form}) => {
                 providerPassword: form.password
             })
         })
-        .then(response => response.json());
+        .then(response => response.json())
+        .catch(error => {
+            console.error(`[MemberAPICalls] callLoginProviderAPI : ${error}`);
+            console.log(`${process.env.REACT_APP_RESTAPI_IP} 실행 확인해주세요~`);
+            alert('연결 오류가 발생했습니다.');
+        });
 
-        console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
+        console.log('[MemberAPICalls] callLoginProviderAPI RESULT : ', result);
 
         alert(result.message);  
 

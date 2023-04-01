@@ -1,9 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import IconBeforeLogin from "../../../assets/icon/Login=false.svg";
-import IconAfterLogin from "../../../assets/icon/Login=true.svg";
 import { decodeJwt } from "../../../utils/tokenUtils";
 import { callLogoutAPI } from "../../../apis/MemberAPICalls";
+import IconBeforeLogin from "../../../assets/icon/Login=false.svg";
+import IconAfterLogin from "../../../assets/icon/Login=true.svg";
+import IconLogout from "../../../assets/icon/Logout.svg";
 
 interface MyToken {
     name: string;
@@ -25,7 +26,9 @@ const Header = () => {
         // 토근이 만료되었을때 다시 로그인
         if (token?.exp === undefined || (token.exp * 1000 < Date.now())) {
             //setLoginModal(true);
-            return <NavLink to="/login"/>;
+            dispatch<any>(callLogoutAPI());
+            alert('사용자 정보가 유효하지 않습니다.');
+            return navigate("/login");
         }
         alert('마이페이지 연결 필요!');
     };
@@ -50,29 +53,48 @@ const Header = () => {
     );
 // 로그인상태
     const AfterLogin = (): JSX.Element => (
-        <div className="login-btn">
-            <button onClick={onClickMypageHandler}>
-                <NavLink to="/login">
-                    <img src={IconAfterLogin} alt="MyPage" />
-                </NavLink>
-            </button>
-            <button onClick={onClickLogoutHandler}>
-                <NavLink to="/login">
-                    <img src={IconAfterLogin} alt="AfterLogin" />
-                </NavLink>
-            </button>
+        <>
+            <div className="login-btn" onClick={onClickMypageHandler}>
+                <img src={IconAfterLogin} alt="MyPage" />
+            </div>
+            <div className="login-btn icon-center" onClick={onClickLogoutHandler}>
+                <img src={IconLogout} alt="AfterLogin" />
+            </div>
+        </>
+    );
+    return (
+        <div className="header">
+            <div className="header-btns">
+                <div className="header-logo">
+                    <NavLink to={"/"}>
+                        <p className="logo">HEALING DOG</p>
+                    </NavLink>
+                </div>
+                <div className="header-navi">
+                    <NavLink to={"/"}>
+                        <p>예약</p>
+                    </NavLink>
+                    <NavLink to={"/"}>
+                        <p>예약내역</p>
+                    </NavLink>
+                    <NavLink to={"/community"}>
+                        <p>커뮤니티</p>
+                    </NavLink>
+                    <NavLink to={"/community"}>
+                        <p>기능</p>
+                    </NavLink>
+                </div>
+                <div className="header-auth">
+                    {// eslint-disable-next-line
+                    !!isLogin ? (
+                        <AfterLogin />
+                    ) : (
+                        <BeforeLogin />
+                    )}
+                </div>
+            </div>
         </div>
     );
-  return (
-    <div className="header">
-        {// eslint-disable-next-line
-        !!isLogin ? (
-            <AfterLogin />
-        ) : (
-            <BeforeLogin />
-        )}
-    </div>
-  );
 };
 
 export default Header;
