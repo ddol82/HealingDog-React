@@ -1,9 +1,38 @@
+.header {
+  display: flex;
+  height: 70px;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
 .header-btns {
   display: flex;
-  width: 1180px;
-  flex-direction: row-reverse;
-  margin-bottom: 20px;
+  width: 660px;
+  height: 40px;
+  justify-content: space-between;
 }
+
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+.header-navi {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-auth {
+  display: flex;
+  gap: 10px;
+}
+
 .login-btn {
   width: 40px;
+  height: 40px;
+}
+.icon-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
