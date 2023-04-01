@@ -24,9 +24,14 @@ export const callLoginUserAPI = ({form}) => {
                 userPassword: form.password
             })
         })
-        .then(response => response.json());
+        .then(response => response.json())
+        .catch(error => {
+            console.error(`[MemberAPICalls] callLoginUserAPI : ${error}`);
+            console.log(`${process.env.REACT_APP_RESTAPI_IP} 실행 확인해주세요~`);
+            alert('연결 오류가 발생했습니다.');
+        });
 
-        console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
+        console.log('[MemberAPICalls] callLoginUserAPI RESULT : ', result);
 
         alert(result.message);  
 
@@ -40,10 +45,10 @@ export const callLoginUserAPI = ({form}) => {
     };
 }
 
-// 로그인 API 로 form = { memberId:'id', memberPwd:'pwd'} 값 전달
+// 로그인 API 로 form {(type), email, password} 값 전달
 export const callLoginProviderAPI = ({form}) => {
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/auth/provider/login`;
-    // dispatch: 상태값 수정 메소드 ,getState: 현재 스토어의 상태 반환
+    // dispatch: 상태값 수정 메소드, getState: 현재 스토어의 상태 반환
     return async (dispatch, getState) => {
 
         // 클라이언트 fetch mode : no-cors 사용시 application/json 방식으로 요청이 불가능
@@ -60,9 +65,14 @@ export const callLoginProviderAPI = ({form}) => {
                 providerPassword: form.password
             })
         })
-        .then(response => response.json());
+        .then(response => response.json())
+        .catch(error => {
+            console.error(`[MemberAPICalls] callLoginProviderAPI : ${error}`);
+            console.log(`${process.env.REACT_APP_RESTAPI_IP} 실행 확인해주세요~`);
+            alert('연결 오류가 발생했습니다.');
+        });
 
-        console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
+        console.log('[MemberAPICalls] callLoginProviderAPI RESULT : ', result);
 
         alert(result.message);  
 
@@ -78,12 +88,10 @@ export const callLoginProviderAPI = ({form}) => {
 
 
 export const callLogoutAPI = () => {
-    
-
-    return async (dispatch, getState) => {            
-
-        dispatch({ type: POST_LOGIN,  payload: '' });        
+    return async (dispatch, getState) => {
+        window.localStorage.removeItem('accessToken');  
         console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
+        dispatch({ type: POST_LOGIN,  payload: '' });        
     };
 }
 
