@@ -9,13 +9,13 @@ const initialState = [];
 export const GET_BEAUTY = "beauty/GET_BEAUTY";
 export const GET_BEAUTIES = "beauty/GET_BEAUTIES";
 
-const actions = createActions({
-  [GET_BEAUTY]: () => {},
-  [GET_BEAUTIES]: () => {},
-});
+// const actions = createActions({
+//   [GET_BEAUTY]: () => {},
+//   [GET_BEAUTIES]: () => {},
+// });
 
 /* 리듀서 */
-const productReducer = handleActions(
+const beautyReducer = handleActions(
   {
     [GET_BEAUTY]: (state, { payload }) => {
       return payload;
@@ -27,4 +27,4 @@ const productReducer = handleActions(
   initialState
 );
 
-export default productReducer;
+export default beautyReducer;

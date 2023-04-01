@@ -1,14 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import IconBeforeLogin from "../../assets/icon/Login=false.svg";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
 import { useState } from "react";
 import { decodeJwt } from "../../utils/tokenUtils";
 import "../../styles/Header.css";
+import { callLogoutAPI } from "../../apis/MemberAPICalls";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
   const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
   const [loginModal, setLoginModal] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onClickMypageHandler = () => {
     // 토근이 만료되었을때 다시 로그인
@@ -40,18 +46,28 @@ const Header = () => {
   };
   // 로그인상태
   const AfterLogin = () => {
+    //   const onClickLogoutHandler = () => {
+    //     window.localStorage.removeItem("accessToken");
+    //     //로그아웃
+    //     dispatch(callLogoutAPI());
+    //     alert("Logout~!");
+    //     navigate("/", { replace: true });
+    //     window.location.reload();
+    //   };
+
     return (
       <div className="login-btn">
         <button onClick={onClickMypageHandler}>
           <NavLink to="/login">
             <img src={IconAfterLogin} alt="AfterLogin" />
           </NavLink>
+          {/* <button onClick={onClickLogoutHandler}>로그아웃</button> */}
         </button>
       </div>
     );
   };
   return (
-    <div className="heder">
+    <div className="header">
       <div className="header-btns">
         {/* 로그인상태가 null or undefined 이면 비로그인출력, 아니면 로그인상태 출력 */}
         {isLogin == null || isLogin === undefined ? (

@@ -2,12 +2,20 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/Beauty.css";
 
-import { callSelectBeautyInfoAPI } from "../apis/BeautyAPICalls";
+import BeautyInfo from "components/beauty/BeautyInfo";
+import { callSelectBeautyInfoAPI } from "apis/BeautyAPICalls";
 
 const Beautyboard = () => {
   // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
   const dispatch = useDispatch();
-  const beautyInfo = useSelector(state => state.)
+  const beautyInfoList = useSelector((state) => state.beautyReducer);
+
+  useEffect(
+    () => {
+      dispatchEvent(callSelectBeautyInfoAPI());
+    }, // eslint-disable-next-line
+    []
+  );
 
   return (
     <div>
@@ -23,14 +31,17 @@ const Beautyboard = () => {
           <div className="calender-review">
             <div className="left-section">
               <div className="todo-list">일일목록</div>
-              <div className="review">리뷰</div>
+              <div className="beauty-review">리뷰</div>
             </div>
             <div className="month-list">한달목록</div>
           </div>
 
           <div className="button-section">
             <div className="review-one">최신리뷰</div>
-            <div className="beauty-info">미용실정보</div>
+            <div className="beauty-info">
+              미용실정보
+              <BeautyInfo key={beautyCode} />
+            </div>
           </div>
         </div>
 
