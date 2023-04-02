@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const BeautyInfo = ({
+function BeautyInfo({
   beauty: {
     beautyCode,
     providerCode,
@@ -22,21 +21,21 @@ const BeautyInfo = ({
     freeParking,
     wiFi,
   },
-}) => {
+}) {
   const navigate = useNavigate();
 
-  const onClickBeautyHandler = (beautyCode) => {
-    navigate(`/beauty-manage/${beautyCode}`, { replace: false });
+  const onClickBeautyHandler = (providerCode) => {
+    navigate(`/beauty-manage/${providerCode}`, { replace: false });
   };
 
   return (
-    <div onClick={() => onClickBeautyHandler(beautyCode)}>
+    <div onClick={() => onClickBeautyHandler(providerCode)}>
       <h5>{name}</h5>
       <h5>{address}</h5>
       <h5>{phone}</h5>
       <h5>{intro}</h5>
     </div>
   );
-};
+}
 
 export default BeautyInfo;

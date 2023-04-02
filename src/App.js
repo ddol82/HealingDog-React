@@ -13,6 +13,7 @@ import LayoutUser from "./layouts/LayoutUser";
 import Review from "./components/review/Review";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
+import BeautyInfo from "./pages/beauty/BeautyInfo";
 function App() {
   return (
     <BrowserRouter>
@@ -21,8 +22,12 @@ function App() {
           <Route path="/care-board" element={<Careboard />} />
           <Route path="/walking-board" element={<Walkingboard />} />
           <Route path="/training-board" element={<Trainingboard />} />
-          <Route path="/beauty-board" element={<Beautyboard />} />
-          <Route path="/boarding-management/" element={<BoardingManagement />} />
+          {/* <Route path="/beauty-board/:providerCode" element={<Beautyboard />} /> */}
+          <Route path="/beauty-board/:providerCode" element={<BeautyInfo />} />
+          <Route
+            path="/boarding-management/"
+            element={<BoardingManagement />}
+          />
           <Route path="/kindergarden-board" element={<Kindergardenboard />} />
         </Route>
         <Route path="/" element={<LayoutUser />}>
