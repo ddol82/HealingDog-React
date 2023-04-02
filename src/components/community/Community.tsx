@@ -36,7 +36,7 @@ const Community = () => {
         dispatch<any>(callGetCategoryAPI({
             categoryType: params.categoryType
         }));
-        setCategoryText(categoryList.filter(v => v.type === params.categoryType)[0].name ?? '전체 글');
+        setCategoryText(categoryList.filter(v => v.type === params.categoryType)[0]?.name ?? '전체 글');
     // eslint-disable-next-line
     },[]);
 
