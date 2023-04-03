@@ -7,15 +7,12 @@ import { callGetCategoryAPI } from "../../apis/CommunityAPICalls";
 import "../../styles/Community.css";
 import menuLogo from "../../assets/icon/icon=menu.svg";
 import filterLogo from "../../assets/icon/icon=filter.svg";
+import HeadlineItem from './HeadlineItem';
+import { MyCategory } from './types/MyCategory';
 
 interface MyToken {
     name: string;
     exp: number;
-}
-interface MyCategory {
-    code: number;
-    type: string;
-    name: string;
 }
 
 const Community = () => {
@@ -31,7 +28,7 @@ const Community = () => {
     const [categoryIsShown, setCategoryIsShown] = useState(false);
     const [filterIsShown, setFilterIsShown] = useState(false);
 
-//gettingList
+//effect
     useEffect(() => {
         dispatch<any>(callGetCategoryAPI({
             categoryType: params.categoryType
@@ -39,6 +36,11 @@ const Community = () => {
         setCategoryText(categoryList.filter(v => v.type === params.categoryType)[0]?.name ?? '전체 글');
     // eslint-disable-next-line
     },[]);
+    
+    useEffect(() => {
+        console.log(categoryList);
+        setCategoryText(categoryList.filter(v => v.type === params.categoryType)[0]?.name ?? '전체 글');
+    },[categoryList])
 
 
 //function
@@ -59,7 +61,7 @@ const Community = () => {
             alert('사용자 정보가 유효하지 않습니다.');
             return navigate("/login");
         }
-        return navigate("/community/write")
+        return navigate("/community/board/write")
     }
     //카테고리 변경
     const onCategoryClick = (type: string) => {
@@ -108,36 +110,41 @@ const Community = () => {
         return (
             <div className='com-category'>
                 <div className='category-line'/>
-                <div className='category-list'>
                 {
-                    importantList.map((category: MyCategory): JSX.Element =>
-                            (<CategoryItem key={ category.code } category={ category }/>))
+                    categoryIsShown &&
+                    <>
+                        <div className='category-list'>
+                        {
+                            importantList.map((category: MyCategory): JSX.Element =>
+                                    (<CategoryItem key={ category.code } category={ category }/>))
+                        }
+                        </div>
+                        <div className='category-line'/>
+                        <div className='category-list'>
+                        {
+                            allList.map((category: MyCategory): JSX.Element =>
+                                    (<CategoryItem key={ category.code } category={ category }/>))
+                        }
+                        </div>
+                        <div className='category-line'/>
+                        {
+                            otherList.map(
+                                (others: MyCategory[]): JSX.Element => (
+                                    <div key={ others[0].code } className='category-list'>
+                                        {
+                                            others.map(
+                                                (category: MyCategory): JSX.Element => (
+                                                    <CategoryItem key={ category.code } category={ category }/>
+                                                )
+                                            )
+                                        }
+                                    </div>
+                                )
+                            )
+                        }
+                        <div className='category-line'/>
+                    </>
                 }
-                </div>
-                <div className='category-line'/>
-                <div className='category-list'>
-                {
-                    allList.map((category: MyCategory): JSX.Element =>
-                            (<CategoryItem key={ category.code } category={ category }/>))
-                }
-                </div>
-                <div className='category-line'/>
-                {
-                    otherList.map(
-                        (others: MyCategory[]): JSX.Element => (
-                            <div key={ others[0].code } className='category-list'>
-                                {
-                                    others.map(
-                                        (category: MyCategory): JSX.Element => (
-                                            <CategoryItem key={ category.code } category={ category }/>
-                                        )
-                                    )
-                                }
-                            </div>
-                        )
-                    )
-                }
-                <div className='category-line'/>
             </div>
         )
     };
@@ -155,6 +162,7 @@ const Community = () => {
             <div className='com-container'>
                 <Menu/>
                 <Category/>
+                {/*<HeadlineItem/>*/}
             </div>
         </div>
     );
