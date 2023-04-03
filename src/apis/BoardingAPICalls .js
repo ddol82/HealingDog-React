@@ -9,7 +9,7 @@ import { GET_BOARDING_INFO } from "../modules/BoardingModule";
 //     }
 // }
 
-export const callSelectBoardingInfoAPI = ({ providerCode }) => {
+export const callSelectBoardingInfoAPI = () => {
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/boarding-management/info`;
 
   return async (dispatch) => {
@@ -18,10 +18,7 @@ export const callSelectBoardingInfoAPI = ({ providerCode }) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
-      },
-      body: JSON.stringify({                
-        providerCode: providerCode            
-      })
+      }
     }).then((response) => response.json());
 
     console.log("[ReviewAPICalls] callSelectBoardingInfoAPI RESULT : ", result);

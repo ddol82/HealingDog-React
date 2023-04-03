@@ -30,7 +30,7 @@ function BoardingInfo() {
     useEffect(
     () => {
         console.log(`[component-rendering] : BoardingInfo`);
-        dispatch(callSelectBoardingInfoAPI(1))
+        dispatch(callSelectBoardingInfoAPI())
     }, // eslint-disable-next-line
     []
     );
