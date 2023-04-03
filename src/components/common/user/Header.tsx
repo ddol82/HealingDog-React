@@ -5,6 +5,7 @@ import { callLogoutAPI } from "../../../apis/MemberAPICalls";
 import IconBeforeLogin from "../../../assets/icon/Login=false.svg";
 import IconAfterLogin from "../../../assets/icon/Login=true.svg";
 import IconLogout from "../../../assets/icon/Logout.svg";
+import "../../../styles/Header.css";
 
 interface MyToken {
     name: string;
@@ -77,10 +78,10 @@ const Header = () => {
                     <NavLink to={"/"}>
                         <p>예약내역</p>
                     </NavLink>
-                    <NavLink to={"/community"}>
+                    <NavLink to={"/community/all"}>
                         <p>커뮤니티</p>
                     </NavLink>
-                    <NavLink to={"/community"}>
+                    <NavLink to={"/"}>
                         <p>기능</p>
                     </NavLink>
                 </div>

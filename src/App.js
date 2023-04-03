@@ -22,8 +22,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutUser />}>
           <Route index element={<Main/>}/>
-          <Route path="community/" element={<Community />} />
-          <Route path="reviews/:serviceCategoryCode" element={<Review />} />
+          <Route path="/community/:categoryType" element={<Community />} />
+          <Route path="/reviews/:serviceCategoryCode" element={<Review />} />
           {/* <Route path="/care" element={<Care />} />
           <Route path="/walking" element={<Walking />} />
           <Route path="/training" element={<Training />} />
