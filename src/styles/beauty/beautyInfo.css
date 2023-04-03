@@ -1,0 +1,72 @@
+.detail-box {
+  display: flex;
+  flex-direction: column;
+  width: 580px;
+  height: 924px;
+
+  background: #ffffff;
+  border-radius: 14px;
+
+  margin: 0 auto;
+  gap: 20px;
+}
+.detail-top {
+  width: 548px;
+  height: 150px;
+  background: #ff0000;
+  margin: 0 auto;
+  margin-top: 34px;
+}
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: 480px;
+  height: 674px;
+
+  margin: 0 auto;
+}
+
+.detail-title {
+  /* 블랙 */
+  color: #1d1d1d;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+}
+.item-wrap {
+  display: flex;
+  gap: 20px;
+  width: 444px;
+  height: 222px;
+}
+.item-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 18px;
+
+  width: 212px;
+  height: 188px;
+
+  border: solid 1px;
+}
+.item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 18px;
+
+  width: 212px;
+  height: 222px;
+
+  border: solid 1px;
+}

@@ -1,10 +1,10 @@
-import React from "react";
+import Header from "components/common/user/Header";
 import { Outlet } from "react-router-dom";
 
 const LayoutUser = () => {
   return (
     <div className="container">
-      <h1>LayoutUser</h1>
+      <Header/>
       <main>
         <Outlet />
       </main>
