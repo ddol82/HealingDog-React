@@ -9,19 +9,6 @@ function BoardingBookingList() {
     const dispatch = useDispatch();
     const getBoardingBookingList= useSelector((state) => state.boardingBookingReducer.data);
 
-    // useState
-    // const [form, setForm] = useState({
-    //     boardingBookingCode: "",
-    //     boardingServiceCode: "",
-    //     userCode: "",
-    //     mypetCode: "",
-    //     bookingDate: "",
-    //     boardingCategory: "",
-    //     checkIn: "",
-    //     checkOut: "",
-    //     payment: ""
-    // });
-
     // useEffect
     useEffect(
     () => {
@@ -32,25 +19,6 @@ function BoardingBookingList() {
     }, // eslint-disable-next-line
     []
     );
-
-    // useEffect(
-    //     () => {
-    //         if (!getBoardingBookingList != true) {
-    //             setForm({
-    //                 boardingBookingCode: "",
-    //                 boardingServiceCode: "",
-    //                 userCode: "",
-    //                 mypetCode: "",
-    //                 bookingDate: "",
-    //                 boardingCategory: "",
-    //                 checkIn: "",
-    //                 checkOut: "",
-    //                 payment: ""
-    //             });
-    //         }            
-    //     }, // eslint-disable-next-line
-    //     [getBoardingBookingList]
-    //     );
 
     // event-handler
     const timeFormatter = (timestamp) => {
