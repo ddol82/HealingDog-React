@@ -14,8 +14,8 @@ const Header = () => {
   const isLogin: string | null = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
   //const [loginModal, setLoginModal] = useState(false);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   const onClickMypageHandler = () => {
     // 토근이 만료되었을때 다시 로그인
