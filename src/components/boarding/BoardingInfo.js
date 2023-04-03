@@ -30,7 +30,9 @@ function BoardingInfo() {
     useEffect(
     () => {
         console.log(`[component-rendering] : BoardingInfo`);
-        dispatch(callSelectBoardingInfoAPI())
+        if (!getBoardingInfo == true) {
+            dispatch(callSelectBoardingInfoAPI())
+        }
     }, // eslint-disable-next-line
     []
     );
@@ -60,13 +62,14 @@ function BoardingInfo() {
 
     // event-handler
     const costFormatter = (cost) => {
-            
+            if(!cost == true) return;
         return `${cost.toLocaleString()} 원`;
     }
 
     
     return (
         <>
+            <br/>
             <h3>위탁돌봄정보</h3>
             <br/>
             <p className="boarding-info-title">제목 : {form.title}</p>
@@ -76,26 +79,28 @@ function BoardingInfo() {
             <p className="boarding-info-hashtag">태그 : {form.hashtag}</p>
             <br/>
             <table className="boarding-info-table">
-                <tr>
-                    <th>이용금액</th>
-                    <th>Time Care</th>
-                    <th>Day Care</th>
-                </tr>
-                <tr>
-                    <th>대형</th>
-                    <td>{costFormatter(form.timeCostL)}</td>
-                    <td>{costFormatter(form.daysCostL)}</td>
-                </tr>
-                <tr>
-                    <th>중형</th>
-                    <td>{costFormatter(form.timeCostM)}</td>
-                    <td>{costFormatter(form.daysCostM)}</td>
-                </tr>
-                <tr>
-                    <th>소형</th>
-                    <td>{costFormatter(form.timeCostS)}</td>
-                    <td>{costFormatter(form.daysCostS)}</td>
-                </tr>
+                <tbody>     
+                    <tr>                
+                        <th>이용금액</th>
+                        <th>Time Care</th>
+                        <th>Day Care</th>                                                        
+                    </tr>          
+                    <tr>
+                        <th>대형견</th>
+                        <td>{costFormatter(form.timeCostL)}</td>
+                        <td>{costFormatter(form.daysCostL)}</td>
+                    </tr>
+                    <tr>
+                        <th>중형견</th>
+                        <td>{costFormatter(form.timeCostM)}</td>
+                        <td>{costFormatter(form.daysCostM)}</td>
+                    </tr>
+                    <tr>
+                        <th>소형견</th>
+                        <td>{costFormatter(form.timeCostS)}</td>
+                        <td>{costFormatter(form.daysCostS)}</td>
+                    </tr>                        
+                </tbody>
             </table>
             <br/>
             <p className="boarding-info-introduce">소개글 : {form.introduce}</p>

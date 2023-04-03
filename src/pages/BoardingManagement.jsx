@@ -1,4 +1,5 @@
 import BoardingInfo from "components/boarding/BoardingInfo";
+import BoardingBookingList from "components/boarding/BoardingBookingList";
 import React from "react";
 import "../styles/BoardingManagement.css";
 
@@ -25,8 +26,10 @@ const BoardingManagement = () => {
         </div>
 
         <div className="all-section-center">
-        <div className="boarding-calendar">캘린더</div>
-        <div className="boarding-booking-list">예약리스트</div>
+          <div className="boarding-calendar">캘린더</div>
+          <div className="boarding-booking-list">
+            <BoardingBookingList/>
+          </div>
         </div>
 
         <div className="all-section-right">
