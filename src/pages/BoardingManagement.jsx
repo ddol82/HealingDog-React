@@ -19,7 +19,9 @@ const BoardingManagement = () => {
 
         <div className="all-section-left">
           <div className="boarding-images">이미지</div>
-          <div className="boarding-info">위탁돌봄정보</div>
+          <div className="boarding-info">
+            <BoardingInfo/>
+          </div>
         </div>
 
         <div className="all-section-center">
@@ -29,7 +31,7 @@ const BoardingManagement = () => {
 
         <div className="all-section-right">
           <div className="boarding-booking-info">
-            <BoardingInfo/>
+            예약정보
           </div>
           <div className="boarding-reviews">위탁돌봄리뷰</div>
           <div className="boarding-income">위탁돌봄수익</div>
