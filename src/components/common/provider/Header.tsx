@@ -14,6 +14,9 @@ const Header = () => {
   const isLogin: string | null = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
   //const [loginModal, setLoginModal] = useState(false);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onClickMypageHandler = () => {
     // 토근이 만료되었을때 다시 로그인
 
@@ -40,12 +43,22 @@ const Header = () => {
   };
   // 로그인상태
   const AfterLogin = () => {
+    //   const onClickLogoutHandler = () => {
+    //     window.localStorage.removeItem("accessToken");
+    //     //로그아웃
+    //     dispatch(callLogoutAPI());
+    //     alert("Logout~!");
+    //     navigate("/", { replace: true });
+    //     window.location.reload();
+    //   };
+
     return (
       <div className="login-btn">
         <button onClick={onClickMypageHandler}>
           <NavLink to="/login">
             <img src={IconAfterLogin} alt="AfterLogin" />
           </NavLink>
+          {/* <button onClick={onClickLogoutHandler}>로그아웃</button> */}
         </button>
       </div>
     );

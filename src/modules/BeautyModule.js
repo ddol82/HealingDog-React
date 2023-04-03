@@ -1,14 +1,12 @@
 import { createActions, handleActions } from "redux-actions";
 
 /* 초기값 */
-
-/* 초기값 */
 const initialState = [];
 
 /* 액션 */
 export const GET_BEAUTY = "beauty/GET_BEAUTY";
 export const GET_BEAUTIES = "beauty/GET_BEAUTIES";
-
+// eslint-disable-next-line
 const actions = createActions({
   // eslint-disable-next-line
   [GET_BEAUTY]: () => {},
@@ -17,7 +15,7 @@ const actions = createActions({
 });
 
 /* 리듀서 */
-const productReducer = handleActions(
+const beautyReducer = handleActions(
   {
     [GET_BEAUTY]: (state, { payload }) => {
       return payload;
@@ -29,4 +27,4 @@ const productReducer = handleActions(
   initialState
 );
 
-export default productReducer;
+export default beautyReducer;
