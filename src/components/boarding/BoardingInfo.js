@@ -69,11 +69,11 @@ function BoardingInfo() {
         <>
             <h3>위탁돌봄정보</h3>
             <br/>
-            <p>제목 : {form.title}</p>
+            <p className="boarding-info-title">제목 : {form.title}</p>
             <br/>
-            <p>주소 : {form.address}</p>
+            <p className="boarding-info-address">주소 : {form.address}</p>
             <br/>
-            <p>태그 : {form.hashtag}</p>
+            <p className="boarding-info-hashtag">태그 : {form.hashtag}</p>
             <br/>
             <table className="boarding-info-table">
                 <tr>
@@ -98,7 +98,7 @@ function BoardingInfo() {
                 </tr>
             </table>
             <br/>
-            <p>소개글 : {form.introduce}</p>
+            <p className="boarding-info-introduce">소개글 : {form.introduce}</p>
         </>
     )
 }
