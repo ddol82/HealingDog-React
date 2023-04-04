@@ -1,9 +1,10 @@
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import IconBeforeLogin from "../../../assets/icon/Login=false.svg";
 import IconAfterLogin from "../../../assets/icon/Login=true.svg";
 //import { useState } from "react";
 import { decodeJwt } from "../../../utils/tokenUtils";
 import "../../../styles/Header.css";
+import { useDispatch } from "react-redux";
 
 interface MyToken {
   name: string;
@@ -20,14 +21,13 @@ const Header = () => {
   const onClickMypageHandler = () => {
     // 토근이 만료되었을때 다시 로그인
 
-    
     const token: MyToken | null = decodeJwt<MyToken>(
       window.localStorage.getItem("accessToken")
     );
 
-    if (token?.exp === undefined || (token.exp * 1000 < Date.now())) {
+    if (token?.exp === undefined || token.exp * 1000 < Date.now()) {
       //setLoginModal(true);
-      return <Navigate to="/login"/>;
+      return <Navigate to="/login" />;
     }
   };
 
