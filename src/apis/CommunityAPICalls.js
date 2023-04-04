@@ -1,13 +1,11 @@
 import {
-    GET_CATEGORY,
-    GET_HEADLINE,
-    GET_BOARD
-} from '../modules/CommunityModule.js';
+    GET_CATEGORY
+} from '../modules/CommunityModule';
 
-export const callGetCategoryAPI = ({categoryType}) => {
+export const callGetCategoryAPI = () => {
     console.log('[CommunityAPICalls] callGetCategoryAPI Call');
 
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/lists/categories?cat=${categoryType}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/lists/categories`;
 
     return async (dispatch, getState) => {
         const result = await fetch(requestURL, {
@@ -18,33 +16,10 @@ export const callGetCategoryAPI = ({categoryType}) => {
             }
         }).then(response => response.json());
 
-        console.log('[ProduceAPICalls] callSearchProductAPI RESULT : ', result);
+        console.log('[CommunityAPICalls] callSearchProductAPI RESULT : ', result);
 
         dispatch({
             type: GET_CATEGORY,
-            payload: result.data
-        })
-    }
-}
-
-export const callGetHeadlineAPI = () => {
-    console.log('[CommunityAPICalls] callGetHeadlineAPI Call');
-
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/lists/important`;
-
-    return async (dispatch, getState) => {
-        const result = await fetch(requestURL, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application.json",
-                "Accept": "*/*"
-            }
-        }).then(response => response.json());
-
-        console.log('[ProduceAPICalls] callGetHeadlineAPI RESULT : ', result);
-
-        dispatch({
-            type: GET_HEADLINE,
             payload: result.data
         })
     }
