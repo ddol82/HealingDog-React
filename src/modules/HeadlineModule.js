@@ -12,8 +12,8 @@ const actions = createActions({
 });
 
 /* 리듀서 */
-const communityReducer = handleActions({
+const headlineReducer = handleActions({
     [GET_HEADLINE]: (state, { payload }) => payload
 }, initialState);
 
-export default communityReducer;
+export default headlineReducer;

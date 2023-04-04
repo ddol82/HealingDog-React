@@ -25,11 +25,11 @@ const HeadlineItem = () => {
 
     const Headline = ({boardCode, boardCategoryName, title, profileName, uptime, view, like, commentCount}: BoardSimple):JSX.Element => (
         <div className="headline-content" onClick={() => onBoardClickHandler(boardCode)}>
-            <p className="headline-category">{boardCategoryName}</p>
-            <div className="headline-title-block">
-                <p className="headline-title-text">{title}</p>
+            <p className="board-category">{boardCategoryName}</p>
+            <div className="board-title-block">
+                <p className="board-title-text">{title}</p>
             </div>
-            <div className="headline-info">
+            <div className="board-info">
                 <div className="community-profile">
                     <img className="img-profile" src={IconAfterLogin} alt="profile"/>
                     <p className="text-profile-name">{profileName}</p>
@@ -43,7 +43,7 @@ const HeadlineItem = () => {
     );
 
     return (
-        <div className="headline-area">
+        <div className="board-area">
         {
             Array.isArray(headlineList) && headlineList.map((headline: BoardSimple) => (
                 <Headline key={headline.boardCode}

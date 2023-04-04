@@ -1,0 +1,22 @@
+.react-calendar{
+    width: 580px;
+    height: 580px;
+}
+
+.react-calendar__navigation__label{
+    /* Month Year line */
+
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+    gap: 10px;
+
+    width: 420px;
+    height: 61px;
+
+}
