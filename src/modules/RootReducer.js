@@ -6,12 +6,14 @@ import beautyReducer from "./BeautyModule";
 import categoryReducer from "./CommunityModule";
 import headlineReducer from "./HeadlineModule";
 import boardReducer from "./BoardModule";
+import beautyReservationReducer from "./BeautyReservationModule";
 
 const rootReducer = combineReducers({
     memberReducer,
     reviewReducer,
     boardingReducer,
     beautyReducer,
+    beautyReservationReducer,
     categoryReducer,
     headlineReducer,
     boardReducer

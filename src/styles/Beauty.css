@@ -74,8 +74,9 @@
   border-radius: 10px;
 }
 .beauty-info {
-  width: 430px;
-  height: 244px;
+  padding: 48px 20px;
+  width: 390px;
+  height: 148px;
 
   background: #ffffff;
   border-radius: 10px;
@@ -97,9 +98,34 @@
 }
 
 .week-list {
-  width: 280px;
-  height: 864px;
+  width: 240px;
+  height: 804px;
+  padding: 20px;
 
   background: #ffffff;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 10px;
+}
+.beauty-info-items {
+  display: flex;
+  gap: 20px;
+
+  flex-wrap: wrap;
+}
+.beauty-info-items h1 {
+  font-weight: 700;
+  font-size: 18px;
+
+  display: block;
+  width: 390px;
+}
+
+.beauty-info-items h2 {
+  font-weight: 500;
+  font-size: 16px;
+}
+.info-item {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 6px;
 }

@@ -21,13 +21,14 @@ const Header = () => {
   const navigate = useNavigate();
 
   const onClickMypageHandler = () => {
+    // 토근이 만료되었을때 다시 로그인
     const token: MyToken | null = decodeJwt<MyToken>(
       window.localStorage.getItem("accessToken")
     );
 
-    if (token?.exp === undefined || (token.exp * 1000 < Date.now())) {
+    if (token?.exp === undefined || token.exp * 1000 < Date.now()) {
       //setLoginModal(true);
-      return <Navigate to="/login"/>;
+      return <Navigate to="/login" />;
     }
   };
   

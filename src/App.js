@@ -1,4 +1,3 @@
-import React from "react";
 import "./styles/reset.css";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -21,7 +20,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LayoutUser />}>
-          <Route index element={<Main/>}/>
+          <Route index element={<Main />} />
           <Route path="/community/:categoryType" element={<Community />} />
           <Route path="/reviews/:serviceCategoryCode" element={<Review />} />
           {/* <Route path="/care" element={<Care />} />
@@ -36,8 +35,14 @@ function App() {
           <Route path="/provider/walking-board" element={<Walkingboard />} />
           <Route path="/provider/training-board" element={<Trainingboard />} />
           <Route path="/provider/beauty-board" element={<Beautyboard />} />
-          <Route path="/provider/boarding-board" element={<BoardingManagement />} />
-          <Route path="/provider/kindergarden-board" element={<Kindergardenboard />} />
+          <Route
+            path="/provider/boarding-board"
+            element={<BoardingManagement />}
+          />
+          <Route
+            path="/provider/kindergarden-board"
+            element={<Kindergardenboard />}
+          />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
