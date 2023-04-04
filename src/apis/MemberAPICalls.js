@@ -1,4 +1,4 @@
-import { POST_LOGIN } from "../modules/MemberModule";
+import { GET_MYPET, POST_LOGIN } from "../modules/MemberModule";
 
 // 로그인 API 로 form = { memberId:'id', memberPwd:'pwd'} 값 전달
 export const callLoginUserAPI = ({ form }) => {
@@ -11,22 +11,22 @@ export const callLoginUserAPI = ({ form }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "*/*",
-        "Access-Control-Allow-Origin": "*"      
+        Accept: "*/*",
+        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
         email: form.email,
-        userPassword: form.password
-      })
+        userPassword: form.password,
+      }),
     })
-    .then(response => response.json())
-    .catch(error => {
-      console.error(`[MemberAPICalls] callLoginUserAPI : ${error}`);
-      console.log(`${process.env.REACT_APP_RESTAPI_IP} 실행 확인해주세요~`);
-      alert('연결 오류가 발생했습니다.');
-    });
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error(`[MemberAPICalls] callLoginUserAPI : ${error}`);
+        console.log(`${process.env.REACT_APP_RESTAPI_IP} 실행 확인해주세요~`);
+        alert("연결 오류가 발생했습니다.");
+      });
 
-    console.log('[MemberAPICalls] callLoginUserAPI RESULT : ', result);
+    console.log("[MemberAPICalls] callLoginUserAPI RESULT : ", result);
 
     if (result.status === 200) {
       // localStorage 에 엑세스토큰 저장
@@ -38,7 +38,7 @@ export const callLoginUserAPI = ({ form }) => {
 };
 
 // 로그인 API 로 form {(type), email, password} 값 전달
-export const callLoginProviderAPI = ({form}) => {
+export const callLoginProviderAPI = ({ form }) => {
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/auth/provider/login`;
   // dispatch: 상태값 수정 메소드, getState: 현재 스토어의 상태 반환
   return async (dispatch, getState) => {
@@ -47,42 +47,56 @@ export const callLoginProviderAPI = ({form}) => {
     const result = await fetch(requestURL, {
       method: "POST",
       headers: {
-          "Content-Type": "application/json",
-          "Accept": "*/*",
-          "Access-Control-Allow-Origin": "*"      
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-          email: form.email,
-          providerPassword: form.password
-      })
+        email: form.email,
+        providerPassword: form.password,
+      }),
     })
-    .then(response => response.json())
-    .catch(error => {
-      console.error(`[MemberAPICalls] callLoginProviderAPI : ${error}`);
-      console.log(`${process.env.REACT_APP_RESTAPI_IP} 실행 확인해주세요~`);
-      alert('연결 오류가 발생했습니다.');
-    });
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error(`[MemberAPICalls] callLoginProviderAPI : ${error}`);
+        console.log(`${process.env.REACT_APP_RESTAPI_IP} 실행 확인해주세요~`);
+        alert("연결 오류가 발생했습니다.");
+      });
 
-    console.log('[MemberAPICalls] callLoginProviderAPI RESULT : ', result);
+    console.log("[MemberAPICalls] callLoginProviderAPI RESULT : ", result);
 
-    alert(result.message);  
+    alert(result.message);
 
-    if(result.status === 200){
+    if (result.status === 200) {
       // localStorage 에 엑세스토큰 저장
-      window.localStorage.setItem('accessToken', result.data.accessToken);            
+      window.localStorage.setItem("accessToken", result.data.accessToken);
     }
     // MemberModule 의 POST_LOGIN 액션 수행 result 값으로 변경
-    dispatch({ type: POST_LOGIN,  payload: result });
+    dispatch({ type: POST_LOGIN, payload: result });
   };
-}
+};
 
 export const callLogoutAPI = () => {
   return async (dispatch, getState) => {
-    window.localStorage.removeItem('accessToken');  
-    console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
-    dispatch({ type: POST_LOGIN,  payload: '' });        
+    window.localStorage.removeItem("accessToken");
+    console.log("[MemberAPICalls] callLogoutAPI RESULT : SUCCESS");
+    dispatch({ type: POST_LOGIN, payload: "" });
   };
-}
+};
 
+export const callMypetAPI = ({ mypetCode }) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/mypage/mypet/${mypetCode}`;
 
-
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    console.log("[MemberAPICalls] callMypetAPI RESULT : ", result);
+    dispatch({ type: GET_MYPET, payload: result });
+  };
+};

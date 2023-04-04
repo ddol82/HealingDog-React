@@ -5,12 +5,25 @@
   justify-content: center;
   background-color: #ffffff;
 }
+.header-provider {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
 
 .header-btns {
   display: flex;
   width: 660px;
   height: 40px;
   justify-content: space-between;
+}
+.header-provider-btns {
+  display: flex;
+  width: 660px;
+  height: 40px;
+  justify-content: flex-end;
 }
 
 .header-logo {
