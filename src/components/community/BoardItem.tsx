@@ -34,24 +34,32 @@ const BoardItem = ({ pageInfo, category }: boardProps): JSX.Element => {
 
     const Board = ({boardCode, boardCategoryName, title, content, profileName,
                 uptime, view, like, commentCount, thumbnailImageUrl, imageCount}: BoardFull):JSX.Element => (
-        <div className="board-content" onClick={() => onBoardClickHandler(boardCode)}>
-            <p className="board-category">{boardCategoryName}</p>
-            <div className="board-title-block">
-                <p className="board-title-text">{title}</p>
-            </div>
-            <div className="board-detail-block">
-                <p className="board-detail-text">{content}</p>
-            </div>
-            <div className="board-info">
-                <div className="community-profile">
-                    <img className="img-profile" src={IconAfterLogin} alt="profile"/>
-                    <p className="text-profile-name">{profileName}</p>
+        <div className="board-full">
+            <div className={`board-content${thumbnailImageUrl ? ' bd-contains-image' : ''}`} onClick={() => onBoardClickHandler(boardCode)}>
+                <p className={"board-category"}>{boardCategoryName}</p>
+                <div className={`board-title-block${thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
+                    <p className="board-title-text">{title}</p>
                 </div>
-                <p>{uptime}</p>
-                <p>조회 {view}</p>
-                <p>좋아요 {like}</p>
-                <p>댓글 {!thumbnailImageUrl ? 0 : 1}</p>
+                <div className={`board-detail-block${thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
+                    <p className={`board-detail-text${thumbnailImageUrl ? ' bd-contains-image' : ''}`}>{content}</p>
+                </div>
+                <div className="board-info">
+                    <div className="community-profile">
+                        <img className="img-profile" src={IconAfterLogin} alt="profile"/>
+                        <p className="text-profile-name">{profileName}</p>
+                    </div>
+                    <p>{uptime}</p>
+                    <p>조회 {view}</p>
+                    <p>좋아요 {like}</p>
+                    <p>댓글 {commentCount}</p>
+                </div>
             </div>
+            {
+                thumbnailImageUrl &&
+                <div className="board-image">
+                    <img className="board-thumbnail" src={process.env.REACT_APP_IMAGE_DIR + thumbnailImageUrl} alt="thumbnail"/>
+                </div>
+            }
         </div>
     );
 
