@@ -1,6 +1,9 @@
 import { callSelectBoardingBookingAPI } from "apis/BoardingAPICalls ";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { 
+    GET_BOARDING_BOOKING_DETAIL
+  } from "../../modules/BoardingBookingDetailModule";
 
 function BoardingBookingList() {
 
@@ -36,13 +39,28 @@ function BoardingBookingList() {
         return result;
     }
 
+    const bookingOnclickHandler = (e) => {
+        let data = {bookingForm : {
+            boardingBookingCode : e.target.querySelector("input[name=boardingBookingCode]").value,
+            boardingServiceCode : e.target.querySelector("input[name=boardingServiceCode]").value,
+            userCode : e.target.querySelector("input[name=userCode]").value,
+            mypetCode : e.target.querySelector("input[name=mypetCode]").value,
+            bookingDate : e.target.querySelector("input[name=bookingDate]").value,
+            boardingCategory : e.target.querySelector("input[name=boardingCategory]").value,
+            checkIn : e.target.querySelector("input[name=checkIn]").value,
+            checkOut : e.target.querySelector("input[name=checkOut]").value,
+            payment : e.target.querySelector("input[name=payment]").value
+        }}
+        dispatch({ type: GET_BOARDING_BOOKING_DETAIL, payload: data })
+    }
+
     
     return (
         <>
             <h3>예약 리스트</h3>
             <br/>
             {Array.isArray(getBoardingBookingList) && getBoardingBookingList.map((list) => ( 
-                <div className="boarding-booking" key={list.boardingBookingCode}>
+                <div className="boarding-booking" key={list.boardingBookingCode} onClick={bookingOnclickHandler}>
 
                     {list.boardingCategory == 'T'? ' 타임케어 ':' 데이케어 '}
 
