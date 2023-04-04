@@ -7,8 +7,8 @@ import { callGetCategoryAPI } from "../../apis/CommunityAPICalls";
 import "../../styles/Community.css";
 import menuLogo from "../../assets/icon/icon=menu.svg";
 import filterLogo from "../../assets/icon/icon=filter.svg";
-import HeadlineItem from './HeadlineItem';
-import { MyCategory } from './types/MyCategory';
+import HeadlineItem from '../../components/community/HeadlineItem';
+import { MyCategory } from '../../components/community/types/MyCategory';
 
 interface MyToken {
     name: string;
@@ -19,7 +19,7 @@ const Community = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const params = useParams();
-    const categoryList: MyCategory[] = useSelector((state: any) => state.communityReducer);
+    const categoryList: MyCategory[] = useSelector((state: any) => state.categoryReducer);
     // Store.ts로 type을 export하면 되나, 현재 설정이 js라 리팩토링 필요, 실행을 위한 any 선언
 
 //state
@@ -30,15 +30,13 @@ const Community = () => {
 
 //effect
     useEffect(() => {
-        dispatch<any>(callGetCategoryAPI({
-            categoryType: params.categoryType
-        }));
-        setCategoryText(categoryList.filter(v => v.type === params.categoryType)[0]?.name ?? '전체 글');
+        dispatch<any>(callGetCategoryAPI());
+        console.log('dispatching');
     // eslint-disable-next-line
     },[]);
     
     useEffect(() => {
-        console.log(categoryList);
+        if(!categoryList) return;
         setCategoryText(categoryList.filter(v => v.type === params.categoryType)[0]?.name ?? '전체 글');
     },[categoryList])
 
@@ -96,16 +94,17 @@ const Community = () => {
         const importantList: MyCategory[] = [];
         const allList: MyCategory[] = [];
         const otherList: MyCategory[][] = [];
-        const categoryTemp: MyCategory[] = [...categoryList];
+        console.log(categoryList);
+        
         if(Array.isArray(categoryList)) {
-            importantList.push(...categoryList.splice(0, 4));
-            allList.push(...categoryList.splice(0, 2));
-            for(let i = 0; categoryList.length > 0; i++) {
+            const categoryTemp: MyCategory[] = [...categoryList];
+            importantList.push(...categoryTemp.splice(0, 4));
+            allList.push(...categoryTemp.splice(0, 2));
+            for(let i = 0; categoryTemp.length > 0; i++) {
                 otherList.push([]);
-                otherList[i].push(...categoryList.splice(0, 4));
+                otherList[i].push(...categoryTemp.splice(0, 4));
             }
         }
-        categoryList.push(...categoryTemp);
         
         return (
             <div className='com-category'>
@@ -162,7 +161,7 @@ const Community = () => {
             <div className='com-container'>
                 <Menu/>
                 <Category/>
-                {/*<HeadlineItem/>*/}
+                <HeadlineItem/>
             </div>
         </div>
     );

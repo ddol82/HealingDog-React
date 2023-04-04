@@ -13,7 +13,7 @@ import Review from "./components/review/Review";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Main from "./pages/user/Main";
-import Community from "./components/community/Community";
+import Community from "./pages/community/Community";
 
 function App() {
   return (
