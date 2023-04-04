@@ -31,15 +31,15 @@ const Header = () => {
       return <Navigate to="/login" />;
     }
   };
-  
+
   //로그아웃
   const onClickLogoutHandler = () => {
     dispatch<any>(callLogoutAPI());
-    
-    alert('로그아웃이 되어 메인화면으로 이동합니다.');
-    navigate("/", { replace: true })
+
+    alert("로그아웃이 되어 메인화면으로 이동합니다.");
+    navigate("/", { replace: true });
     window.location.reload();
-  }
+  };
 
   // 비로그인 상태
   const BeforeLogin = () => {
@@ -55,17 +55,17 @@ const Header = () => {
   const AfterLogin = (): JSX.Element => (
     <div className="login-area">
       <div className="login-btn" onClick={onClickMypageHandler}>
-          <img src={IconAfterLogin} alt="MyPage" />
+        <img src={IconAfterLogin} alt="MyPage" />
       </div>
       <div className="login-btn icon-center" onClick={onClickLogoutHandler}>
-          <img src={IconLogout} alt="AfterLogin" />
+        <img src={IconLogout} alt="AfterLogin" />
       </div>
     </div>
   );
 
   return (
-    <div className="header">
-      <div className="header-btns">
+    <div className="header-provider">
+      <div className="header-provider-btns">
         {/* 로그인상태가 null or undefined 이면 비로그인출력, 아니면 로그인상태 출력 */}
         {isLogin == null || isLogin === undefined ? (
           <BeforeLogin />
