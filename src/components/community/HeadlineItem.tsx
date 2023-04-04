@@ -18,13 +18,18 @@ const HeadlineItem = () => {
     // eslint-disable-next-line
     }, [])
 
-    const Headline = ({boardCategoryName, title, profileName, uptime, view, like}: BoardSimple):JSX.Element => (
-        <div className="headline-content">
-            <p className="headline-category">{boardCategoryName}</p>
-            <div className="headline-title-block">
-                <p className="headline-title-text">{title}</p>
+//function
+    const onBoardClickHandler = (code: number) => {
+        navigate(`/community/boards/detail/${code}`);
+    }
+
+    const Headline = ({boardCode, boardCategoryName, title, profileName, uptime, view, like, commentCount}: BoardSimple):JSX.Element => (
+        <div className="headline-content" onClick={() => onBoardClickHandler(boardCode)}>
+            <p className="board-category">{boardCategoryName}</p>
+            <div className="board-title-block">
+                <p className="board-title-text">{title}</p>
             </div>
-            <div className="headline-info">
+            <div className="board-info">
                 <div className="community-profile">
                     <img className="img-profile" src={IconAfterLogin} alt="profile"/>
                     <p className="text-profile-name">{profileName}</p>
@@ -32,16 +37,17 @@ const HeadlineItem = () => {
                 <p>{uptime}</p>
                 <p>조회 {view}</p>
                 <p>좋아요 {like}</p>
-                <p>댓글 999</p>
+                <p>댓글 {commentCount}</p>
             </div>
         </div>
     );
 
     return (
-        <div className="headline-area">
+        <div className="board-area">
         {
             Array.isArray(headlineList) && headlineList.map((headline: BoardSimple) => (
                 <Headline key={headline.boardCode}
+                    boardCode={headline.boardCode}
                     boardCategoryName={headline.boardCategoryName}
                     title={headline.title}
                     profileName={headline.profileName}
@@ -49,6 +55,7 @@ const HeadlineItem = () => {
                     view={headline.view}
                     share={headline.share}
                     like={headline.like}
+                    commentCount={headline.commentCount}
                 />
             ))
         }

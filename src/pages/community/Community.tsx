@@ -7,13 +7,20 @@ import { callGetCategoryAPI } from "../../apis/CommunityAPICalls";
 import "../../styles/Community.css";
 import menuLogo from "../../assets/icon/icon=menu.svg";
 import filterLogo from "../../assets/icon/icon=filter.svg";
+import Category from '../../components/community/Category';
 import HeadlineItem from '../../components/community/HeadlineItem';
+import BoardItem from '../../components/community/BoardItem';
 import { MyCategory } from '../../components/community/types/MyCategory';
+import PagenationPart from 'components/community/PagenationPart';
+import { PageData } from 'components/community/types/PageData';
+import HealingCalendar from 'components/common/HealingCalendar';
 
 interface MyToken {
     name: string;
     exp: number;
 }
+
+const initPageInfo: PageData = {pageAmount: 0, startPage: 0, currPage: 0, endPage: 0};
 
 const Community = () => {
     const navigate = useNavigate();
@@ -23,23 +30,30 @@ const Community = () => {
     // Store.ts로 type을 export하면 되나, 현재 설정이 js라 리팩토링 필요, 실행을 위한 any 선언
 
 //state
+    const [category, setCategory] = useState(`${params.categoryType}`);
     const [categoryText, setCategoryText] = useState('전체 글');
     const [filterText, setFilterText] = useState('시간 순');
-    const [categoryIsShown, setCategoryIsShown] = useState(false);
+    const [categoryIsShown, setCategoryIsShown] = useState(true);
     const [filterIsShown, setFilterIsShown] = useState(false);
+    const [pageInfo, setPageInfo] = useState<PageData>(initPageInfo);
 
+    
+    const [date, setDate] = useState(new Date());
 //effect
     useEffect(() => {
         dispatch<any>(callGetCategoryAPI());
         console.log('dispatching');
     // eslint-disable-next-line
-    },[]);
+    }, []);
     
     useEffect(() => {
         if(!categoryList) return;
         setCategoryText(categoryList.filter(v => v.type === params.categoryType)[0]?.name ?? '전체 글');
-    },[categoryList])
+    }, [categoryList])
 
+    useEffect(() => {
+        console.log(date.toISOString().slice(0, 10));
+    }, [date])
 
 //function
     //카테고리 목록 펼치기
@@ -60,11 +74,6 @@ const Community = () => {
             return navigate("/login");
         }
         return navigate("/community/board/write")
-    }
-    //카테고리 변경
-    const onCategoryClick = (type: string) => {
-        setCategoryText(categoryList.filter(v => v.type === type)[0].name ?? '전체 글');
-        navigate(`/community/${type}`);
     }
 
 //parts
@@ -90,78 +99,26 @@ const Community = () => {
         </div>
     );
 
-    const Category = (): JSX.Element => {
-        const importantList: MyCategory[] = [];
-        const allList: MyCategory[] = [];
-        const otherList: MyCategory[][] = [];
-        console.log(categoryList);
-        
-        if(Array.isArray(categoryList)) {
-            const categoryTemp: MyCategory[] = [...categoryList];
-            importantList.push(...categoryTemp.splice(0, 4));
-            allList.push(...categoryTemp.splice(0, 2));
-            for(let i = 0; categoryTemp.length > 0; i++) {
-                otherList.push([]);
-                otherList[i].push(...categoryTemp.splice(0, 4));
-            }
-        }
-        
-        return (
-            <div className='com-category'>
-                <div className='category-line'/>
-                {
-                    categoryIsShown &&
-                    <>
-                        <div className='category-list'>
-                        {
-                            importantList.map((category: MyCategory): JSX.Element =>
-                                    (<CategoryItem key={ category.code } category={ category }/>))
-                        }
-                        </div>
-                        <div className='category-line'/>
-                        <div className='category-list'>
-                        {
-                            allList.map((category: MyCategory): JSX.Element =>
-                                    (<CategoryItem key={ category.code } category={ category }/>))
-                        }
-                        </div>
-                        <div className='category-line'/>
-                        {
-                            otherList.map(
-                                (others: MyCategory[]): JSX.Element => (
-                                    <div key={ others[0].code } className='category-list'>
-                                        {
-                                            others.map(
-                                                (category: MyCategory): JSX.Element => (
-                                                    <CategoryItem key={ category.code } category={ category }/>
-                                                )
-                                            )
-                                        }
-                                    </div>
-                                )
-                            )
-                        }
-                        <div className='category-line'/>
-                    </>
-                }
-            </div>
-        )
-    };
-
-    const CategoryItem = ({ category }: any): JSX.Element => (
-        <button
-            className={'category-btn ' + (params.categoryType === category.type ? 'btn-active' : '')}
-            onClick={() => onCategoryClick(category.type)}
-        >{ category.name }</button>
-    );
 
     return (
         <div className='community-main'>
             <Banner/>
             <div className='com-container'>
                 <Menu/>
-                <Category/>
+                {
+                    categoryList.length > 0 &&
+                    <Category
+                        categoryList={categoryList}
+                        isShown={categoryIsShown}
+                        category={category}
+                        setCategory={setCategory}
+                        setCategoryText={setCategoryText}
+                    />
+                }
                 <HeadlineItem/>
+                <BoardItem pageInfo={pageInfo} category={category}/>
+                <PagenationPart pageInfo={pageInfo} setPageInfo={setPageInfo}/>
+                <HealingCalendar date={date} setDate={setDate}/>
             </div>
         </div>
     );

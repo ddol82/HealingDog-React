@@ -2,10 +2,10 @@ import {
     GET_BOARD
 } from '../modules/BoardModule.js';
 
-export const callGetBoardListAPI = ({categoryCode, currPage}) => {
+export const callGetBoardListAPI = ({categoryType, currPage}) => {
     console.log('[CommunityAPICalls] callGetBoardListAPI Call');
 
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/lists/boards/${categoryCode}/${currPage}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/lists/boards/${categoryType}/${currPage}`;
 
     return async (dispatch, getState) => {
         const result = await fetch(requestURL, {

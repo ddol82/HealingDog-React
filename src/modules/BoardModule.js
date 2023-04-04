@@ -12,8 +12,8 @@ const actions = createActions({
 });
 
 /* 리듀서 */
-const communityReducer = handleActions({
+const boardReducer = handleActions({
     [GET_BOARD]: (state, { payload }) => payload
 }, initialState);
 
-export default communityReducer;
+export default boardReducer;
