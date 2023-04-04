@@ -14,6 +14,7 @@ function Reservation() {
   // useState
   const [form, setForm] = useState({
     beautyReservationListCode: "",
+    mypetCode: "",
     beautyCode: "",
     userCode: "",
     date: "",
@@ -31,6 +32,7 @@ function Reservation() {
       setForm({
         beautyReservationListCode:
           beautyReservationList.beautyReservationListCode,
+        mypetCode: beautyReservationList.mypetCode,
         beautyCode: beautyReservationList.beautyCode,
         userCode: beautyReservationList.userCode,
         date: beautyReservationList.date,
@@ -56,22 +58,42 @@ function Reservation() {
     return result;
   };
 
+  const [isOn, setIsOn] = useState(true);
+
+  // onclickHandler
+  const onclickHandler = (value) => {
+    setIsOn(value);
+  };
+
   return (
     <>
       <div className="reservation-btns">
-        <button className="reservation-btn">예약내역</button>
-        <button className="reservation-btn">신청내역</button>
+        <button
+          onClick={() => onclickHandler(true)}
+          className={isOn ? "reservation-btn-active" : "reservation-btn"}
+        >
+          예약내역
+        </button>
+        <button
+          onClick={() => onclickHandler(false)}
+          className={!isOn ? "reservation-btn-active" : "reservation-btn"}
+        >
+          신청내역
+        </button>
       </div>
 
       {Array.isArray(beautyReservationList) &&
-        beautyReservationList.map((form) => (
-          <ReservationList
-            key={form.userCode}
-            userCode={form.userCode}
-            date={form.date}
-            time={timeFormatter(form.time)}
-          />
-        ))}
+        beautyReservationList
+          .filter((item) => item.reservation === (isOn ? "O" : "X"))
+          .map((form) => (
+            <ReservationList
+              key={form.beautyReservationListCode}
+              userCode={form.userCode}
+              mypetCode={form.mypetCode}
+              date={form.date}
+              time={timeFormatter(form.time)}
+            />
+          ))}
     </>
   );
 }
