@@ -1,5 +1,5 @@
 export interface BoardSimple {
-    boardCode?: number,
+    boardCode: number,
     boardCategoryName: string,
     title: string,
     profileUrl?: string,
@@ -7,5 +7,6 @@ export interface BoardSimple {
     uptime: string,
     view: number,
     share?: number,
-    like: number
+    like: number,
+    commentCount: number
 }
