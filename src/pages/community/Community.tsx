@@ -36,9 +36,6 @@ const Community = () => {
     const [categoryIsShown, setCategoryIsShown] = useState(true);
     const [filterIsShown, setFilterIsShown] = useState(false);
     const [pageInfo, setPageInfo] = useState<PageData>(initPageInfo);
-
-    
-    const [date, setDate] = useState(new Date());
 //effect
     useEffect(() => {
         dispatch<any>(callGetCategoryAPI());
@@ -49,11 +46,7 @@ const Community = () => {
     useEffect(() => {
         if(!categoryList) return;
         setCategoryText(categoryList.filter(v => v.type === params.categoryType)[0]?.name ?? '전체 글');
-    }, [categoryList])
-
-    useEffect(() => {
-        console.log(date.toISOString().slice(0, 10));
-    }, [date])
+    }, [categoryList]);
 
 //function
     //카테고리 목록 펼치기
@@ -118,7 +111,6 @@ const Community = () => {
                 <HeadlineItem/>
                 <BoardItem pageInfo={pageInfo} category={category}/>
                 <PagenationPart pageInfo={pageInfo} setPageInfo={setPageInfo}/>
-                <HealingCalendar date={date} setDate={setDate}/>
             </div>
         </div>
     );
