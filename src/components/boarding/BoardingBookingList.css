@@ -1,0 +1,12 @@
+.boarding-booking {
+    width: 90%;
+    height: 10%;
+    background: #D9D9D9;
+    border-radius: 10px;
+    margin: 2% 5% 2% 5%;
+    padding-top: 2%;
+}
+
+.boarding-booking:hover {
+    background: #32B784;
+}

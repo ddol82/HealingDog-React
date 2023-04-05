@@ -1,7 +1,7 @@
 import { callSelectBoardingInfoAPI } from "apis/BoardingAPICalls ";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import "./BoardingInfo.css";
 function BoardingInfo() {
 
 
@@ -70,13 +70,13 @@ function BoardingInfo() {
     return (
         <>
             <br/>
-            <h3>위탁돌봄정보</h3>
+            <h3 className="menu-name">위탁돌봄정보</h3>
             <br/>
-            <p className="boarding-info-title">제목 : {form.title}</p>
+            <p className="boarding-info-title">{form.title}</p>
             <br/>
-            <p className="boarding-info-address">주소 : {form.address}</p>
+            <p className="boarding-info-address">{form.address}</p>
             <br/>
-            <p className="boarding-info-hashtag">태그 : {form.hashtag}</p>
+            <p className="boarding-info-hashtag">{form.hashtag}</p>
             <br/>
             <table className="boarding-info-table">
                 <tbody>     
@@ -103,7 +103,9 @@ function BoardingInfo() {
                 </tbody>
             </table>
             <br/>
-            <p className="boarding-info-introduce">소개글 : {form.introduce}</p>
+            <p className="boarding-info-introduce">
+                {form.introduce}
+            </p>
         </>
     )
 }

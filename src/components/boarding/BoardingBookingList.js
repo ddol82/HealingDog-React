@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { 
     GET_BOARDING_BOOKING_DETAIL
-  } from "../../modules/BoardingBookingDetailModule";
+} from "../../modules/BoardingBookingDetailModule";
+import "./BoardingBookingList.css"
 
 function BoardingBookingList() {
 
@@ -61,7 +62,8 @@ function BoardingBookingList() {
     
     return (
         <>
-            <h3>예약 리스트</h3>
+            <br/>
+            <h3 className="menu-name">예약 리스트</h3>
             <br/>
             {Array.isArray(getBoardingBookingList) && getBoardingBookingList.map((list) => ( 
                 <div className="boarding-booking" key={list.boardingBookingCode} onClick={bookingOnclickHandler}>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import "./BoardingBookingDetail.css"
 
 function BoardingBookingDetail() {
 
@@ -99,7 +100,10 @@ function BoardingBookingDetail() {
     
     return (
         <>
-            <table>
+            <br/>
+            <h3 className="menu-name">예약 상세</h3>
+            <br/>
+            <table className="boarding-detail-time">
                 <tbody>
                     <tr className="boarding-detail-checkIn">
                         <th>체크인</th>
@@ -111,11 +115,11 @@ function BoardingBookingDetail() {
                     </tr>
                 </tbody>
             </table>
-            <div>
-                <span className="boarding-detail-image">IMAGE</span>
-                <span className="boarding-detail-name">{mypetForm.name}</span>    
+            <div className="boarding-detail-profile">
+                <div className="boarding-detail-image">IMAGE</div>
+                <div className="boarding-detail-name">{mypetForm.name}</div>    
             </div>
-            <table>                
+            <table className="boarding-detail-mypet">                
                 <tbody>
                     <tr className="boarding-detail-gender">
                         <th>성별</th>
@@ -139,10 +143,13 @@ function BoardingBookingDetail() {
                     </tr>
                 </tbody>
             </table>
+            <br/>
             <p  className="boarding-detail-animalHospital">{mypetForm.animalHospital}</p>
+            <br/>
             <p  className="boarding-detail-referenceInfo">{mypetForm.name} 소개 : {mypetForm.referenceInfo}</p>
             <br/>
-            <p>견주정보</p>
+            <p id="mypet-user">견주정보</p>
+            <br/>
             <p>이름 : {userForm.name}</p>
             <p>모바일 : {userForm.phone}</p>
             <p>이메일 : {userForm.email}</p>
