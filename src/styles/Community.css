@@ -195,3 +195,17 @@
     width: 25px;
     height: 25px;
 }
+
+.board-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    height: 160px;
+}
+
+.board-thumbnail {
+    padding: 10px;
+    max-width: 140px;
+    max-height: 140px;
+}

@@ -57,7 +57,7 @@ const BoardItem = ({ pageInfo, category }: boardProps): JSX.Element => {
             {
                 thumbnailImageUrl &&
                 <div className="board-image">
-                    <img className="board-thumbnail" src={process.env.REACT_APP_IMAGE_DIR + thumbnailImageUrl} alt="thumbnail"/>
+                    <img className="board-thumbnail" src={process.env.REACT_APP_IMAGE_DIR + 'board/' + thumbnailImageUrl} alt="thumbnail"/>
                 </div>
             }
         </div>
