@@ -12,6 +12,7 @@ const Beautyboard = () => {
   const beautyInfo = useSelector((state) => state.beautyReducer.data);
 
   // useState
+  const [date, setDate] = useState(new Date());
   const [form, setForm] = useState({
     beautyCode: "",
     providerCode: "",
@@ -67,6 +68,9 @@ const Beautyboard = () => {
     }
   }, [beautyInfo]);
 
+  // 캘린더에서 날짜정보 가져오기
+  const today = date.toISOString().slice(0, 10);
+
   return (
     <div>
       <div className="top-section">
@@ -80,11 +84,11 @@ const Beautyboard = () => {
         <div className="left-all-section">
           <div className="calender-review">
             <div className="left-section">
-              <div className="todo-list">일일목록</div>
+              <div className="todo-list">일일목록{today}</div>
               <div className="beauty-review">리뷰</div>
             </div>
             <div className="month-list">
-              <HealingCalendar />
+              <HealingCalendar date={date} setDate={setDate} />
             </div>
           </div>
 
