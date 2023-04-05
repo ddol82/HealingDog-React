@@ -10,17 +10,15 @@ import filterLogo from "../../assets/icon/icon=filter.svg";
 import Category from '../../components/community/Category';
 import HeadlineItem from '../../components/community/HeadlineItem';
 import BoardItem from '../../components/community/BoardItem';
+import Banner from '../../components/community/Banner';
 import { MyCategory } from '../../components/community/types/MyCategory';
 import PagenationPart from 'components/community/PagenationPart';
 import { PageData } from 'components/community/types/PageData';
-import HealingCalendar from 'components/common/HealingCalendar';
 
 interface MyToken {
     name: string;
     exp: number;
 }
-
-const initPageInfo: PageData = {pageAmount: 0, startPage: 0, currPage: 0, endPage: 0};
 
 const Community = () => {
     const navigate = useNavigate();
@@ -35,17 +33,30 @@ const Community = () => {
     const [filterText, setFilterText] = useState('시간 순');
     const [categoryIsShown, setCategoryIsShown] = useState(true);
     const [filterIsShown, setFilterIsShown] = useState(false);
-    const [pageInfo, setPageInfo] = useState<PageData>(initPageInfo);
+    const [pageInfo, setPageInfo] = useState<PageData>({
+        pageAmount: 0, startPage: 0, currPage: 1, endPage: 0
+    });
+    const [pageParam, setPageParam] = useState('1');
+
 //effect
     useEffect(() => {
         dispatch<any>(callGetCategoryAPI());
+        setPageParam(params.currPage ?? '1');
         console.log('dispatching');
     // eslint-disable-next-line
-    }, []);
+    }, [, params]);
+
+    // useEffect(() => {
+    //     setPageParam('-');
+    //     setPageParam(params.currPage ?? '1');
+    // }, [params])
     
     useEffect(() => {
         if(!categoryList) return;
         setCategoryText(categoryList.filter(v => v.type === params.categoryType)[0]?.name ?? '전체 글');
+        setPageInfo(pageInfo);
+        console.log("pageInfo", pageInfo);
+        
     }, [categoryList]);
 
 //function
@@ -70,12 +81,6 @@ const Community = () => {
     }
 
 //parts
-    const Banner = (): JSX.Element => (
-        <div className='com-banner'>
-            <h1>배너 위치. 700x260</h1>
-        </div>
-    );
-
     const Menu = ():JSX.Element => (
         <div className='com-menu'>
             <div className='category-item cat-left'>
@@ -108,9 +113,14 @@ const Community = () => {
                         setCategoryText={setCategoryText}
                     />
                 }
-                <HeadlineItem/>
-                <BoardItem pageInfo={pageInfo} category={category}/>
-                <PagenationPart pageInfo={pageInfo} setPageInfo={setPageInfo}/>
+                {
+                    pageInfo !== undefined &&
+                    <>
+                        <HeadlineItem/>
+                        <BoardItem param={pageParam} pageInfo={pageInfo} setPageInfo={setPageInfo} category={category}/>
+                        <PagenationPart param={pageParam} category={category} pageInfo={pageInfo} setPageInfo={setPageInfo}/>
+                    </>
+                }
             </div>
         </div>
     );

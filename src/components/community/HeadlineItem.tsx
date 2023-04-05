@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/Community.css";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
 import { BoardSimple } from "./types/BoardSimple";
+import { callViewIncrementAPI } from "apis/ViewIncrementAPICalls";
 
 const HeadlineItem = () => {
     const navigate = useNavigate();
@@ -20,6 +21,9 @@ const HeadlineItem = () => {
 
 //function
     const onBoardClickHandler = (code: number) => {
+        dispatch<any>(callViewIncrementAPI({
+            boardCode : code
+        }));
         navigate(`/community/boards/detail/${code}`);
     }
 

@@ -6,10 +6,13 @@ export interface BoardFull {
     profileUrl?: string,
     profileName: string,
     uptime: string,
+    uptimestamp: string,
     view: number,
     share?: number,
     like: number,
+    originalImageUrl?: string[],
     thumbnailImageUrl: string,
+    previewImageUrl?: string[],
     imageCount: number,
     commentCount: number
 }

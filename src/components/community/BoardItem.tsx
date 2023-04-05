@@ -1,5 +1,6 @@
 import { callGetBoardListAPI } from "apis/BoardAPICalls";
-import { useEffect } from "react";
+import { callViewIncrementAPI } from "apis/ViewIncrementAPICalls";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Community.css";
@@ -7,35 +8,57 @@ import IconAfterLogin from "../../assets/icon/Login=true.svg";
 import { BoardFull } from "./types/BoardFull";
 import { PageData } from "./types/PageData";
 
-type boardProps = {
+type BoardProps = {
+    param: string,
     pageInfo: PageData,
+    setPageInfo: React.Dispatch<React.SetStateAction<PageData>>,
     category: string
 }
 
-const BoardItem = ({ pageInfo, category }: boardProps): JSX.Element => {
+type BoardWithPaging = {
+    pageInfo: PageData,
+    item: BoardFull[]
+}
+
+const BoardItem = ({ param, pageInfo, setPageInfo, category }: BoardProps): JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const boardList: BoardFull[] = useSelector((state: any) => state.boardReducer.item);
+    const boardData: BoardWithPaging = useSelector((state: any) => state.boardReducer);
+    const boardList: BoardFull[] = boardData.item;
+    const pageList: PageData = boardData.pageInfo;
+    console.log("boardData", boardData);
+    console.log("boardList", boardList);
+    console.log("pageList", pageList);
 
 //effect
     useEffect(() => {
         dispatch<any>(callGetBoardListAPI({
             categoryType: category,
-            currPage: pageInfo.currPage
+            currPage: Number(param)
         }));
     // eslint-disable-next-line
-    }, [, category])
+    }, [,category, param])
+
+    useEffect(() => {
+        //re-render Community.tsx
+        setPageInfo({
+            ...pageList
+        });
+    }, [boardData])
 
 //function
     const onBoardClickHandler = (code: number) => {
+        dispatch<any>(callViewIncrementAPI({
+            boardCode : code
+        }));
         navigate(`/community/boards/detail/${code}`);
     }
 
     const Board = ({boardCode, boardCategoryName, title, content, profileName,
-                uptime, view, like, commentCount, thumbnailImageUrl, imageCount}: BoardFull):JSX.Element => (
-        <div className="board-full">
-            <div className={`board-content${thumbnailImageUrl ? ' bd-contains-image' : ''}`} onClick={() => onBoardClickHandler(boardCode)}>
+                uptime, view, like, commentCount, thumbnailImageUrl, imageCount}: BoardFull): JSX.Element => (
+        <div className="board-full" onClick={() => onBoardClickHandler(boardCode)}>
+            <div className={`board-content${thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
                 <p className={"board-category"}>{boardCategoryName}</p>
                 <div className={`board-title-block${thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
                     <p className="board-title-text">{title}</p>
@@ -58,6 +81,12 @@ const BoardItem = ({ pageInfo, category }: boardProps): JSX.Element => {
                 thumbnailImageUrl &&
                 <div className="board-image">
                     <img className="board-thumbnail" src={process.env.REACT_APP_IMAGE_DIR + 'board/' + thumbnailImageUrl} alt="thumbnail"/>
+                    {
+                        imageCount > 1 &&
+                        <div className="board-image-count">
+                            <p>+{imageCount - 1}</p>
+                        </div>
+                    }
                 </div>
             }
         </div>
@@ -74,6 +103,7 @@ const BoardItem = ({ pageInfo, category }: boardProps): JSX.Element => {
                     content={board.content}
                     profileName={board.profileName}
                     uptime={board.uptime}
+                    uptimestamp=""
                     view={board.view}
                     share={board.share}
                     like={board.like}

@@ -7,6 +7,7 @@ import categoryReducer from "./CommunityModule";
 import headlineReducer from "./HeadlineModule";
 import boardReducer from "./BoardModule";
 import beautyReservationReducer from "./BeautyReservationModule";
+import viewIncrementReducer from "./ViewIncrementModule";
 
 const rootReducer = combineReducers({
     memberReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     beautyReservationReducer,
     categoryReducer,
     headlineReducer,
-    boardReducer
+    boardReducer,
+    viewIncrementReducer
 });
 
 export default rootReducer;
