@@ -6,8 +6,10 @@ import memberReducer from "./MemberModule";
 import beautyReducer from "./BeautyModule";
 import communityReducer from "./CommunityModule";
 import boardingBookingDetailReducer from "./BoardingBookingDetailModule";
+import boardingBookingMypetReducer from "./BoardingBookingMypetModule";
 
 const rootReducer = combineReducers({
+    boardingBookingMypetReducer,
     boardingBookingDetailReducer,
     memberReducer,
     reviewReducer,

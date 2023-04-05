@@ -1,4 +1,7 @@
-import { callSelectBoardingBookingAPI } from "apis/BoardingAPICalls ";
+import { 
+    callSelectBoardingBookingAPI,
+    callSelectBoardingBookingMypetAPI
+ } from "apis/BoardingAPICalls ";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { 
@@ -52,6 +55,7 @@ function BoardingBookingList() {
             payment : e.target.querySelector("input[name=payment]").value
         }}
         dispatch({ type: GET_BOARDING_BOOKING_DETAIL, payload: data })
+        dispatch(callSelectBoardingBookingMypetAPI(data.bookingForm))
     }
 
     

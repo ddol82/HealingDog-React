@@ -7,8 +7,15 @@ function BoardingBookingDetail() {
     // redux
     const dispatch = useDispatch();
     const getBoardingBookingDetail= useSelector((state) => state.boardingBookingDetailReducer.bookingForm);
+    const getMypet= useSelector((state) => state.boardingBookingMypetReducer.data);
 
     // useState
+    const [userForm, setUserForm] = useState({
+        name:"",
+        email:"",
+        phone:""
+    });
+
     const [mypetForm, setMypetForm] = useState({
         mypetCode : "",
         userCode : "",
@@ -52,8 +59,27 @@ function BoardingBookingDetail() {
                 payment : getBoardingBookingDetail.payment
             });
         }
+        if (!getMypet != true) {
+            setMypetForm({
+                mypetCode : getMypet.mypet.mypetCode,
+                userCode : getMypet.mypet.userCode,
+                name : getMypet.mypet.name,
+                gender : getMypet.mypet.gender,
+                variety : getMypet.mypet.variety,
+                birthday : getMypet.mypet.birthday,
+                weight : getMypet.mypet.weight,
+                neutered : getMypet.mypet.neutered,
+                animalHospital : getMypet.mypet.animalHospital,
+                referenceInfo : getMypet.mypet.referenceInfo
+            });
+            setUserForm({
+                name:getMypet.user.name,
+                email:getMypet.user.name,
+                phone:getMypet.user.phone
+            })
+        }
     }, // eslint-disable-next-line
-    [getBoardingBookingDetail]
+    [getBoardingBookingDetail,getMypet]
     );
 
     const timeFormatter = (timestamp) => {
@@ -115,6 +141,11 @@ function BoardingBookingDetail() {
             </table>
             <p  className="boarding-detail-animalHospital">{mypetForm.animalHospital}</p>
             <p  className="boarding-detail-referenceInfo">{mypetForm.name} 소개 : {mypetForm.referenceInfo}</p>
+            <br/>
+            <p>견주정보</p>
+            <p>이름 : {userForm.name}</p>
+            <p>모바일 : {userForm.phone}</p>
+            <p>이메일 : {userForm.email}</p>
             
         </>
     )
