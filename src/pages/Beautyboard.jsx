@@ -5,6 +5,8 @@ import "../styles/Beauty.css";
 import { callSelectBeautyInfoAPI } from "apis/BeautyAPICalls";
 import Reservation from "../components/beauty/Reservation";
 import HealingCalendar from "../components/common/HealingCalendar";
+import Todo from "../components/beauty/Todo";
+import Review from "components/review/Review";
 
 const Beautyboard = () => {
   // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
@@ -84,8 +86,12 @@ const Beautyboard = () => {
         <div className="left-all-section">
           <div className="calender-review">
             <div className="left-section">
-              <div className="todo-list">일일목록{today}</div>
-              <div className="beauty-review">리뷰</div>
+              <div className="todo-list">
+                <Todo today={today} />
+              </div>
+              <div className="beauty-review">
+                <Review />
+              </div>
             </div>
             <div className="month-list">
               <HealingCalendar date={date} setDate={setDate} />

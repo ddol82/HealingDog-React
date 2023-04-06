@@ -27,8 +27,6 @@ function ReservationList(props) {
   const myPetInfo = useSelector((state) => state.memberReducer.data);
 
   const [form, setForm] = useState({
-    mypetCode: "",
-    userCode: "",
     name: "",
     gender: "",
     variety: "",
@@ -41,13 +39,11 @@ function ReservationList(props) {
 
   useEffect(() => {
     dispatch(callMypetAPI({ mypetCode: props.mypetCode }));
-  }, []);
+  }, [props.mypetCode]);
 
   useEffect(() => {
-    if (!myPetInfo != true) {
+    if (myPetInfo) {
       setForm({
-        mypetCode: myPetInfo.mypetCode,
-        userCode: myPetInfo.userCode,
         name: myPetInfo.name,
         gender: myPetInfo.gender,
         variety: myPetInfo.variety,
@@ -67,15 +63,17 @@ function ReservationList(props) {
       <div className="reservation-box">
         <div className="user-img"></div>
         <div className="reservation-info">
-          <p className="reservation-user-name">{form.name}</p>
+          <p className="reservation-user-name">
+            {form.name}
+            {props.mypetCode}
+          </p>
           <div className="reservation-item">
             <p>{form.gender === "M" ? "남아" : "여아"}</p>
-            {/* <p>{form.birthday}</p> */}
             <p>{age == 0 ? 1 : age}살</p>
             <p>{form.weight}</p>
           </div>
         </div>
-        <div className="reservation-time">{props.time}</div>
+        <div className="reservation-time">{props.date}</div>
       </div>
     </>
   );

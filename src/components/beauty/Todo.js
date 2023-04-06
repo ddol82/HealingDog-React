@@ -1,18 +1,19 @@
+import "./Todo.css";
+import ReservationList from "./ReservationList";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { callSelectBeautyReservationListAPI } from "apis/BeautyAPICalls";
-import ReservationList from "./ReservationList";
 
-function Reservation() {
+const Todo = (props) => {
   //redux
   const dispatch = useDispatch();
-  const beautyReservation = useSelector(
-    (state) => state.beautyReservationReducer
+  const beautyReservationList = useSelector(
+    (state) => state.beautyReservationReducer.data
   );
-  const beautyReservationList = beautyReservation.data;
 
-  useState;
+  // useState
   const [form, setForm] = useState({
     beautyReservationListCode: "",
     mypetCode: "",
@@ -59,48 +60,27 @@ function Reservation() {
     return result;
   };
 
-  const [isOn, setIsOn] = useState(true);
-
-  // onclickHandler
-  const onclickHandler = (value) => {
-    setIsOn(value);
-  };
+  const today = props.today;
 
   return (
     <>
-      <div className="reservation-btns">
-        <button
-          onClick={() => onclickHandler(true)}
-          className={isOn ? "reservation-btn-active" : "reservation-btn"}
-        >
-          예약내역
-        </button>
-        <button
-          onClick={() => onclickHandler(false)}
-          className={!isOn ? "reservation-btn-active" : "reservation-btn"}
-        >
-          신청내역
-        </button>
+      <div className="todo-title">
+        <div className="todo-today">{today}</div>
+        <div className="todo-List">
+          {Array.isArray(beautyReservationList) &&
+            beautyReservationList.map((form) => (
+              <ReservationList
+                key={form.beautyReservationListCode}
+                userCode={form.userCode}
+                mypetCode={form.mypetCode}
+                date={timeFormatter(form.date)}
+                time={timeFormatter(form.time)}
+              />
+            ))}
+        </div>
       </div>
-      {Array.isArray(beautyReservationList) &&
-        beautyReservationList
-          .filter((item) => item.reservation === (isOn ? "O" : "X"))
-          .map((val) => (
-            <ReservationList
-              key={val.beautyReservationListCode}
-              userCode={val.userCode}
-              mypetCode={val.mypetCode}
-              date={timeFormatter(val.date)}
-              time={timeFormatter(val.time)}
-            />
-          ))}
-
-      <h1>
-        {Array.isArray(beautyReservationList) &&
-          beautyReservationList.map((val) => val.mypetCode)}
-      </h1>
     </>
   );
-}
+};
 
-export default Reservation;
+export default Todo;
