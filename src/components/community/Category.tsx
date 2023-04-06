@@ -18,7 +18,7 @@ const Category = ({ categoryList, isShown, category, setCategory, setCategoryTex
     const onCategoryClick = (type: string, name: string): void => {
         setCategory(type);
         setCategoryText(name ?? '전체 글');
-        navigate(`/community/${type}/1`, {replace: true});
+        navigate(`/community/lists/${type}/1`, {replace: true});
     }
 
     const importantList: MyCategory[] = [];

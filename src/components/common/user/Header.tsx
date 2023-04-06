@@ -78,7 +78,7 @@ const Header = () => {
                     <NavLink to={"/"}>
                         <p>예약내역</p>
                     </NavLink>
-                    <NavLink to={"/community/all/1"}>
+                    <NavLink to={"/community/lists/all/1"}>
                         <p>커뮤니티</p>
                     </NavLink>
                     <NavLink to={"/"}>
