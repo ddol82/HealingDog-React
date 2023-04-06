@@ -14,6 +14,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Main from "./pages/user/Main";
 import Community from "./pages/community/Community";
+import Detail from "./pages/community/Detail";
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutUser />}>
           <Route index element={<Main />} />
-          <Route path="/community/:categoryType" element={<Community />} />
+          <Route path="/community/:categoryType/:currPage" element={<Community />} />
+          <Route path="/community/boards/detail/:boardCode" element={<Detail />} />
           <Route path="/reviews/:serviceCategoryCode" element={<Review />} />
           {/* <Route path="/care" element={<Care />} />
           <Route path="/walking" element={<Walking />} />

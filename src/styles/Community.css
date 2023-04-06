@@ -14,6 +14,7 @@
 .com-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 30px;
 }
 
@@ -25,6 +26,7 @@
 
 .com-menu {
     display: flex;
+    width: 700px;
     justify-content: space-between;
 }
 
@@ -89,6 +91,7 @@
     font-weight: 700;
     user-select: none;
 }
+
 
 /* board, Headline */
 .board-area {
@@ -198,14 +201,249 @@
 
 .board-image {
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     width: 160px;
     height: 160px;
 }
 
+.board-image-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    width: 30px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, .6);
+    border-radius: 10px;
+}
+
+.board-image-count>p {
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+}
+
 .board-thumbnail {
     padding: 10px;
     max-width: 140px;
     max-height: 140px;
+}
+
+
+/* paging */
+.page-items-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.page-item-arrow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.page-item-block {
+    display: flex;
+    align-items: center;
+    height: 26px;
+    
+    cursor: pointer;
+}
+
+.page-item-block .current {
+    color: #32B784;
+    font-weight: 900;
+}
+
+.page-item-text {
+    font-weight: 700;
+}
+
+
+/* Detail */
+.detail-border {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid #999999;
+    border-radius: 10px;
+    padding: 10px;
+    gap: 15px;
+}
+
+.detail-title-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+}
+
+.detail-category {
+    font-size: 14px;
+    line-height: 20px;
+    color: #999999;
+}
+
+.detail-title {
+    width: 680px;
+    font-size: 24px;
+    line-height: 35px;
+}
+
+.detail-user-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.detail-text-info {
+    font-size: 14px;
+    line-height: 20px;
+    color: #999999;
+}
+
+.detail-line {
+    width: 680px;
+    height: 0px;
+    border: 1px solid #BBBBBB;
+}
+
+.detail-content-block {
+    display: flex;
+    align-items: flex-start;
+    width: 680px;
+}
+
+.detail-content-text {
+    font-size: 16px;
+    line-height: 23px;
+    white-space: pre-line;
+}
+
+.detail-image-single img {
+    max-width: 600px;
+    max-height: 600px;
+}
+
+.detail-image-multi {
+    display: flex;
+    flex-direction: column;
+    width: 680px;
+    gap: 10px;
+}
+
+.detail-multi-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.detail-multi-content img {
+    max-width: 600px;
+    max-height: 600px;
+}
+
+.detail-multi-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    height: 70px;
+}
+
+.detail-multi-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 1px solid #dddddd;
+
+    width: 70px;
+    height: 70px;
+}
+
+.detail-multi-item:hover {
+    border: 1px solid #32B784;
+}
+
+.detail-multi-arrow {
+    width: 50px;
+    height: 50px;
+}
+
+.detail-multi-arrow img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+}
+
+.detail-multi-arrow img:hover {
+    border: 1px solid #32B784;
+}
+
+.item-active, .item-active:hover {
+    box-sizing: border-box;
+    border: 3px solid #32B784;
+}
+
+.detail-multi-item img {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.detail-footer {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    gap: 10px;
+}
+
+.detail-footer-btn-list {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.detail-footer-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    width: 100px;
+
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.detail-footer-button:hover {
+    border: 1px solid #32B784;
+}
+.detail-footer-button:active {
+    background-color: #32B78499;
+}
+
+.detail-footer-button p {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.detail-footer-text {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 23px;
 }
