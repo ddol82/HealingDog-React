@@ -37,11 +37,13 @@
 }
 .todo-list {
   display: flex;
-  width: 280px;
-  height: 280px;
+  width: 260px;
+  height: 240px;
 
   background: #ffffff;
   border-radius: 10px;
+  justify-content: center;
+  padding: 20px 10px;
 }
 .beauty-review {
   width: 280px;
@@ -121,4 +123,6 @@
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 6px;
+}
+.month-list {
 }
