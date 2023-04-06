@@ -75,7 +75,7 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
                             <div className="detail-multi-arrow">
                             {
                                 imageCursor > 0 &&
-                                <img src={IconArrowLeft} alt="left" onClick={():void => onImageClickHandler(imageCursor - 1)}/>
+                                <img src={IconArrowLeft} alt="left" onClick={(): void => onImageClickHandler(imageCursor - 1)}/>
                             }
                             </div>
                             <img src={process.env.REACT_APP_IMAGE_DIR + 'board/' +
@@ -84,7 +84,7 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
                             <div className="detail-multi-arrow">
                             {
                                 imageCursor < boardData.imageCount - 1 &&
-                                <img src={IconArrowRight} alt="right" onClick={():void => onImageClickHandler(imageCursor + 1)}/>
+                                <img src={IconArrowRight} alt="right" onClick={(): void => onImageClickHandler(imageCursor + 1)}/>
                             }
                             </div>
                         </div>

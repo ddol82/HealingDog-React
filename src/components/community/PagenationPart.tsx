@@ -38,7 +38,7 @@ const PagenationPart = ({ param, category, pageInfo, setPageInfo }: PageProps): 
             endPage : pageInfo.endPage
         }
         setPageInfo(newPage);
-        navigate(`/community/${category}/${page}`);
+        navigate(`/community/lists/${category}/${page}`);
     }
 
     type PageNumber = {

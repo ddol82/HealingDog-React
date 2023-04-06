@@ -93,7 +93,7 @@
 }
 
 
-/* board, Headline */
+/* board, Headline */   /* board, Headline */   /* board, Headline */   /* board, Headline */   /* board, Headline */
 .board-area {
     display: flex;
     flex-direction: column;
@@ -266,8 +266,162 @@
     font-weight: 700;
 }
 
+/* Write */     /* Write */     /* Write */     /* Write */     /* Write */     /* Write */     /* Write */     /* Write */
+.com-write-container {
+    margin-top: 50px;
+}
 
-/* Detail */
+.com-write {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.write-border {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+    gap: 60px;
+
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+}
+
+.write-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.write-text {
+    display: block;
+    border: none;
+    outline: none;
+
+    width: 670px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.write-textarea {
+    resize: none;
+    overflow-y: hidden;
+}
+
+.write-limit {
+    font-size: 12px;
+    color: #222222;
+}
+
+.write-warning {
+    color: #f14d11;
+}
+
+.write-image-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.write-image-insert {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+.write-image-list {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+
+    width: 650px;
+    height: 170px;
+    padding: 10px;
+
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    overflow-x: scroll;
+}
+
+.write-image-item {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+
+    min-width: 150px;
+    height: 150px;
+}
+
+.write-image-thumbnail {
+    border: 3px solid #32B784;
+}
+
+.write-image-item img {
+    max-width: 140px;
+    max-height: 140px;
+}
+
+.write-icon {
+    display: flex;
+    position: absolute;
+    padding: 0px 10px;
+    align-items: center;
+}
+
+.write-thumbnail {
+    height: 20px;
+    left: 10px;
+    top: 10px;
+
+    background-color: #32B784;
+    opacity: 0.8;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.write-remove {
+    height: 20px;
+    right: 10px;
+    top: 10px;
+
+    background-color: #ff0000;
+    opacity: 0.8;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.write-left {
+    justify-content: flex-start;
+    width: 40px;
+    height: 40px;
+    left: 0;
+    opacity: .3;
+}
+.write-left:hover {
+    opacity: 1;
+}
+
+.write-right {
+    justify-content: flex-end;
+    width: 40px;
+    height: 40px;
+    right: 0;
+    opacity: .3;
+}
+.write-right:hover {
+    opacity: 1;
+}
+
+/* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */
 .detail-border {
     display: flex;
     flex-direction: column;
@@ -346,11 +500,14 @@
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+
+    width: 680px;
+    height: 500px;
 }
 
 .detail-multi-content img {
-    max-width: 600px;
-    max-height: 600px;
+    max-width: 500px;
+    max-height: 500px;
 }
 
 .detail-multi-bottom {
@@ -358,22 +515,28 @@
     flex-direction: row;
     justify-content: center;
 
-    height: 70px;
+    height: 65px;
 }
 
 .detail-multi-item {
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     border: 1px solid #dddddd;
 
-    width: 70px;
-    height: 70px;
+    width: 66px;
+    height: 66px;
 }
 
 .detail-multi-item:hover {
     border: 1px solid #32B784;
+}
+
+.detail-multi-item img {
+    max-width: 60px;
+    max-height: 60px;
 }
 
 .detail-multi-arrow {
@@ -395,11 +558,6 @@
 .item-active, .item-active:hover {
     box-sizing: border-box;
     border: 3px solid #32B784;
-}
-
-.detail-multi-item img {
-    max-width: 64px;
-    max-height: 64px;
 }
 
 .detail-footer {

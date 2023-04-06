@@ -77,7 +77,7 @@ const Community = () => {
             alert('사용자 정보가 유효하지 않습니다.');
             return navigate("/login");
         }
-        return navigate("/community/board/write")
+        return navigate("/community/boards/write");
     }
 
 //parts
@@ -118,7 +118,7 @@ const Community = () => {
                     <>
                         <HeadlineItem/>
                         <BoardItem param={pageParam} pageInfo={pageInfo} setPageInfo={setPageInfo} category={category}/>
-                        <PagenationPart param={pageParam} category={category} pageInfo={pageInfo} setPageInfo={setPageInfo}/>
+                        <PagenationPart param={pageParam} pageInfo={pageInfo} setPageInfo={setPageInfo} category={category}/>
                     </>
                 }
             </div>
