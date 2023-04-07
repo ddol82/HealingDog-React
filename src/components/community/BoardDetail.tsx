@@ -9,6 +9,7 @@ import IconLike from "../../assets/icon/icon=like.svg"
 import IconShare from "../../assets/icon/icon=share.svg"
 import IconEdit from "../../assets/icon/icon=edit.svg"
 import IconRemove from "../../assets/icon/icon=remove.svg"
+import { callShareIncrementAPI } from "apis/CommunityIncrementAPICalls";
 
 type detailProps = {
     boardCode: number
@@ -34,8 +35,23 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
         setImageList(tmpList);
     }, [boardData]);
 
+//function
     function onImageClickHandler(idx: number): void {
         setImageCursor(idx);
+    }
+    
+    function onShareClickHandler(): void {
+        navigator.clipboard
+                .writeText(`http://localhost:3000/community/boards/detail/${boardCode}`)
+                .then(():void => {
+                    alert('주소가 클립보드에 복사되었습니다.');
+                });
+        dispatch<any>(callShareIncrementAPI({boardCode : boardCode}));
+    }
+
+    function onRemoveClickHandler(): void {
+        console.log(confirm('삭제 메시지 테스트입니당'));
+        
     }
 
     return (
@@ -65,43 +81,45 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
                 </div>
                 {
                     boardData.imageCount > 0 &&
-                    boardData.imageCount === 1 ?
-                    <div className="detail-image-single">
-                        <img src={process.env.REACT_APP_IMAGE_DIR + 'board/' + (boardData?.originalImageUrl as string[])[0]} alt="image"/>
-                    </div>
-                    :
-                    <div className="detail-image-multi">
-                        <div className="detail-multi-content">
-                            <div className="detail-multi-arrow">
-                            {
-                                imageCursor > 0 &&
-                                <img src={IconArrowLeft} alt="left" onClick={(): void => onImageClickHandler(imageCursor - 1)}/>
-                            }
-                            </div>
-                            <img src={process.env.REACT_APP_IMAGE_DIR + 'board/' +
-                                    (boardData?.originalImageUrl as string[])
-                                    ?.filter((_: string, idx: number) => imageCursor === idx)[0]} alt="image" />
-                            <div className="detail-multi-arrow">
-                            {
-                                imageCursor < boardData.imageCount - 1 &&
-                                <img src={IconArrowRight} alt="right" onClick={(): void => onImageClickHandler(imageCursor + 1)}/>
-                            }
-                            </div>
+                    (
+                        boardData.imageCount === 1 ?
+                        <div className="detail-image-single">
+                            <img src={process.env.REACT_APP_IMAGE_DIR + 'board/' + (boardData?.originalImageUrl as string[])[0]} alt="image"/>
                         </div>
-                        <div className="detail-multi-bottom">
-                        {
-                            (boardData?.previewImageUrl as string[])?.map((url: string, idx: number): JSX.Element => (
-                                <div
-                                    key={url}
-                                    className={`detail-multi-item${imageCursor === idx ? ' item-active' : ''}`}
-                                    onClick={(): void => onImageClickHandler(idx)}
-                                >
-                                    <img src={process.env.REACT_APP_IMAGE_DIR + 'board/' + url} alt="image" />
+                        :
+                        <div className="detail-image-multi">
+                            <div className="detail-multi-content">
+                                <div className="detail-multi-arrow">
+                                {
+                                    imageCursor > 0 &&
+                                    <img src={IconArrowLeft} alt="left" onClick={(): void => onImageClickHandler(imageCursor - 1)}/>
+                                }
                                 </div>
-                            ))
-                        }
+                                <img src={process.env.REACT_APP_IMAGE_DIR + 'board/' +
+                                        (boardData?.originalImageUrl as string[])
+                                        ?.filter((_: string, idx: number) => imageCursor === idx)[0]} alt="image" />
+                                <div className="detail-multi-arrow">
+                                {
+                                    imageCursor < boardData.imageCount - 1 &&
+                                    <img src={IconArrowRight} alt="right" onClick={(): void => onImageClickHandler(imageCursor + 1)}/>
+                                }
+                                </div>
+                            </div>
+                            <div className="detail-multi-bottom">
+                            {
+                                (boardData?.previewImageUrl as string[])?.map((url: string, idx: number): JSX.Element => (
+                                    <div
+                                        key={url}
+                                        className={`detail-multi-item${imageCursor === idx ? ' item-active' : ''}`}
+                                        onClick={(): void => onImageClickHandler(idx)}
+                                    >
+                                        <img src={process.env.REACT_APP_IMAGE_DIR + 'board/' + url} alt="image" />
+                                    </div>
+                                ))
+                            }
+                            </div>
                         </div>
-                    </div>
+                    )
                 }
 
                 <div className="detail-line"/>
@@ -112,7 +130,7 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
                             <img src={IconLike} alt="like" />
                             <p>좋아요</p>
                         </div>
-                        <div className="detail-footer-button">
+                        <div className="detail-footer-button" onClick={onShareClickHandler}>
                             <img src={IconShare} alt="share" />
                             <p>공유</p>
                         </div>
@@ -120,14 +138,14 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
                             <img src={IconEdit} alt="edit" />
                             <p>글 수정</p>
                         </div>
-                        <div className="detail-footer-button">
+                        <div className="detail-footer-button" onClick={onRemoveClickHandler}>
                             <img src={IconRemove} alt="remove" />
                             <p>글 삭제</p>
                         </div>
                     </div>
                     <div>
-                        <p className="detail-footer-text">이 글을 0명이 좋아합니다.</p>
-                        <p className="detail-footer-text">이 글이 0회 공유되었습니다.</p>
+                        <p className="detail-footer-text">이 글을 {boardData.like}명이 좋아합니다.</p>
+                        <p className="detail-footer-text">이 글이 {boardData.share}회 공유되었습니다.</p>
                     </div>
                 </div>
             </div>

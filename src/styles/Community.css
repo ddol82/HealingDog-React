@@ -421,6 +421,33 @@
     opacity: 1;
 }
 
+.write-image-limit {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.size-limit-bar {
+    position: relative;
+    width: 200px;
+    height: 10px;
+}
+
+.size-limit-use {
+    position: absolute;
+    height: 10px;
+    background-color: #32B784;
+
+    transition: width 1s;
+}
+
+.size-limit-max {
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    background-color: #dddddd;
+}
+
 /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */
 .detail-border {
     display: flex;

@@ -53,6 +53,8 @@ export const callGetBoardDetailAPI = ({boardCode}) => {
 export const callBoardRegistAPI = ({form}) => {
     console.log('[CommunityAPICalls] callBoardRegistAPI Call');
 
+    
+
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/boards/write/confirm`;
 
     return async (dispatch, getState) => {
