@@ -1,104 +1,82 @@
+import "./Reservation.css";
+
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { callSelectBeautyReservationListAPI } from "apis/BeautyAPICalls";
-import ReservationList from "./ReservationList";
+import { callMypetAPI } from "apis/MemberAPICalls";
 
-function Reservation() {
-  //redux
+function calculateAge(birthDateString) {
+  const birthDate = new Date(birthDateString);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+
+  if (
+    monthDiff < 0 ||
+    (monthDiff === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+}
+
+function Reservation(props) {
   const dispatch = useDispatch();
-  const beautyReservation = useSelector(
-    (state) => state.beautyReservationReducer
-  );
-  const beautyReservationList = beautyReservation.data;
+  const myPetInfo = useSelector((state) => state.memberReducer.data);
 
-  useState;
   const [form, setForm] = useState({
-    beautyReservationListCode: "",
     mypetCode: "",
-    beautyCode: "",
-    userCode: "",
-    date: "",
-    time: "",
-    reservation: "",
+    name: "",
+    gender: "",
+    variety: "",
+    birthday: "",
+    weight: "",
+    neutered: "",
+    animalHospital: "",
+    referenceInfo: "",
   });
 
-  //useEffect
-  useEffect(() => {
-    dispatch(callSelectBeautyReservationListAPI());
+  useEffect(async () => {
+    dispatch(callMypetAPI({ mypetCode: props.mypetCode }));
   }, []);
 
   useEffect(() => {
-    if (!beautyReservationList != true) {
+    if (!myPetInfo != true) {
       setForm({
-        beautyReservationListCode:
-          beautyReservationList.beautyReservationListCode,
-        mypetCode: beautyReservationList.mypetCode,
-        beautyCode: beautyReservationList.beautyCode,
-        userCode: beautyReservationList.userCode,
-        date: beautyReservationList.date,
-        time: beautyReservationList.time,
-        reservation: beautyReservationList.reservation,
+        mypetCode: myPetInfo.mypetCode,
+        name: myPetInfo.name,
+        gender: myPetInfo.gender,
+        variety: myPetInfo.variety,
+        birthday: myPetInfo.birthday,
+        weight: myPetInfo.weight,
+        neutered: myPetInfo.neutered,
+        animalHospital: myPetInfo.animalHospital,
+        referenceInfo: myPetInfo.referenceInfo,
       });
     }
-  }, [beautyReservationList]);
+  }, [props.mypetCode, myPetInfo]);
 
-  // event-handler
-  const timeFormatter = (timestamp) => {
-    let date = new Date(timestamp);
-
-    let year = date.getFullYear().toString().slice(-2); //년도 뒤에 두자리
-    let month = ("0" + (date.getMonth() + 1)).slice(-2); //월 2자리
-    let day = ("0" + date.getDate()).slice(-2); //일 2자리
-    let hour = ("0" + date.getHours()).slice(-2); //시 2자리
-    let minute = ("0" + date.getMinutes()).slice(-2); //분 2자리
-    let second = ("0" + date.getSeconds()).slice(-2); //초 2자리
-
-    let result = month + "/" + day + " " + " " + hour + ":" + minute;
-
-    return result;
-  };
-
-  const [isOn, setIsOn] = useState(true);
-
-  // onclickHandler
-  const onclickHandler = (value) => {
-    setIsOn(value);
-  };
+  const age = calculateAge(form.birthday);
 
   return (
     <>
-      <div className="reservation-btns">
-        <button
-          onClick={() => onclickHandler(true)}
-          className={isOn ? "reservation-btn-active" : "reservation-btn"}
-        >
-          예약내역
-        </button>
-        <button
-          onClick={() => onclickHandler(false)}
-          className={!isOn ? "reservation-btn-active" : "reservation-btn"}
-        >
-          신청내역
-        </button>
+      <div className="reservation-box">
+        <div className="user-img"></div>
+        <div className="reservation-info">
+          <p className="reservation-user-name">
+            {form.name}
+            {props.mypetCode}
+          </p>
+          <div className="reservation-item">
+            <p>{form.gender === "M" ? "남아" : "여아"}</p>
+            <p>{age == 0 ? 1 : age}살</p>
+            <p>{form.weight}</p>
+          </div>
+        </div>
+        <div className="reservation-time">{props.date}</div>
       </div>
-      {Array.isArray(beautyReservationList) &&
-        beautyReservationList
-          .filter((item) => item.reservation === (isOn ? "O" : "X"))
-          .map((val) => (
-            <ReservationList
-              key={val.beautyReservationListCode}
-              userCode={val.userCode}
-              mypetCode={val.mypetCode}
-              date={timeFormatter(val.date)}
-              time={timeFormatter(val.time)}
-            />
-          ))}
-
-      <h1>
-        {Array.isArray(beautyReservationList) &&
-          beautyReservationList.map((val) => val.mypetCode)}
-      </h1>
     </>
   );
 }

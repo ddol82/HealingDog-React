@@ -1,5 +1,5 @@
 import "./Todo.css";
-import ReservationList from "./ReservationList";
+import Reservation from "./Reservation";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,7 +69,7 @@ const Todo = (props) => {
         <div className="todo-List">
           {Array.isArray(beautyReservationList) &&
             beautyReservationList.map((form) => (
-              <ReservationList
+              <Reservation
                 key={form.beautyReservationListCode}
                 userCode={form.userCode}
                 mypetCode={form.mypetCode}

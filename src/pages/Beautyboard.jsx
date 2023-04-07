@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "../styles/Beauty.css";
 
 import { callSelectBeautyInfoAPI } from "apis/BeautyAPICalls";
-import Reservation from "../components/beauty/Reservation";
+import ReservationList from "../components/beauty/ReservationList";
 import HealingCalendar from "../components/common/HealingCalendar";
 import Todo from "../components/beauty/Todo";
 import Review from "components/review/Review";
@@ -118,7 +118,7 @@ const Beautyboard = () => {
         </div>
 
         <div className="week-list">
-          <Reservation />
+          <ReservationList />
         </div>
       </div>
     </div>
