@@ -9,6 +9,7 @@ import { callBoardRegistAPI } from "apis/BoardAPICalls";
 const LIMIT_TITLE_LENGTH = 100;
 const LIMIT_CONTENT_LENGTH = 1000;
 const LIMIT_PHOTO_AMOUNT = 10;
+const LIMIT_PHOTO_SIZE = 10 * 1024 * 1024;
 
 const BoardWrite = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -24,12 +25,16 @@ const BoardWrite = (): JSX.Element => {
     const [limit, setLimit] = useState({
         title: 0,
         content: 0,
-        image: 0
+        image: 0,
+        size: 0
     });
     const [images, setImages] = useState<File[]>([]);
     const [urls, setUrls] = useState<string[]>([]);
+    const [currSize, setCurrSize] = useState<number[]>([]);
     const [warnTitle, setWarnTitle] = useState(false);
     const [warnContent, setWarnContent] = useState(false);
+    //console.log(`urls : ${urls.length}`);
+    //console.log(`images : `, images);
 
 //useEffect
     useEffect(() => {
@@ -38,21 +43,22 @@ const BoardWrite = (): JSX.Element => {
 
 //function
     const onBoardCreateClick = (): void => {
-        /*
-            categoryCode: number,
-            title: string,
-            content: string,
-            imageList: File[],
-            imageURLList: string[]
-        */
         console.log('게시글 생성 시도');
+        if(limit.title === 0) {
+            alert('제목을 입력해주세요.');
+            return;
+        }
+        if(limit.content === 0) {
+            alert('내용을 입력해주세요.');
+            return;
+        }
         const boardData: string = JSON.stringify({
             boardCategoryCode: category,
             title: write.title,
             content: write.content
         });
         const formData = new FormData();
-        //formData.append('boardData', new Blob([boardData], {type: 'application/json'}));
+        //formData.append('boardData', boardData);
         formData.append('boardData', new Blob([boardData], {type : 'application/json'}));
         for(const image of images) {
             formData.append('images', image);
@@ -91,11 +97,13 @@ const BoardWrite = (): JSX.Element => {
     }
 
     const onImageRemoveClick = (target: number): void => {
+        const removeSize = images.filter((_: File, idx: number): boolean => idx === target)[0].size;
         setImages(images.filter((_: File, idx: number): boolean => idx !== target));
         setUrls(urls.filter((_: string, idx: number): boolean => idx !== target));
         setLimit({
             ...limit,
-            image: limit.image - 1
+            image: limit.image - 1,
+            size: limit.size - removeSize
         })
     }
 
@@ -130,16 +138,29 @@ const BoardWrite = (): JSX.Element => {
 
         const imageTmp: File[] = [];
         let imageCount: number = limit.image;
+        let currSize = limit.size;
+        let tooBig = 0;
         Array.from(imageList).forEach((file: File) => {
             if(imageCount === 10) return;
+            console.log((currSize + file.size) + " / " + LIMIT_PHOTO_SIZE);
+            if((currSize + file.size) >= LIMIT_PHOTO_SIZE) {
+                tooBig += 1;
+                return;
+            }
+            currSize += file.size;
+
             imageTmp.push(file);
             imageCount += 1;
         });
         setImages([...images, ...imageTmp]);
         setLimit({
             ...limit,
-            image: imageCount
+            image: imageCount,
+            size: currSize
         });
+        if(tooBig > 0) {
+            alert(`첨부 가능한 용량을 초과했습니다.\n${tooBig}건의 파일을 등록하지 못했습니다.`);
+        }
     }
 
     const onInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -164,24 +185,30 @@ const BoardWrite = (): JSX.Element => {
         setWrite({
             ...write,
             [e.target.name]: e.target.value
-        })
+        });
         setLimit({
             ...limit,
             [e.target.name]: e.target.value.length
-        })
+        });
+    }
+
+    const getBytesDisplay = (byte: number): string => {
+        if(byte < 1024) return `${byte.toFixed(2)} B`;
+        if(byte < 1048576) return `${(byte / 1024).toFixed(2)} KB`;
+        return `${(byte / 1048576).toFixed(2)} MB`;
     }
 
 //parts
-const Menu = (): JSX.Element => (
-    <div className='com-menu'>
-        <div className='category-item cat-left'>
-            <p className='category-text'>게시글 작성</p>
+    const Menu = (): JSX.Element => (
+        <div className='com-menu'>
+            <div className='category-item cat-left'>
+                <p className='category-text'>게시글 작성</p>
+            </div>
+            <div className='category-item cat-right'>
+                <button className='category-btn btn-active' onClick={onBoardCreateClick}>작성 완료</button>
+            </div>
         </div>
-        <div className='category-item cat-right'>
-            <button className='category-btn btn-active' onClick={onBoardCreateClick}>작성 완료</button>
-        </div>
-    </div>
-);
+    );
 
     return (
         <div className="com-container com-write-container">
@@ -224,7 +251,14 @@ const Menu = (): JSX.Element => (
                                 ref={ imageAttach }
                                 onChange={ onImageUploadChange }
                             />
-                            <p className={'write-limit'}>사진 : {limit.image} / {LIMIT_PHOTO_AMOUNT}</p>
+                            <div className="write-image-limit">
+                                <p className={'write-limit'}>사진 : {limit.image} / {LIMIT_PHOTO_AMOUNT}</p>
+                                <p className={'write-limit'}>용량 : {getBytesDisplay(limit.size)} / {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
+                                <div className="size-limit-bar">
+                                    <div className="size-limit-max"/>
+                                    <div className="size-limit-use" style={{width: `calc(${limit.size / LIMIT_PHOTO_SIZE * 100}%)`}}/>
+                                </div>
+                            </div>
                         </div>
                         <div className="write-image-list">
                         {

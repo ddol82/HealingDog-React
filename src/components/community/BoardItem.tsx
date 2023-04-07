@@ -1,5 +1,5 @@
 import { callGetBoardListAPI } from "apis/BoardAPICalls";
-import { callViewIncrementAPI } from "apis/ViewIncrementAPICalls";
+import { callViewIncrementAPI } from "apis/CommunityIncrementAPICalls";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
