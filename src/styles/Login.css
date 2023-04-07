@@ -1,0 +1,105 @@
+.login-container {
+  display: flex;
+  background: #eee;
+  flex-direction: column;
+}
+.login-main {
+  min-height: 100vh;
+  padding: 20px;
+  margin: 0 auto;
+
+  width: 700px;
+
+  left: 370px;
+  top: -2px;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+}
+
+.login-center {
+  margin: 0 auto;
+  width: 280px;
+  height: 700px;
+}
+
+.lgoin-titlename {
+  text-align: center;
+}
+
+.login-checkmember {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.login-check {
+  opacity: 0;
+}
+
+label {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="radio"]:checked + label {
+  background: #ccc;
+  color: white;
+}
+
+.login-input {
+  text-align: center;
+}
+
+.login-input-common {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  margin-top: 50px;
+}
+
+.login-input-email {
+  width: 280px;
+  height: 28px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+
+.login-input-password {
+  width: 280px;
+  height: 28px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+
+.login-click-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 0px 0px 0px 0px;
+  margin: 10px 0px 10px 80px;
+  gap: 6px;
+  font-size: 12px;
+
+  width: 199px;
+  height: 16px;
+}
+
+.login-button {
+  margin-top: 200px;
+}
+
+.login-button-login {
+  width: 230px;
+  height: 36px;
+  background-color: #32b784;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
