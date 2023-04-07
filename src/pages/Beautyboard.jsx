@@ -3,18 +3,22 @@ import { useSelector, useDispatch } from "react-redux";
 import "../styles/Beauty.css";
 
 import { callSelectBeautyInfoAPI } from "apis/BeautyAPICalls";
+import { callSelectBeautyReviewAPI } from "apis/BeautyReviewAPICalls";
 import ReservationList from "../components/beauty/ReservationList";
 import HealingCalendar from "../components/common/HealingCalendar";
 import Todo from "../components/beauty/Todo";
-import Review from "components/review/Review";
+import BeautyReview from "components/review/BeautyReview";
+import BeautyReviewOne from "components/review/BeautyReviewOne";
 
 const Beautyboard = () => {
   // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
   const dispatch = useDispatch();
   const beautyInfo = useSelector((state) => state.beautyReducer.data);
 
+  const beautyReview = useSelector((state) => state.beautyReviewReducer.data);
+
   // useState
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(Date.now() - 86400000));
   const [form, setForm] = useState({
     beautyCode: "",
     providerCode: "",
@@ -35,11 +39,25 @@ const Beautyboard = () => {
     playground: "",
     freeParking: "",
     wiFi: "",
+
+    content: "",
+    nickname: "",
+    registDate: "",
+    reviewsCode: "",
+    score: "",
+    serviceCategoryCode: "",
+    userCode: "",
   });
 
   useEffect(
     () => {
       dispatch(callSelectBeautyInfoAPI());
+    }, // eslint-disable-next-line
+    []
+  );
+  useEffect(
+    () => {
+      dispatch(callSelectBeautyReviewAPI());
     }, // eslint-disable-next-line
     []
   );
@@ -66,12 +84,23 @@ const Beautyboard = () => {
         playground: beautyInfo.playground,
         freeParking: beautyInfo.freeParking,
         wiFi: beautyInfo.wiFi,
+
+        content: beautyReview.content,
+        nickname: beautyReview.nickname,
+        registDate: beautyReview.registDate,
+        reviewsCode: beautyReview.reviewsCode,
+        score: beautyReview.score,
+        serviceCategoryCode: beautyReview.serviceCategoryCode,
+        userCode: beautyReview.userCode,
       });
     }
-  }, [beautyInfo]);
+  }, [beautyInfo, beautyReview]);
 
   // 캘린더에서 날짜정보 가져오기
-  const today = date.toISOString().slice(0, 10);
+  // const today = date.toISOString().slice(0, 10);
+  const today = new Date(date.getTime() + 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
 
   return (
     <div>
@@ -90,7 +119,11 @@ const Beautyboard = () => {
                 <Todo today={today} />
               </div>
               <div className="beauty-review">
-                <Review />
+                <BeautyReview />
+                {/* {Array.isArray(beautyReview) &&
+                  beautyReview.map((val) => (
+                    <BeautyReview key={val.reviewsCode} />
+                  ))} */}
               </div>
             </div>
             <div className="month-list">
@@ -99,7 +132,10 @@ const Beautyboard = () => {
           </div>
 
           <div className="button-section">
-            <div className="review-one">최신리뷰</div>
+            <div className="review-one">
+              최신리뷰
+              <BeautyReviewOne />
+            </div>
             <div className="beauty-info">
               <div className="beauty-info-items">
                 <h1>{form.name}</h1>

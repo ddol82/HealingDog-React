@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { callSelectBeautyReservationListAPI } from "apis/BeautyAPICalls";
+import { callMypetAPI } from "apis/MemberAPICalls";
 import Reservation from "./Reservation";
 
 function ReservationList() {
@@ -12,36 +13,10 @@ function ReservationList() {
   );
   const beautyReservationList = beautyReservation.data;
 
-  useState;
-  const [form, setForm] = useState({
-    beautyReservationListCode: "",
-    mypetCode: "",
-    beautyCode: "",
-    userCode: "",
-    date: "",
-    time: "",
-    reservation: "",
-  });
-
   //useEffect
   useEffect(() => {
     dispatch(callSelectBeautyReservationListAPI());
   }, []);
-
-  useEffect(() => {
-    if (!beautyReservationList != true) {
-      setForm({
-        beautyReservationListCode:
-          beautyReservationList.beautyReservationListCode,
-        mypetCode: beautyReservationList.mypetCode,
-        beautyCode: beautyReservationList.beautyCode,
-        userCode: beautyReservationList.userCode,
-        date: beautyReservationList.date,
-        time: beautyReservationList.time,
-        reservation: beautyReservationList.reservation,
-      });
-    }
-  }, [beautyReservationList]);
 
   // event-handler
   const timeFormatter = (timestamp) => {
@@ -92,13 +67,12 @@ function ReservationList() {
               mypetCode={val.mypetCode}
               date={timeFormatter(val.date)}
               time={timeFormatter(val.time)}
+              name={val.name}
+              gender={val.gender}
+              birthday={val.birthday}
+              weight={val.weight}
             />
           ))}
-
-      <h1>
-        {Array.isArray(beautyReservationList) &&
-          beautyReservationList.map((val) => val.mypetCode)}
-      </h1>
     </>
   );
 }
