@@ -11,7 +11,7 @@ import LayoutProvider from "./layouts/LayoutProvider";
 import LayoutUser from "./layouts/LayoutUser";
 import Review from "./components/review/Review";
 import Login from "./pages/login/Login";
-import Register from "./pages/login/Register";
+import SignUp from "./pages/login/SignUp";
 import Main from "./pages/user/Main";
 import Community from "./pages/community/Community";
 import Detail from "./pages/community/Detail";
@@ -23,8 +23,14 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutUser />}>
           <Route index element={<Main />} />
-          <Route path="/community/lists/:categoryType/:currPage" element={<Community />} />
-          <Route path="/community/boards/detail/:boardCode" element={<Detail />} />
+          <Route
+            path="/community/lists/:categoryType/:currPage"
+            element={<Community />}
+          />
+          <Route
+            path="/community/boards/detail/:boardCode"
+            element={<Detail />}
+          />
           <Route path="/community/boards/write" element={<BoardWrite />} />
           <Route path="/reviews/:serviceCategoryCode" element={<Review />} />
           {/* <Route path="/care" element={<Care />} />
@@ -49,7 +55,7 @@ function App() {
           />
         </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );

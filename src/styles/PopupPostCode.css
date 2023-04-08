@@ -1,0 +1,10 @@
+.postCodeStyle {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  padding: 7px;
+  background-color: #32b784;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
