@@ -9,7 +9,7 @@ import { callBoardRegistAPI } from "apis/BoardAPICalls";
 const LIMIT_TITLE_LENGTH = 100;
 const LIMIT_CONTENT_LENGTH = 1000;
 const LIMIT_PHOTO_AMOUNT = 10;
-const LIMIT_PHOTO_SIZE = 10 * 1024 * 1024;
+const LIMIT_PHOTO_SIZE = 64 * 1024 * 1024;
 
 const BoardWrite = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -30,7 +30,6 @@ const BoardWrite = (): JSX.Element => {
     });
     const [images, setImages] = useState<File[]>([]);
     const [urls, setUrls] = useState<string[]>([]);
-    const [currSize, setCurrSize] = useState<number[]>([]);
     const [warnTitle, setWarnTitle] = useState(false);
     const [warnContent, setWarnContent] = useState(false);
     //console.log(`urls : ${urls.length}`);
