@@ -63,7 +63,7 @@ const Beautyboard = () => {
   );
 
   useEffect(() => {
-    if (!beautyInfo != true) {
+    if (!beautyInfo != true || !beautyReview != true) {
       setForm({
         beautyCode: beautyInfo.beautyCode,
         providerCode: beautyInfo.providerCode,
@@ -85,13 +85,13 @@ const Beautyboard = () => {
         freeParking: beautyInfo.freeParking,
         wiFi: beautyInfo.wiFi,
 
-        content: beautyReview.content,
-        nickname: beautyReview.nickname,
-        registDate: beautyReview.registDate,
-        reviewsCode: beautyReview.reviewsCode,
-        score: beautyReview.score,
-        serviceCategoryCode: beautyReview.serviceCategoryCode,
-        userCode: beautyReview.userCode,
+        content: beautyReview?.content,
+        nickname: beautyReview?.nickname,
+        registDate: beautyReview?.registDate,
+        reviewsCode: beautyReview?.reviewsCode,
+        score: beautyReview?.score,
+        serviceCategoryCode: beautyReview?.serviceCategoryCode,
+        userCode: beautyReview?.userCode,
       });
     }
   }, [beautyInfo, beautyReview]);
@@ -134,7 +134,15 @@ const Beautyboard = () => {
           <div className="button-section">
             <div className="review-one">
               최신리뷰
-              <BeautyReviewOne />
+              <BeautyReviewOne
+                content={form.content}
+                nickname={form.nickname}
+                registDate={form.registDate}
+                reviewsCode={form.reviewsCode}
+                score={form.score}
+                serviceCategoryCode={form.serviceCategoryCode}
+                userCode={form.userCode}
+              />
             </div>
             <div className="beauty-info">
               <div className="beauty-info-items">

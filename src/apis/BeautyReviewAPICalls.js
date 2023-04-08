@@ -4,7 +4,7 @@ import {
 } from "../modules/BeautyReviewModule";
 
 export const callSelectBeautyReviewAPI = () => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/beauty-manage/review`;
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/beauty-manage/last-review`;
 
   return async (dispatch, getState) => {
     const result = await fetch(requestURL, {
