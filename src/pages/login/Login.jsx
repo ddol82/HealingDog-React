@@ -33,7 +33,13 @@ function Login() {
     () => {
       if (loginMember.status === 200) {
         console.log("[Login] Login SUCCESS {}", loginMember);
-        navigate("/", { replace: true });
+        if (form.type === "user") {
+          navigate("/", { replace: true });
+        }
+
+        if (form.type === "provider") {
+          navigate("/provider", { replace: true });
+        }
       }
     }, // eslint-disable-next-line
     [loginMember]
@@ -81,9 +87,7 @@ function Login() {
     <div className="login-container">
       <main className="login-main">
         <div className="login-center">
-          <div className="lgoin-titlename">
-            <h1>HEALING DOG</h1>
-          </div>
+          <div className="lgoin-titlename">HEALING DOG</div>
           <div className="login-checkmember">
             <input
               className="login-check"
@@ -129,7 +133,7 @@ function Login() {
             <div className="login-click-link">
               <NavLink>이메일찾기</NavLink>
               <NavLink>비밀번호찾기</NavLink>
-              <NavLink>회원가입</NavLink>
+              <NavLink to="/signup">회원가입</NavLink>
             </div>
             <div className="login-button">
               <button
