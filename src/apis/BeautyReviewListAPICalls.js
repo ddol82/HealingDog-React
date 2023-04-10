@@ -1,7 +1,7 @@
-import { GET_BEAUTY_REVIEW } from "../modules/BeautyReviewModule";
+import { GET_BEAUTY_REVIEWS } from "../modules/BeautyReviewListModule";
 
-export const callSelectBeautyReviewAPI = ({ num }) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/beauty-manage/last-review/${num}`;
+export const callSelectBeautyReviewsListAPI = () => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/beauty-manage/review`;
 
   return async (dispatch, getState) => {
     const result = await fetch(requestURL, {
@@ -16,6 +16,6 @@ export const callSelectBeautyReviewAPI = ({ num }) => {
       "[BeautyAPICalls] callSelectBeautyReviewsListAPI RESULT : ",
       result
     );
-    dispatch({ type: GET_BEAUTY_REVIEW, payload: result });
+    dispatch({ type: GET_BEAUTY_REVIEWS, payload: result });
   };
 };

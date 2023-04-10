@@ -52,7 +52,7 @@ label {
   font-size: 14px;
 }
 
-input[type="radio"]:checked + label {
+.signup-checkmember input[type="radio"]:checked + label {
   background: #32b784;
   color: white;
 }

@@ -4,11 +4,13 @@ import "../styles/Beauty.css";
 
 import { callSelectBeautyInfoAPI } from "apis/BeautyAPICalls";
 import { callSelectBeautyReviewAPI } from "apis/BeautyReviewAPICalls";
+import { callSelectBeautyReviewsListAPI } from "apis/BeautyReviewListAPICalls";
 import ReservationList from "../components/beauty/ReservationList";
 import HealingCalendar from "../components/common/HealingCalendar";
 import Todo from "../components/beauty/Todo";
 import BeautyReview from "components/review/BeautyReview";
 import BeautyReviewOne from "components/review/BeautyReviewOne";
+import BeautyReservationDetail from "./beauty/BeautyReservationDetail";
 
 const Beautyboard = () => {
   // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
@@ -48,7 +50,7 @@ const Beautyboard = () => {
     serviceCategoryCode: "",
     userCode: "",
   });
-
+  const [num, setNum] = useState(0);
   useEffect(
     () => {
       dispatch(callSelectBeautyInfoAPI());
@@ -57,33 +59,42 @@ const Beautyboard = () => {
   );
   useEffect(
     () => {
-      dispatch(callSelectBeautyReviewAPI());
+      dispatch(callSelectBeautyReviewAPI({ num: num }));
+    }, // eslint-disable-next-line
+    [num]
+  );
+  useEffect(
+    () => {
+      dispatch(callSelectBeautyReviewsListAPI());
     }, // eslint-disable-next-line
     []
+  );
+  const beautyReviewList = useSelector(
+    (state) => state.beautyReviewListReducer.data
   );
 
   useEffect(() => {
     if (!beautyInfo != true || !beautyReview != true) {
       setForm({
-        beautyCode: beautyInfo.beautyCode,
-        providerCode: beautyInfo.providerCode,
-        name: beautyInfo.name,
-        phone: beautyInfo.phone,
-        web: beautyInfo.web,
-        address: beautyInfo.address,
-        intro: beautyInfo.intro,
-        blacklist: beautyInfo.blacklist,
-        large: beautyInfo.large,
-        medium: beautyInfo.medium,
-        small: beautyInfo.small,
-        openBeauty: beautyInfo.openBeauty,
-        spa: beautyInfo.spa,
-        massage: beautyInfo.massage,
-        selfBeauty: beautyInfo.selfBeauty,
-        hoteling: beautyInfo.hoteling,
-        playground: beautyInfo.playground,
-        freeParking: beautyInfo.freeParking,
-        wiFi: beautyInfo.wiFi,
+        beautyCode: beautyInfo?.beautyCode,
+        providerCode: beautyInfo?.providerCode,
+        name: beautyInfo?.name,
+        phone: beautyInfo?.phone,
+        web: beautyInfo?.web,
+        address: beautyInfo?.address,
+        intro: beautyInfo?.intro,
+        blacklist: beautyInfo?.blacklist,
+        large: beautyInfo?.large,
+        medium: beautyInfo?.medium,
+        small: beautyInfo?.small,
+        openBeauty: beautyInfo?.openBeauty,
+        spa: beautyInfo?.spa,
+        massage: beautyInfo?.massage,
+        selfBeauty: beautyInfo?.selfBeauty,
+        hoteling: beautyInfo?.hoteling,
+        playground: beautyInfo?.playground,
+        freeParking: beautyInfo?.freeParking,
+        wiFi: beautyInfo?.wiFi,
 
         content: beautyReview?.content,
         nickname: beautyReview?.nickname,
@@ -133,7 +144,6 @@ const Beautyboard = () => {
 
           <div className="button-section">
             <div className="review-one">
-              최신리뷰
               <BeautyReviewOne
                 content={form.content}
                 nickname={form.nickname}
@@ -142,6 +152,9 @@ const Beautyboard = () => {
                 score={form.score}
                 serviceCategoryCode={form.serviceCategoryCode}
                 userCode={form.userCode}
+                num={num}
+                setNum={setNum}
+                beautyReviewList={beautyReviewList}
               />
             </div>
             <div className="beauty-info">
