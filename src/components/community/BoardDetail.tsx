@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { BoardFull } from "./types/BoardFull";
 import { useEffect, useState } from "react";
-import { callGetBoardDetailAPI } from "apis/BoardAPICalls";
+import { callGetBoardDetailAPI, callDeleteBoardAPI } from "apis/BoardAPICalls";
+import { callGetActivityAPI, callShareIncrementAPI, callLikeChangeAPI } from "apis/CommunityActivityAPICalls";
+import { callLogoutAPI } from "apis/MemberAPICalls";
+import { decodeJwt } from "utils/tokenUtils";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
 import IconArrowLeft from "../../assets/icon/icon=arrowleft.svg"
 import IconArrowRight from "../../assets/icon/icon=arrowright.svg"
@@ -10,32 +13,60 @@ import IconLikeTrue from "../../assets/icon/icon=like, Style=true.svg"
 import IconShare from "../../assets/icon/icon=share.svg"
 import IconEdit from "../../assets/icon/icon=edit.svg"
 import IconRemove from "../../assets/icon/icon=remove.svg"
-import { callShareIncrementAPI } from "apis/CommunityIncrementAPICalls";
+import { useNavigate } from "react-router-dom";
 
-type detailProps = {
+type DetailProps = {
     boardCode: number
 }
+type ActivityGroup = {
+    like: number,
+    share: number,
+    commentCount: number
+}
+interface MyToken {
+    name: string;
+    exp: number;
+}
 
-const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
+const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const boardData: BoardFull = useSelector((state: any) => state.boardReducer);
+    const activityData: ActivityGroup = useSelector((state: any) => state.viewActivityReducer);
 
     const [imageCursor, setImageCursor] = useState(0);
-    const [imageList, setImageList] = useState<number[]>([]);
+    // const [imageList, setImageList] = useState<number[]>([]);
     const [isLike, setIsLike] = useState(false);
+    const [activities, setActivities] = useState<ActivityGroup>({
+        like: 0,
+        share: 0,
+        commentCount: 0
+    });
 
 //useEffect
     useEffect(() => {
+        console.log('useEffect - [] call');
         dispatch<any>(callGetBoardDetailAPI({boardCode : boardCode}));
+        dispatch<any>(callGetActivityAPI({boardCode : boardCode}));
     }, []);
 
     useEffect(() => {
-        const tmpList: number[] = [];
-        for(let i = 0; i < boardData.imageCount; i++) {
-            tmpList.push(i);
-        }
-        setImageList(tmpList);
+        console.log('useEffect - [boardData] call - ', boardData);
+        setIsLike(!!boardData.likeState);
     }, [boardData]);
+
+    useEffect(() => {
+        console.log('useEffect - [activityData] call -', activityData);
+        setActivities(activityData);
+    }, [activityData]);
+
+    // useEffect(() => {
+        // const tmpList: number[] = [];
+        // for(let i = 0; i < boardData.imageCount; i++) {
+        //     tmpList.push(i);
+        // }
+        // setImageList(tmpList);
+    // }, [boardData, activityData]);
 
 //function
     function onImageClickHandler(idx: number): void {
@@ -43,6 +74,14 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
     }
 
     function onLikeClickHandler(): void {
+        const token: MyToken | null = decodeJwt<MyToken>(window.localStorage.getItem('accessToken'));
+        // 토근 정보가 없거나 만료되었을 시 로그인
+        if (token?.exp === undefined || (token.exp * 1000 < Date.now())) {
+            dispatch<any>(callLogoutAPI());
+            alert('사용자 정보가 유효하지 않습니다.');
+            return navigate("/login");
+        }
+        dispatch<any>(callLikeChangeAPI({activityData : activityData, boardCode : boardCode, isLike : isLike}));
         setIsLike(!isLike);
     }
     
@@ -52,12 +91,16 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
                 .then(():void => {
                     alert('주소가 클립보드에 복사되었습니다.');
                 });
-        dispatch<any>(callShareIncrementAPI({boardCode : boardCode}));
+        dispatch<any>(callShareIncrementAPI({activityData : activityData, boardCode : boardCode}));
     }
 
-    function onRemoveClickHandler(): void {
-        console.log(confirm('삭제 메시지 테스트입니당'));
-        
+    async function onRemoveClickHandler(): Promise<void> {
+        if(!confirm('삭제된 게시글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
+        await dispatch<any>(callDeleteBoardAPI({
+            boardCode : boardData.boardCode
+        }))
+        .then(alert('게시글이 삭제되었습니다.'))
+        .then(navigate("/community/lists/all/1"));
     }
 
     return (
@@ -140,18 +183,23 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
                             <img src={IconShare} alt="share" />
                             <p>공유</p>
                         </div>
-                        <div className="detail-footer-button">
-                            <img src={IconEdit} alt="edit" />
-                            <p>글 수정</p>
-                        </div>
-                        <div className="detail-footer-button" onClick={onRemoveClickHandler}>
-                            <img src={IconRemove} alt="remove" />
-                            <p>글 삭제</p>
-                        </div>
+                        {
+                            !!boardData?.isAuthor &&
+                            <>
+                                <div className="detail-footer-button">
+                                    <img src={IconEdit} alt="edit" />
+                                    <p>글 수정</p>
+                                </div>
+                                <div className="detail-footer-button" onClick={onRemoveClickHandler}>
+                                    <img src={IconRemove} alt="remove" />
+                                    <p>글 삭제</p>
+                                </div>
+                            </>
+                        }
                     </div>
                     <div>
-                        <p className="detail-footer-text">이 글을 {boardData.like}명이 좋아합니다.</p>
-                        <p className="detail-footer-text">이 글이 {boardData.share}회 공유되었습니다.</p>
+                        <p className="detail-footer-text">이 글을 {activities.like}명이 좋아합니다.</p>
+                        <p className="detail-footer-text">이 글이 {activities.share}회 공유되었습니다.</p>
                     </div>
                 </div>
             </div>

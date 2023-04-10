@@ -5,6 +5,8 @@ import IconArrowLeft from "../../assets/icon/icon=arrowleft.svg";
 import IconArrowRight from "../../assets/icon/icon=arrowright.svg";
 import { useNavigate } from "react-router-dom";
 import { callBoardRegistAPI } from "apis/BoardAPICalls";
+import { AnyAction } from "redux";
+import UploadLoading from "components/community/UploadLoading";
 
 const LIMIT_TITLE_LENGTH = 100;
 const LIMIT_CONTENT_LENGTH = 1000;
@@ -32,6 +34,7 @@ const BoardWrite = (): JSX.Element => {
     const [urls, setUrls] = useState<string[]>([]);
     const [warnTitle, setWarnTitle] = useState(false);
     const [warnContent, setWarnContent] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(false);
     //console.log(`urls : ${urls.length}`);
     //console.log(`images : `, images);
 
@@ -41,7 +44,7 @@ const BoardWrite = (): JSX.Element => {
     }, [images]);
 
 //function
-    const onBoardCreateClick = (): void => {
+    const onBoardCreateClick = async (): Promise<void> => {
         console.log('게시글 생성 시도');
         if(limit.title === 0) {
             alert('제목을 입력해주세요.');
@@ -67,11 +70,12 @@ const BoardWrite = (): JSX.Element => {
             console.log(`key : ${keyItem}`);
         }
         for(const value of formData.values()) {
-            console.log(`value : ${value}`);
+            console.log('values : ', value);
         }
         
-        
-        dispatch<any>(callBoardRegistAPI({
+        setUploadProgress(true);
+        //(dispatch: JSON, getState: unknown) => Promise<void>
+        await dispatch<any>(callBoardRegistAPI({
             form: formData
         }));
         
@@ -115,7 +119,7 @@ const BoardWrite = (): JSX.Element => {
         setUrls(urlTmps);
     }
     function readFileAsync(file: File): Promise<string> {
-        return new Promise((res: (value: string) => void, rej: (reason: any) => void): void => {
+        return new Promise((res: (value: string) => void, rej: (reason: unknown) => void): void => {
             const fileReader = new FileReader();
             fileReader.onload = (e: ProgressEvent<FileReader>) => {
                 try {
@@ -210,85 +214,91 @@ const BoardWrite = (): JSX.Element => {
     );
 
     return (
-        <div className="com-container com-write-container">
-            <Menu/>
-            <CategoryWrite category={category} setCategory={setCategory}/>
-            <div className="com-write">
-                <div className="write-border">
-                    <div className="write-block">
-                        <p className={`write-limit${warnTitle ? ' write-warning' : ''}`}>글자 수 : {limit.title} / {LIMIT_TITLE_LENGTH}</p>
-                        <input
-                            type="text"
-                            name="title"
-                            className="write-text"
-                            placeholder="제목을 입력해주세요."
-                            value={write.title}
-                            onChange={ onInputChangeHandler }
-                        />
-                    </div>
-                </div>
-                <div className="write-border">
-                    <div className="write-block">
-                        <p className={`write-limit${warnContent ? ' write-warning' : ''}`}>글자 수 : {limit.content} / {LIMIT_CONTENT_LENGTH}</p>
-                        <textarea
-                            name="content"
-                            className="write-text write-textarea"
-                            placeholder="내용을 입력해주세요."
-                            value={write.content}
-                            onChange={ onInputChangeHandler }
-                        ></textarea>
-                    </div>
-                    <div className="write-image-block">
-                        <div className="write-image-insert">
-                            <div className='category-btn btn-active' onClick={(onImageAttachClick)}>사진 첨부</div>
+        <>
+            {
+                !uploadProgress &&
+                <UploadLoading/>
+            }
+            <div className="com-container com-write-container">
+                <Menu/>
+                <CategoryWrite category={category} setCategory={setCategory}/>
+                <div className="com-write">
+                    <div className="write-border">
+                        <div className="write-block">
+                            <p className={`write-limit${warnTitle ? ' write-warning' : ''}`}>글자 수 : {limit.title} / {LIMIT_TITLE_LENGTH}</p>
                             <input
-                                style={{display: 'none'}}
-                                type="file"
-                                name="fileItem"
-                                multiple
-                                accept="image/jpg,image/png,image/jpeg,image/gif"
-                                ref={ imageAttach }
-                                onChange={ onImageUploadChange }
+                                type="text"
+                                name="title"
+                                className="write-text"
+                                placeholder="제목을 입력해주세요."
+                                value={write.title}
+                                onChange={ onInputChangeHandler }
                             />
-                            <div className="write-image-limit">
-                                <p className={'write-limit'}>사진 : {limit.image} / {LIMIT_PHOTO_AMOUNT}</p>
-                                <p className={'write-limit'}>용량 : {getBytesDisplay(limit.size)} / {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
-                                <div className="size-limit-bar">
-                                    <div className="size-limit-max"/>
-                                    <div className="size-limit-use" style={{width: `calc(${limit.size / LIMIT_PHOTO_SIZE * 100}%)`}}/>
+                        </div>
+                    </div>
+                    <div className="write-border">
+                        <div className="write-block">
+                            <p className={`write-limit${warnContent ? ' write-warning' : ''}`}>글자 수 : {limit.content} / {LIMIT_CONTENT_LENGTH}</p>
+                            <textarea
+                                name="content"
+                                className="write-text write-textarea"
+                                placeholder="내용을 입력해주세요."
+                                value={write.content}
+                                onChange={ onInputChangeHandler }
+                            ></textarea>
+                        </div>
+                        <div className="write-image-block">
+                            <div className="write-image-insert">
+                                <div className='category-btn btn-active' onClick={(onImageAttachClick)}>사진 첨부</div>
+                                <input
+                                    style={{display: 'none'}}
+                                    type="file"
+                                    name="fileItem"
+                                    multiple
+                                    accept="image/jpg,image/png,image/jpeg,image/gif"
+                                    ref={ imageAttach }
+                                    onChange={ onImageUploadChange }
+                                />
+                                <div className="write-image-limit">
+                                    <p className={'write-limit'}>사진 : {limit.image} / {LIMIT_PHOTO_AMOUNT}</p>
+                                    <p className={'write-limit'}>용량 : {getBytesDisplay(limit.size)} / {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
+                                    <div className="size-limit-bar">
+                                        <div className="size-limit-max"/>
+                                        <div className="size-limit-use" style={{width: `calc(${limit.size / LIMIT_PHOTO_SIZE * 100}%)`}}/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="write-image-list">
-                        {
-                            urls?.map((urlstr: string, idx: number): JSX.Element => (
-                                <div key={idx} className={`write-image-item${idx === 0 ? ' write-image-thumbnail' : ''}`}>
-                                    <img src={urlstr} alt="attachment"/>
-                                    {
-                                        idx === 0 &&
-                                        <div className="write-icon write-thumbnail">대표</div>
-                                    }
-                                    <div className="write-icon write-remove" onClick={() => onImageRemoveClick(idx)}>X</div>
-                                    {
-                                        idx > 0 &&
-                                        <div className="write-icon write-left" onClick={() => onImageMoveClick(idx, idx-1)}>
-                                            <img src={IconArrowLeft} alt="moveLeft" />
-                                        </div>
-                                    }
-                                    {
-                                        idx < limit.image-1 &&
-                                        <div className="write-icon write-right" onClick={() => onImageMoveClick(idx, idx+1)}>
-                                            <img src={IconArrowRight} alt="moveRight" />
-                                        </div>
-                                    }
-                                </div>
-                            ))
-                        }
+                            <div className="write-image-list">
+                            {
+                                urls?.map((urlstr: string, idx: number): JSX.Element => (
+                                    <div key={idx} className={`write-image-item${idx === 0 ? ' write-image-thumbnail' : ''}`}>
+                                        <img src={urlstr} alt="attachment"/>
+                                        {
+                                            idx === 0 &&
+                                            <div className="write-icon write-thumbnail">대표</div>
+                                        }
+                                        <div className="write-icon write-remove" onClick={() => onImageRemoveClick(idx)}>X</div>
+                                        {
+                                            idx > 0 &&
+                                            <div className="write-icon write-left" onClick={() => onImageMoveClick(idx, idx-1)}>
+                                                <img src={IconArrowLeft} alt="moveLeft" />
+                                            </div>
+                                        }
+                                        {
+                                            idx < limit.image-1 &&
+                                            <div className="write-icon write-right" onClick={() => onImageMoveClick(idx, idx+1)}>
+                                                <img src={IconArrowRight} alt="moveRight" />
+                                            </div>
+                                        }
+                                    </div>
+                                ))
+                            }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
