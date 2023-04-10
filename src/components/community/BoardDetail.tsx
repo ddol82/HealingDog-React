@@ -5,7 +5,8 @@ import { callGetBoardDetailAPI } from "apis/BoardAPICalls";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
 import IconArrowLeft from "../../assets/icon/icon=arrowleft.svg"
 import IconArrowRight from "../../assets/icon/icon=arrowright.svg"
-import IconLike from "../../assets/icon/icon=like.svg"
+import IconLikeFalse from "../../assets/icon/icon=like, Style=false.svg"
+import IconLikeTrue from "../../assets/icon/icon=like, Style=true.svg"
 import IconShare from "../../assets/icon/icon=share.svg"
 import IconEdit from "../../assets/icon/icon=edit.svg"
 import IconRemove from "../../assets/icon/icon=remove.svg"
@@ -14,6 +15,7 @@ import { callShareIncrementAPI } from "apis/CommunityIncrementAPICalls";
 type detailProps = {
     boardCode: number
 }
+
 const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
     const dispatch = useDispatch();
     const boardData: BoardFull = useSelector((state: any) => state.boardReducer);
@@ -38,6 +40,10 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
 //function
     function onImageClickHandler(idx: number): void {
         setImageCursor(idx);
+    }
+
+    function onLikeClickHandler(): void {
+        setIsLike(!isLike);
     }
     
     function onShareClickHandler(): void {
@@ -126,8 +132,8 @@ const BoardDetail = ({boardCode}: detailProps): JSX.Element => {
                 
                 <div className="detail-footer">
                     <div className="detail-footer-btn-list">
-                        <div className="detail-footer-button">
-                            <img src={IconLike} alt="like" />
+                        <div className={`detail-footer-button${isLike ? ' liked' : ''}`} onClick={onLikeClickHandler}>
+                            <img src={isLike ? IconLikeTrue : IconLikeFalse} alt="detail-like" />
                             <p>좋아요</p>
                         </div>
                         <div className="detail-footer-button" onClick={onShareClickHandler}>

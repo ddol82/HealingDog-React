@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   categoryReducer,
   headlineReducer,
   boardReducer,
-  viewIncrementReducer,
+  viewIncrementReducer
 });
 
 export default rootReducer;
