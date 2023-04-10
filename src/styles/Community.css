@@ -632,3 +632,7 @@
     font-weight: 700;
     line-height: 23px;
 }
+
+.liked {
+    background-color: #32B78440;
+}

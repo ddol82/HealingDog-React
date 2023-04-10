@@ -192,7 +192,7 @@ const BoardWrite = (): JSX.Element => {
     }
 
     const getBytesDisplay = (byte: number): string => {
-        if(byte < 1024) return `${byte.toFixed(2)} B`;
+        if(byte < 1024) return `${byte.toFixed(0)} B`;
         if(byte < 1048576) return `${(byte / 1024).toFixed(2)} KB`;
         return `${(byte / 1048576).toFixed(2)} MB`;
     }
