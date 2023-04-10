@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Beautyboard from "./pages/Beautyboard";
 import BoardingManagement from "./pages/BoardingManagement";
+import BeautyReservationDetail from "./pages/beauty/BeautyReservationDetail";
 import Careboard from "./pages/Careboard";
 import Kindergardenboard from "./pages/Kindergardenboard";
 import Trainingboard from "./pages/Trainingboard";
@@ -45,6 +46,10 @@ function App() {
           <Route path="/provider/walking-board" element={<Walkingboard />} />
           <Route path="/provider/training-board" element={<Trainingboard />} />
           <Route path="/provider/beauty-board" element={<Beautyboard />} />
+          <Route
+            path="/provider/beauty-board/:id"
+            element={<BeautyReservationDetail />}
+          />
           <Route
             path="/provider/boarding-board"
             element={<BoardingManagement />}

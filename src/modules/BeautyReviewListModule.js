@@ -4,21 +4,21 @@ import { createActions, handleActions } from "redux-actions";
 const initialState = [];
 
 /* 액션 */
-export const GET_BEAUTY_REVIEW = "beauty/GET_BEAUTY_REVIEW";
+export const GET_BEAUTY_REVIEWS = "beauty/GET_BEAUTY_REVIEWS";
 // eslint-disable-next-line
 const actions = createActions({
   // eslint-disable-next-line
-  [GET_BEAUTY_REVIEW]: () => {},
+  [GET_BEAUTY_REVIEWS]: () => {},
 });
 
 /* 리듀서 */
-const beautyReviewReducer = handleActions(
+const beautyReviewListReducer = handleActions(
   {
-    [GET_BEAUTY_REVIEW]: (state, { payload }) => {
+    [GET_BEAUTY_REVIEWS]: (state, { payload }) => {
       return payload;
     },
   },
   initialState
 );
 
-export default beautyReviewReducer;
+export default beautyReviewListReducer;
