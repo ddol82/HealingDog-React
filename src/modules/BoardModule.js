@@ -8,6 +8,7 @@ export const GET_BOARD        = 'community/GET_BOARD';
 export const GET_BOARD_DETAIL = 'community/GET_BOARD_DETAIL';
 export const POST_BOARD_REGIST= 'community/POST_BOARD_REGIST';
 export const POST_BOARD_DELETE= 'community/POST_BOARD_DELETE';
+
 // eslint-disable-next-line
 const actions = createActions({
     // eslint-disable-next-line

@@ -55,12 +55,10 @@ export const callGetBoardDetailAPI = ({boardCode}) => {
 export const callBoardRegistAPI = ({form}) => {
     console.log('[CommunityAPICalls] callBoardRegistAPI Call');
 
-    
-
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/boards/write/confirm`;
 
     return async (dispatch, getState) => {
-        console.log(JSON.stringify(form));
+        let reader = null;
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
@@ -68,7 +66,8 @@ export const callBoardRegistAPI = ({form}) => {
                 "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
             },
             body: form
-        });
+        }).then(response => response.json());
+        
         console.log('[ProduceAPICalls] callBoardRegistAPI RESULT : ', result);
         dispatch({
             type: POST_BOARD_REGIST,
@@ -88,12 +87,12 @@ export const callDeleteBoardAPI = ({boardCode}) => {
                 "Accept": "*/*",
                 "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
             }
-        }).then(response => response.json());
+        }).then(res => res.json());
 
         console.log('[ProduceAPICalls] callDeleteBoardAPI RESULT : ', result);
 
         dispatch({
-            type: POST_BOARD_REGIST,
+            type: POST_BOARD_DELETE,
             payload: result.data
         })
     }

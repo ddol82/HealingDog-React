@@ -5,7 +5,6 @@ import IconArrowLeft from "../../assets/icon/icon=arrowleft.svg";
 import IconArrowRight from "../../assets/icon/icon=arrowright.svg";
 import { useNavigate } from "react-router-dom";
 import { callBoardRegistAPI } from "apis/BoardAPICalls";
-import { AnyAction } from "redux";
 import UploadLoading from "components/community/UploadLoading";
 
 const LIMIT_TITLE_LENGTH = 100;
@@ -79,6 +78,7 @@ const BoardWrite = (): JSX.Element => {
             form: formData
         }));
         
+        setUploadProgress(false);
         console.log('게시글 생성 종료');
         navigate('/community/lists/all/1', {replace: true});
         window.location.reload();
@@ -216,7 +216,7 @@ const BoardWrite = (): JSX.Element => {
     return (
         <>
             {
-                !uploadProgress &&
+                uploadProgress &&
                 <UploadLoading/>
             }
             <div className="com-container com-write-container">
@@ -260,8 +260,8 @@ const BoardWrite = (): JSX.Element => {
                                     onChange={ onImageUploadChange }
                                 />
                                 <div className="write-image-limit">
-                                    <p className={'write-limit'}>사진 : {limit.image} / {LIMIT_PHOTO_AMOUNT}</p>
-                                    <p className={'write-limit'}>용량 : {getBytesDisplay(limit.size)} / {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
+                                    <p className='write-limit'>사진 : {limit.image} / {LIMIT_PHOTO_AMOUNT}</p>
+                                    <p className='write-limit'>용량 : {getBytesDisplay(limit.size)} / {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
                                     <div className="size-limit-bar">
                                         <div className="size-limit-max"/>
                                         <div className="size-limit-use" style={{width: `calc(${limit.size / LIMIT_PHOTO_SIZE * 100}%)`}}/>

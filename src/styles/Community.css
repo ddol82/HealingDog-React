@@ -307,7 +307,7 @@
 
 .write-textarea {
     resize: none;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 .write-limit {
@@ -451,8 +451,10 @@
 /* Loading */   /* Loading */   /* Loading */   /* Loading */   /* Loading */   /* Loading */   /* Loading */   /* Loading */
 .load-upload-back {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-self: center;
+    justify-content: center;
+    gap: 50px;
     z-index: 100;
 
     position: fixed;
@@ -461,6 +463,12 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+.load-upload-back p {
+    font-size: 40px;
+    font-weight: 700;
+    color: #ffffff;
 }
 
 /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */     /* Detail */
@@ -650,4 +658,63 @@
 
 .liked {
     background-color: #32B78440;
+}
+
+/* Comment */   /* Comment */   /* Comment */   /* Comment */   /* Comment */   /* Comment */   /* Comment */   /* Comment */   
+.detail-write-block {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.detail-write-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    width: 600px;
+}
+
+.detail-write-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 40px;
+
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    background-color: #32B784;
+}
+
+.detail-write-btn p {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.detail-write-upper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.comment-textarea {
+    width: 600px;
+}
+
+.comment-count {
+    width: 680px;
+}
+
+.comment-count p {
+    font-size: 24px;
+    line-height: 35px;
+    margin-left: 10px;
+}
+
+.comment-empty p {
+    color: #999999;
 }
