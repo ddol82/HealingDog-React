@@ -7,18 +7,20 @@ import categoryReducer from "./CommunityModule";
 import headlineReducer from "./HeadlineModule";
 import boardReducer from "./BoardModule";
 import beautyReservationReducer from "./BeautyReservationModule";
-import communityIncrementReducer from "./CommunityIncrementModule";
+import beautyReviewReducer from "./BeautyReviewModule";
+import viewIncrementReducer from "./CommunityIncrementModule";
 
 const rootReducer = combineReducers({
-    memberReducer,
-    reviewReducer,
-    boardingReducer,
-    beautyReducer,
-    beautyReservationReducer,
-    categoryReducer,
-    headlineReducer,
-    boardReducer,
-    communityIncrementReducer
+  memberReducer,
+  reviewReducer,
+  boardingReducer,
+  beautyReducer,
+  beautyReservationReducer,
+  beautyReviewReducer,
+  categoryReducer,
+  headlineReducer,
+  boardReducer,
+  viewIncrementReducer
 });
 
 export default rootReducer;

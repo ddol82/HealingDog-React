@@ -18,7 +18,7 @@ function Review() {
   useEffect(
     () => {
       console.log(`[component-rendering] : Review`);
-      if(getReviews == null) {
+      if (getReviews == null) {
         console.log(`[dispatch] : callSelectReviewsAPI`);
         dispatch(callSelectReviewsAPI(params));
       }
@@ -29,18 +29,29 @@ function Review() {
   // event-handler
   // 별점반환
   const scoreToStar = (score) => {
-    let star ="";
-    switch (Math.round(score)) {      
-      case 1: star = "⭐"; break;
-      case 2: star = "⭐⭐"; break;
-      case 3: star = "⭐⭐⭐"; break;
-      case 4: star = "⭐⭐⭐⭐"; break;
-      case 5: star = "⭐⭐⭐⭐⭐"; break;
-      default:  star = "☆";  break;
+    let star = "";
+    switch (Math.round(score)) {
+      case 1:
+        star = "⭐";
+        break;
+      case 2:
+        star = "⭐⭐";
+        break;
+      case 3:
+        star = "⭐⭐⭐";
+        break;
+      case 4:
+        star = "⭐⭐⭐⭐";
+        break;
+      case 5:
+        star = "⭐⭐⭐⭐⭐";
+        break;
+      default:
+        star = "☆";
+        break;
     }
     return star;
-  }
-
+  };
 
   return (
     <div className="reivews-wrapper">
@@ -48,8 +59,13 @@ function Review() {
         getReviews.map((review) => (
           <div className="review" key={review.reviewsCode}>
             <div className="review-user">
-              <span className="review-user-regdate">{`${review.registDate.substring(0, 10)}`}</span>
-              <span className="review-user-star">{scoreToStar(review.score)}</span>
+              <span className="review-user-regdate">{`${review.registDate.substring(
+                0,
+                10
+              )}`}</span>
+              <span className="review-user-star">
+                {scoreToStar(review.score)}
+              </span>
             </div>
             <div className="review-image">
               <h1>Image</h1>
@@ -57,8 +73,6 @@ function Review() {
             <div className="review-contest">
               <p>{`${review.content}`}</p>
             </div>
-            
-            
           </div>
         ))}
     </div>

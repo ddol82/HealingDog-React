@@ -23,56 +23,18 @@ function calculateAge(birthDateString) {
 }
 
 function Reservation(props) {
-  const dispatch = useDispatch();
-  const myPetInfo = useSelector((state) => state.memberReducer.data);
-
-  const [form, setForm] = useState({
-    mypetCode: "",
-    name: "",
-    gender: "",
-    variety: "",
-    birthday: "",
-    weight: "",
-    neutered: "",
-    animalHospital: "",
-    referenceInfo: "",
-  });
-
-  useEffect(async () => {
-    dispatch(callMypetAPI({ mypetCode: props.mypetCode }));
-  }, []);
-
-  useEffect(() => {
-    if (!myPetInfo != true) {
-      setForm({
-        mypetCode: myPetInfo.mypetCode,
-        name: myPetInfo.name,
-        gender: myPetInfo.gender,
-        variety: myPetInfo.variety,
-        birthday: myPetInfo.birthday,
-        weight: myPetInfo.weight,
-        neutered: myPetInfo.neutered,
-        animalHospital: myPetInfo.animalHospital,
-        referenceInfo: myPetInfo.referenceInfo,
-      });
-    }
-  }, [props.mypetCode, myPetInfo]);
-
-  const age = calculateAge(form.birthday);
+  const age = calculateAge(props.birthday);
 
   return (
     <>
       <div className="reservation-box">
         <div className="user-img"></div>
         <div className="reservation-info">
-          <p className="reservation-user-name">
-            {form.name}
-            {props.mypetCode}
-          </p>
+          <p className="reservation-user-name">{props.name}</p>
           <div className="reservation-item">
-            <p>{form.gender === "M" ? "남아" : "여아"}</p>
+            <p>{props.gender === "M" ? "남아" : "여아"}</p>
             <p>{age == 0 ? 1 : age}살</p>
-            <p>{form.weight}</p>
+            <p>{props.weight}</p>
           </div>
         </div>
         <div className="reservation-time">{props.date}</div>

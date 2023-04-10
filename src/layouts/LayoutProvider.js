@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 
 const LayoutProvider = () => {
   return (
-    <div className="container">
+    <div className="container-provider">
       <Sidebar />
       <main>
         <Header />

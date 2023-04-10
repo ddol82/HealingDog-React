@@ -10,6 +10,10 @@
   background: #eee;
   flex-direction: column;
 }
+.container-provider {
+  display: flex;
+  background: #eee;
+}
 main {
   min-height: 100vh;
   padding: 20px;
