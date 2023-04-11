@@ -1,4 +1,9 @@
-import { GET_MYPET, POST_LOGIN, POST_SIGNUP } from "../modules/MemberModule";
+import {
+  GET_MEMBER,
+  GET_MYPET,
+  POST_LOGIN,
+  POST_SIGNUP,
+} from "../modules/MemberModule";
 
 // 로그인 API 로 form = { memberId:'id', memberPwd:'pwd'} 값 전달
 export const callLoginUserAPI = ({ form }) => {
@@ -163,5 +168,25 @@ export const callProviderSignUpAPI = ({ provider }) => {
     if (result.status === 201) {
       dispatch({ type: POST_SIGNUP, payload: result });
     }
+  };
+};
+
+export const callMyPageUserInfoAPI = () => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/mypage/user`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    console.log(
+      "[callMyPageUserInfoAPI] callMyPageUserInfoAPI RESULT : ",
+      result
+    );
+    dispatch({ type: GET_MEMBER, payload: result });
   };
 };

@@ -9,10 +9,13 @@ import headlineReducer from "./HeadlineModule";
 import boardReducer from "./BoardModule";
 import beautyReservationReducer from "./BeautyReservationModule";
 import beautyReviewReducer from "./BeautyReviewModule";
+import myPetReducer from "./MyPetModule";
 import viewActivityReducer from "./CommunityActivityModule";
 import beautyReviewListReducer from "./BeautyReviewListModule";
 
+
 const rootReducer = combineReducers({
+  myPetReducer,
   memberReducer,
   reviewReducer,
   boardingReducer,
@@ -25,6 +28,7 @@ const rootReducer = combineReducers({
   headlineReducer,
   boardReducer,
   viewActivityReducer
+
 });
 
 export default rootReducer;

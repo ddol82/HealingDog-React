@@ -1,0 +1,97 @@
+.mypage-main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.mypage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.mypage-profile {
+  width: 700px;
+  height: 237px;
+
+  background: #ffffff;
+  border-radius: 8px;
+}
+.mypage-myprofile {
+  box-sizing: border-box;
+  width: 350px;
+  height: 236px;
+  float: left;
+  margin: auto;
+  border: 0.5px solid #000000;
+  border-radius: 8px;
+}
+
+.mypage-myprofile-title {
+  width: 131px;
+  height: 30px;
+  border-radius: 20px;
+  text-align: center;
+  margin: auto;
+}
+
+.mypage-myprofile-image {
+  width: 165px;
+  height: 180px;
+  float: left;
+  border-radius: 8px;
+  text-align: center;
+  margin: auto;
+}
+
+.mypage-myprofile-simpleinfo {
+  width: 165px;
+  height: 180px;
+  float: left;
+  border-radius: 8px;
+  text-align: center;
+  margin: auto;
+}
+
+.mypage-mypet {
+  box-sizing: border-box;
+  margin: auto;
+  width: 350px;
+  height: 236px;
+  left: 360px;
+  top: 9px;
+  float: left;
+  border: 0.5px solid #000000;
+  border-radius: 8px;
+}
+
+.mypage-mypet-title-insert {
+  display: flex;
+}
+
+.mypage-mypet-title {
+  width: 131px;
+  height: 30px;
+  border-radius: 20px;
+  text-align: center;
+  margin: auto;
+}
+
+.mypage-mypet-insert-button {
+  padding: 0px 6px;
+  background: #32b784;
+  border-radius: 4px;
+  width: 65px;
+  height: 30px;
+
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}

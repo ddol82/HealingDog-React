@@ -17,6 +17,7 @@ import Main from "./pages/user/Main";
 import Community from "./pages/community/Community";
 import Detail from "./pages/community/Detail";
 import BoardWrite from "./pages/community/BoardWrite";
+import MyPage from "./pages/mypage/MyPage";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           />
           <Route path="/community/boards/write" element={<BoardWrite />} />
           <Route path="/reviews/:serviceCategoryCode" element={<Review />} />
+          <Route path="/mypage" element={<MyPage />} />
           {/* <Route path="/care" element={<Care />} />
           <Route path="/walking" element={<Walking />} />
           <Route path="/training" element={<Training />} />
