@@ -58,7 +58,6 @@ export const callBoardRegistAPI = ({form}) => {
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/boards/write/confirm`;
 
     return async (dispatch, getState) => {
-        let reader = null;
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {

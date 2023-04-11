@@ -1,11 +1,13 @@
 import CategoryWrite from "components/community/CategoryWrite";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import IconArrowLeft from "../../assets/icon/icon=arrowleft.svg";
 import IconArrowRight from "../../assets/icon/icon=arrowright.svg";
 import { useNavigate } from "react-router-dom";
 import { callBoardRegistAPI } from "apis/BoardAPICalls";
 import UploadLoading from "components/community/UploadLoading";
+import { MyCategory } from "components/community/types/MyCategory";
+import { callGetCategoryAPI } from "apis/CommunityAPICalls";
 
 const LIMIT_TITLE_LENGTH = 100;
 const LIMIT_CONTENT_LENGTH = 1000;
@@ -16,6 +18,7 @@ const BoardWrite = (): JSX.Element => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const imageAttach = useRef<HTMLInputElement>(null);
+    const categoryList: MyCategory[] = useSelector((state: any) => state.communityReducer);
 
 //state
     const [category, setCategory] = useState(14);
@@ -38,6 +41,10 @@ const BoardWrite = (): JSX.Element => {
     //console.log(`images : `, images);
 
 //useEffect
+    useEffect(() => {
+        dispatch<any>(callGetCategoryAPI());
+    }, []);
+
     useEffect(() => {
         refreshImage();
     }, [images]);
@@ -221,7 +228,7 @@ const BoardWrite = (): JSX.Element => {
             }
             <div className="com-container com-write-container">
                 <Menu/>
-                <CategoryWrite category={category} setCategory={setCategory}/>
+                <CategoryWrite categoryList={categoryList} category={category} setCategory={setCategory}/>
                 <div className="com-write">
                     <div className="write-border">
                         <div className="write-block">
@@ -247,7 +254,7 @@ const BoardWrite = (): JSX.Element => {
                                 onChange={ onInputChangeHandler }
                             ></textarea>
                         </div>
-                        <div className="write-image-block">
+                        <div className="write-image-block community-drag-none">
                             <div className="write-image-insert">
                                 <div className='category-btn btn-active' onClick={(onImageAttachClick)}>사진 첨부</div>
                                 <input

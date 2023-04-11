@@ -28,8 +28,6 @@ const BoardItem = ({ param, pageInfo, setPageInfo, category }: BoardProps): JSX.
     const boardList: BoardFull[] = boardData.item;
     const pageList: PageData = boardData.pageInfo;
     console.log("boardData", boardData);
-    console.log("boardList", boardList);
-    console.log("pageList", pageList);
 
 //effect
     useEffect(() => {

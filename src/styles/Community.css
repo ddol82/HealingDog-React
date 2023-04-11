@@ -1,3 +1,11 @@
+.community-drag-none {
+  -ms-user-select: none; 
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .community-main {
     display: flex;
     flex-direction: column;
@@ -307,7 +315,7 @@
 
 .write-textarea {
     resize: none;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .write-limit {
@@ -383,7 +391,7 @@
     top: 10px;
 
     background-color: #32B784;
-    opacity: 0.8;
+    opacity: .7;
     border-radius: 10px;
     font-weight: 700;
 }
@@ -394,9 +402,17 @@
     top: 10px;
 
     background-color: #ff0000;
-    opacity: 0.8;
+    opacity: .6;
     border-radius: 10px;
     font-weight: 700;
+}
+
+.write-remove:hover {
+    opacity: .8;
+}
+
+.write-remove:active {
+    opacity: 1;
 }
 
 .write-left {
@@ -717,4 +733,51 @@
 
 .comment-empty p {
     color: #999999;
+}
+
+.comment-list-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    width: 680px;
+}
+
+.comment-owner-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.comment-btn {
+    display: flex;
+    align-items: center;
+    height: 25px;
+    cursor: pointer;
+    opacity: .6;
+}
+
+.comment-btn:hover {
+    opacity: .8;
+}
+
+.comment-btn:active {
+    opacity: 1;
+}
+
+.comment-btn-red p{
+    color: #ff0000;
+}
+
+.comment-content-block {
+    width: 680px;
+    padding: 0px 5px;
+}
+
+.comment-content-block p {
+    font-size: 16px;
+    line-height: 23px;
+    white-space: pre-line;
 }

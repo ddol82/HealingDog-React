@@ -24,7 +24,7 @@ const Community = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const params = useParams();
-    const categoryList: MyCategory[] = useSelector((state: any) => state.categoryReducer);
+    const categoryList: MyCategory[] = useSelector((state: any) => state.communityReducer);
     // Store.ts로 type을 export하면 되나, 현재 설정이 js라 리팩토링 필요, 실행을 위한 any 선언
 
 //state

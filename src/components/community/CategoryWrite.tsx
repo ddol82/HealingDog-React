@@ -1,17 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { MyCategory } from '../../components/community/types/MyCategory';
-import { callGetCategoryAPI } from "../../apis/CommunityAPICalls";
 
 type CatWriteProps = {
+    categoryList: MyCategory[],
     category: number,
     setCategory: React.Dispatch<React.SetStateAction<number>>
 }
 
-const CategoryWrite = ({ category, setCategory }: CatWriteProps) => {
-    const dispatch = useDispatch();
-    const categoryList: MyCategory[] = useSelector((state: any) => state.categoryReducer);
-
+const CategoryWrite = ({ categoryList, category, setCategory }: CatWriteProps) => {
     const importantList: MyCategory[] = [];
     const otherList: MyCategory[][] = [];
     if(Array.isArray(categoryList)) {
@@ -24,11 +19,8 @@ const CategoryWrite = ({ category, setCategory }: CatWriteProps) => {
             otherList[i].push(...categoryTemp.splice(0, 4));
         }
     }
-
-//useEffect
-    useEffect(() => {
-        dispatch<any>(callGetCategoryAPI());
-    }, []);
+    console.log(importantList);
+    console.log(otherList);
 
 //function
     const onCategoryClick = (code: number): void => {
