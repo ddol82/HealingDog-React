@@ -98,7 +98,9 @@ function Login() {
               defaultChecked="true"
               onClick={onChangeHandler}
             />
-            <label htmlFor="id-check-01">사용자 로그인</label>
+            <label htmlFor="id-check-01" className="login-check-label">
+              사용자 로그인
+            </label>
             <input
               className="login-check"
               id="id-check-02"
@@ -107,7 +109,9 @@ function Login() {
               value="provider"
               onClick={onChangeHandler}
             />
-            <label htmlFor="id-check-02">제공자 로그인</label>
+            <label htmlFor="id-check-02" className="login-check-label">
+              제공자 로그인
+            </label>
           </div>
           <div className="login-input">
             <div className="login-input-common">

@@ -5,8 +5,10 @@ import { useNavigate, Navigate } from "react-router-dom";
 import "../../styles/MyPage.css";
 import { callMyPageUserInfoAPI } from "apis/MemberAPICalls";
 import MyPetProfileList from "components/mypage/MyPetProfileList";
+import IconAfterLogin from "../../assets/icon/Login=true.svg";
 
 function MyPage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const myInfoList = useSelector((state) => state.memberReducer.data);
 
@@ -33,17 +35,29 @@ function MyPage() {
     []
   );
 
+  const onClickMyProfileHandler = () => {
+    navigate("/myprofile/:userCode");
+  };
+
   return (
     <div className="mypage-main">
       <div className="mypage-container">
         <div className="mypage-profile">
-          <div className="mypage-myprofile">
+          <div className="mypage-myprofile" onClick={onClickMyProfileHandler}>
             <div className="mypage-myprofile-title">내프로필</div>
-            <div className="mypage-myprofile-image">회원사진</div>
+            <div className="mypage-myprofile-image">
+              <img src={IconAfterLogin} style={{ width: "100%" }} />
+            </div>
             <div className="mypage-myprofile-simpleinfo">
-              {form.name}
-              {form.email}
-              {form.phone}
+              <div className="mypage-myprofile-simpleinfo-column">
+                {form.name}
+              </div>
+              <div className="mypage-myprofile-simpleinfo-column">
+                {form.email}
+              </div>
+              <div className="mypage-myprofile-simpleinfo-column">
+                {form.phone}
+              </div>
             </div>
           </div>
           <div className="mypage-mypet">
