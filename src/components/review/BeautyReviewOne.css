@@ -1,0 +1,76 @@
+.beauty-review-One {
+  padding: 42px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.beauty-review-top {
+  padding: 0px 85px 0 0px;
+  display: flex;
+  gap: 10px;
+}
+.beauty-review-top-img {
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 20px;
+}
+.beauty-review-top-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.beauty-review-name {
+  font-weight: 500;
+  font-size: 18px;
+}
+.beauty-review-info2 {
+  display: flex;
+  gap: 10px;
+}
+.beauty-review-score,
+.beauty-review-date {
+  font-weight: 400;
+  font-size: 16px;
+}
+.beauty-review-body {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.beauty-review-wrap {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+.beauty-review-center {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.beauty-review-btn {
+  width: 24px;
+  height: 24px;
+  border-style: none;
+  background: none;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 16px;
+}
+.beauty-review-btn:hover {
+  background: #32b784;
+  color: #fff;
+}
+.beauty-review-comment {
+  width: 280px;
+  height: 80px;
+  line-height: 20px;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

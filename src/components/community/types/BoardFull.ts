@@ -1,14 +1,20 @@
-export interface BoardSimple {
-    code: number,
-    categoryName: string,
+export interface BoardFull {
+    boardCode: number,
+    boardCategoryName: string,
     title: string,
     content: string,
-    profileUrl: string,
+    profileUrl?: string,
     profileName: string,
     uptime: string,
+    uptimestamp: string,
     view: number,
-    share: number,
+    share?: number,
     like: number,
-    thumbnailUrl: string,
-    imageCount: number
+    likeState?: number,
+    originalImageUrl?: string[],
+    thumbnailImageUrl: string,
+    previewImageUrl?: string[],
+    imageCount: number,
+    commentCount: number,
+    isAuthor?: boolean
 }

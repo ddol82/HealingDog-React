@@ -9,7 +9,12 @@
   display: flex;
   background: #eee;
 }
+.container-provider {
+  display: flex;
+  background: #eee;
+}
 main {
+  min-height: 100vh;
   padding: 20px;
   margin: 0 auto;
 }

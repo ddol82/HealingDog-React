@@ -1,0 +1,105 @@
+.signup-container {
+  display: flex;
+  background: #eee;
+  flex-direction: column;
+}
+.signup-main {
+  min-height: 100vh;
+  padding: 20px;
+  margin: 0 auto;
+
+  width: 700px;
+
+  left: 370px;
+  top: -2px;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+}
+
+.signup-center {
+  margin: 0 auto;
+  width: 280px;
+  height: 700px;
+}
+
+.signup-titlename {
+  text-align: center;
+  color: #32b784;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 29px;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.signup-checkmember {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.signup-check {
+  opacity: 0;
+}
+
+label {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.signup-checkmember input[type="radio"]:checked + label {
+  background: #32b784;
+  color: white;
+}
+
+.signup-input {
+  text-align: center;
+}
+
+.signup-input-common {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  margin-top: 50px;
+}
+
+.signup-input-column {
+  width: 280px;
+  height: 28px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+
+.signup-button {
+  margin-top: 50px;
+}
+
+.signup-button-back {
+  margin-top: 30px;
+}
+
+.signup-button-login {
+  width: 230px;
+  height: 36px;
+  background-color: #32b784;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}
+
+.signup-button-findaddress {
+  width: 80px;
+  height: 28px;
+  background-color: #32b784;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+}

@@ -1,0 +1,17 @@
+.todo-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 260px;
+  height: 24px;
+}
+.todo-today {
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+
+  /* 서브1 */
+
+  color: #7c7c7c;
+}
