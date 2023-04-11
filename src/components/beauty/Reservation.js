@@ -1,9 +1,7 @@
 import "./Reservation.css";
 
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { callMypetAPI } from "apis/MemberAPICalls";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function calculateAge(birthDateString) {
   const birthDate = new Date(birthDateString);
@@ -25,9 +23,18 @@ function calculateAge(birthDateString) {
 function Reservation(props) {
   const age = calculateAge(props.birthday);
 
+  const navigate = useNavigate();
+
+  const onClickBeautyReservationHandler = (mypetCode) => {
+    navigate(`/provider/beauty-board/${mypetCode}`, { replace: false });
+  };
+
   return (
     <>
-      <div className="reservation-box">
+      <div
+        className="reservation-box"
+        onClick={() => onClickBeautyReservationHandler(props.mypetCode)}
+      >
         <div className="user-img"></div>
         <div className="reservation-info">
           <p className="reservation-user-name">{props.name}</p>

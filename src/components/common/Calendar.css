@@ -24,8 +24,7 @@
 }
 
 .react-calendar__tile--active {
-  background: #fff !important;
-  border: 0.5px solid #32b784 !important;
+  background: #32b784 !important;
 }
 .react-calendar button {
   width: 60px;
@@ -49,7 +48,8 @@
   background: #fff;
 }
 .react-calendar__tile--now {
-  background: #32b784;
+  background: #fff !important;
+  border: 0.5px solid #32b784 !important;
 }
 .react-calendar__navigation {
   padding: 6px 10px;
