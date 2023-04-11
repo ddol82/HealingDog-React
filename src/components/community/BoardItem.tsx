@@ -1,5 +1,5 @@
 import { callGetBoardListAPI } from "apis/BoardAPICalls";
-import { callViewIncrementAPI } from "apis/CommunityIncrementAPICalls";
+import { callViewIncrementAPI } from "apis/CommunityActivityAPICalls";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -48,10 +48,13 @@ const BoardItem = ({ param, pageInfo, setPageInfo, category }: BoardProps): JSX.
     }, [boardData])
 
 //function
-    const onBoardClickHandler = (code: number) => {
-        dispatch<any>(callViewIncrementAPI({
+    const onBoardClickHandler = async (code: number): Promise<void> => {
+        await dispatch<any>(callViewIncrementAPI({
             boardCode : code
-        }));
+        })).then(() => navigateToBoardDetail(code));
+    }
+
+    const navigateToBoardDetail = (code: number): void => {
         navigate(`/community/boards/detail/${code}`);
     }
 

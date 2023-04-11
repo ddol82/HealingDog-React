@@ -4,12 +4,15 @@ import reviewReducer from "./ReviewModule";
 import memberReducer from "./MemberModule";
 import beautyReducer from "./BeautyModule";
 import categoryReducer from "./CommunityModule";
+import commentReducer from "./CommentModule";
 import headlineReducer from "./HeadlineModule";
 import boardReducer from "./BoardModule";
 import beautyReservationReducer from "./BeautyReservationModule";
 import beautyReviewReducer from "./BeautyReviewModule";
-import viewIncrementReducer from "./CommunityIncrementModule";
 import myPetReducer from "./MyPetModule";
+import viewActivityReducer from "./CommunityActivityModule";
+import beautyReviewListReducer from "./BeautyReviewListModule";
+
 
 const rootReducer = combineReducers({
   myPetReducer,
@@ -19,10 +22,13 @@ const rootReducer = combineReducers({
   beautyReducer,
   beautyReservationReducer,
   beautyReviewReducer,
+  beautyReviewListReducer,
   categoryReducer,
+  commentReducer,
   headlineReducer,
   boardReducer,
-  viewIncrementReducer,
+  viewActivityReducer
+
 });
 
 export default rootReducer;

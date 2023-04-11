@@ -10,9 +10,11 @@ export interface BoardFull {
     view: number,
     share?: number,
     like: number,
+    likeState?: number,
     originalImageUrl?: string[],
     thumbnailImageUrl: string,
     previewImageUrl?: string[],
     imageCount: number,
-    commentCount: number
+    commentCount: number,
+    isAuthor?: boolean
 }

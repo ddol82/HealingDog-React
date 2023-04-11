@@ -5,6 +5,7 @@ const initialState = [];
 
 /* 액션 */
 export const GET_CATEGORY     = 'community/GET_CATEGORY';
+
 // eslint-disable-next-line
 const actions = createActions({
     // eslint-disable-next-line
