@@ -1,7 +1,8 @@
 import {
     GET_BOARD,
     GET_BOARD_DETAIL,
-    POST_BOARD_REGIST
+    POST_BOARD_REGIST,
+    POST_BOARD_DELETE
 } from '../modules/BoardModule.js';
 
 export const callGetBoardListAPI = ({categoryType, currPage}) => {
@@ -37,7 +38,8 @@ export const callGetBoardDetailAPI = ({boardCode}) => {
             method: "GET",
             headers: {
                 "Content-Type": "application.json",
-                "Accept": "*/*"
+                "Accept": "*/*",
+                "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
             }
         }).then(response => response.json());
 
@@ -53,11 +55,10 @@ export const callGetBoardDetailAPI = ({boardCode}) => {
 export const callBoardRegistAPI = ({form}) => {
     console.log('[CommunityAPICalls] callBoardRegistAPI Call');
 
-    
-
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/boards/write/confirm`;
 
     return async (dispatch, getState) => {
+        let reader = null;
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
@@ -66,12 +67,34 @@ export const callBoardRegistAPI = ({form}) => {
             },
             body: form
         }).then(response => response.json());
-
+        
         console.log('[ProduceAPICalls] callBoardRegistAPI RESULT : ', result);
-
         dispatch({
             type: POST_BOARD_REGIST,
+            payload: result.data
+        });
+    }
+}
+
+export const callDeleteBoardAPI = ({boardCode}) => {
+    console.log('[CommunityAPICalls] callDeleteBoardAPI Call');
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/boards/delete/${boardCode}`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "DELETE",
+            headers: {
+                "Accept": "*/*",
+                "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+            }
+        }).then(res => res.json());
+
+        console.log('[ProduceAPICalls] callDeleteBoardAPI RESULT : ', result);
+
+        dispatch({
+            type: POST_BOARD_DELETE,
             payload: result.data
         })
     }
 }
+

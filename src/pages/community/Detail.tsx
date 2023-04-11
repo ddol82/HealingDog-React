@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Banner from 'components/community/Banner';
 import BoardDetail from 'components/community/BoardDetail';
+import CommentDetail from 'components/community/CommentDetail';
+import WriteDetail from 'components/community/WriteDetail';
 
 const Detail = () => {
     const params = useParams();
@@ -19,8 +20,12 @@ const Detail = () => {
             <Banner/>
             <div className='com-container'>
                 {
-                    !isNaN(boardCode) &&
-                    <BoardDetail boardCode={ boardCode }/>
+                    boardCode &&
+                    <>
+                        <BoardDetail boardCode={ boardCode }/>
+                        <WriteDetail boardCode={ boardCode }/>
+                        <CommentDetail boardCode={ boardCode }/>
+                    </>
                 }
             </div>
         </div>

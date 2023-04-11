@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/Community.css";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
 import { BoardSimple } from "./types/BoardSimple";
-import { callViewIncrementAPI } from "apis/CommunityIncrementAPICalls";
+import { callViewIncrementAPI } from "apis/CommunityActivityAPICalls";
 
 const HeadlineItem = () => {
     const navigate = useNavigate();
