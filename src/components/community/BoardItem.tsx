@@ -8,11 +8,15 @@ import IconAfterLogin from "../../assets/icon/Login=true.svg";
 import { BoardFull } from "./types/BoardFull";
 import { PageData } from "./types/PageData";
 
-type BoardProps = {
+type BoardItemProps = {
     param: string,
     pageInfo: PageData,
     setPageInfo: React.Dispatch<React.SetStateAction<PageData>>,
     category: string
+}
+
+type BoardProps = {
+    board: BoardFull
 }
 
 type BoardWithPaging = {
@@ -20,7 +24,7 @@ type BoardWithPaging = {
     item: BoardFull[]
 }
 
-const BoardItem = ({ param, pageInfo, setPageInfo, category }: BoardProps): JSX.Element => {
+const BoardItem = ({ param, pageInfo, setPageInfo, category }: BoardItemProps): JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -56,36 +60,35 @@ const BoardItem = ({ param, pageInfo, setPageInfo, category }: BoardProps): JSX.
         navigate(`/community/boards/detail/${code}`);
     }
 
-    const Board = ({boardCode, boardCategoryName, title, content, profileName,
-                uptime, view, like, commentCount, thumbnailImageUrl, imageCount}: BoardFull): JSX.Element => (
-        <div className="board-full" onClick={() => onBoardClickHandler(boardCode)}>
-            <div className={`board-content${thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
-                <p className={"board-category"}>{boardCategoryName}</p>
-                <div className={`board-title-block${thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
-                    <p className="board-title-text">{title}</p>
+    const Board = ({board}: BoardProps): JSX.Element => (
+        <div className="board-full" onClick={() => onBoardClickHandler(board.boardCode)}>
+            <div className={`board-content${board.thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
+                <p className={"board-category"}>{board.boardCategoryName}</p>
+                <div className={`board-title-block${board.thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
+                    <p className="board-title-text">{board.title}</p>
                 </div>
-                <div className={`board-detail-block${thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
-                    <p className={`board-detail-text${thumbnailImageUrl ? ' bd-contains-image' : ''}`}>{content}</p>
+                <div className={`board-detail-block${board.thumbnailImageUrl ? ' bd-contains-image' : ''}`}>
+                    <p className={`board-detail-text${board.thumbnailImageUrl ? ' bd-contains-image' : ''}`}>{board.content}</p>
                 </div>
                 <div className="board-info">
                     <div className="community-profile">
                         <img className="img-profile" src={IconAfterLogin} alt="profile"/>
-                        <p className="text-profile-name">{profileName}</p>
+                        <p className="text-profile-name">{board.profileName}</p>
                     </div>
-                    <p>{uptime}</p>
-                    <p>조회 {view}</p>
-                    <p>좋아요 {like}</p>
-                    <p>댓글 {commentCount}</p>
+                    <p>{board.uptime}</p>
+                    <p>조회 {board.view}</p>
+                    <p>좋아요 {board.like}</p>
+                    <p>댓글 {board.commentCount}</p>
                 </div>
             </div>
             {
-                thumbnailImageUrl &&
+                board.thumbnailImageUrl &&
                 <div className="board-image">
-                    <img className="board-thumbnail" src={process.env.REACT_APP_IMAGE_DIR + 'board/' + thumbnailImageUrl} alt="thumbnail"/>
+                    <img className="board-thumbnail" src={process.env.REACT_APP_IMAGE_DIR + 'board/' + board.thumbnailImageUrl} alt="thumbnail"/>
                     {
-                        imageCount > 1 &&
+                        board.imageCount > 1 &&
                         <div className="board-image-count">
-                            <p>+{imageCount - 1}</p>
+                            <p>+{board.imageCount - 1}</p>
                         </div>
                     }
                 </div>
@@ -97,21 +100,7 @@ const BoardItem = ({ param, pageInfo, setPageInfo, category }: BoardProps): JSX.
         <div className="board-area">
         {
             Array.isArray(boardList) && boardList.map((board: BoardFull) => (
-                <Board key={board.boardCode}
-                    boardCode={board.boardCode}
-                    boardCategoryName={board.boardCategoryName}
-                    title={board.title}
-                    content={board.content}
-                    profileName={board.profileName}
-                    uptime={board.uptime}
-                    uptimestamp=""
-                    view={board.view}
-                    share={board.share}
-                    like={board.like}
-                    commentCount={board.commentCount}
-                    thumbnailImageUrl={board.thumbnailImageUrl}
-                    imageCount={board.imageCount}
-                />
+                <Board key={board.boardCode} board={board}/>
             ))
         }
         </div>

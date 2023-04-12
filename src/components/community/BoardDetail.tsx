@@ -93,6 +93,11 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
                 });
         dispatch<any>(callShareIncrementAPI({activityData : activityData, boardCode : boardCode}));
     }
+    
+    function onUpdateClickHandler(): void {
+        console.log("/community/boards/update/" + boardData.boardCode);
+        navigate("/community/boards/update/" + boardData.boardCode);
+    }
 
     async function onRemoveClickHandler(): Promise<void> {
         if(!confirm('삭제된 게시글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
@@ -186,8 +191,8 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
                         {
                             !!boardData?.isAuthor &&
                             <>
-                                <div className="detail-footer-button">
-                                    <img src={IconEdit} alt="edit" />
+                                <div className="detail-footer-button" onClick={onUpdateClickHandler}>
+                                    <img src={IconEdit} alt="edit"/>
                                     <p>글 수정</p>
                                 </div>
                                 <div className="detail-footer-button" onClick={onRemoveClickHandler}>

@@ -3,24 +3,28 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import IconArrowLeft from "../../assets/icon/icon=arrowleft.svg";
 import IconArrowRight from "../../assets/icon/icon=arrowright.svg";
-import { useNavigate } from "react-router-dom";
-import { callBoardRegistAPI } from "apis/BoardAPICalls";
+import { useNavigate, useParams } from "react-router-dom";
+import { callBoardRegistAPI, callGetBoardDetailAPI } from "apis/BoardAPICalls";
 import UploadLoading from "components/community/UploadLoading";
 import { MyCategory } from "components/community/types/MyCategory";
 import { callGetCategoryAPI } from "apis/CommunityAPICalls";
+import { BoardFull } from "components/community/types/BoardFull";
 
 const LIMIT_TITLE_LENGTH = 100;
 const LIMIT_CONTENT_LENGTH = 1000;
 const LIMIT_PHOTO_AMOUNT = 10;
 const LIMIT_PHOTO_SIZE = 64 * 1024 * 1024;
 
-const BoardWrite = (): JSX.Element => {
+const BoardUpdate = (): JSX.Element => {
+    const params = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const imageAttach = useRef<HTMLInputElement>(null);
     const categoryList: MyCategory[] = useSelector((state: any) => state.communityReducer);
+    const boardData: BoardFull = useSelector((state: any) => state.boardReducer);
 
-//state
+//useState
+    const [boardCode, setBoardCode] = useState(Number(params.boardCode));
     const [category, setCategory] = useState(14);
     const [write, setWrite] = useState({
         title: '',
@@ -30,10 +34,15 @@ const BoardWrite = (): JSX.Element => {
         title: 0,
         content: 0,
         image: 0,
+        beforeSize: 0,
         size: 0
     });
-    const [images, setImages] = useState<File[]>([]);
+    const [images, setImages] = useState<File[]>([...Array(boardData.imageCount)]);
     const [urls, setUrls] = useState<string[]>([]);
+    const [imageSize, setImageSize] = useState<number[]>([]);
+    const [position, setPosition] = useState<number[]>(
+        [...Array(10)].map((_: number, idx: number): number =>idx < boardData.imageCount ? idx : -1)
+    );
     const [warnTitle, setWarnTitle] = useState(false);
     const [warnContent, setWarnContent] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(false);
@@ -43,15 +52,36 @@ const BoardWrite = (): JSX.Element => {
 //useEffect
     useEffect(() => {
         dispatch<any>(callGetCategoryAPI());
+        dispatch<any>(callGetBoardDetailAPI({boardCode : boardCode}));
     }, []);
 
     useEffect(() => {
-        refreshImage();
-    }, [images]);
+        if(!boardData) return;
+        console.log('images : ', images);
+        console.log('position : ', position);
+        console.log('urls : ', urls);
+        
+        setCategory(boardData.boardCategoryCode);
+        setWrite({
+            title: boardData.title,
+            content: boardData.content
+        });
+        if(boardData.imageCount > 0) {
+            setUrls(boardData.originalImageUrl as string[]);
+        }
+        setImageSize(boardData.size);
+        setLimit({
+            title: boardData.title.length,
+            content: boardData.content.length,
+            image: boardData.imageCount,
+            beforeSize: boardData.size.reduce((prev: number, next: number): number => prev + next),
+            size: 0
+        });
+    }, [boardData]);
 
 //function
     const onBoardCreateClick = async (): Promise<void> => {
-        console.log('게시글 생성 시도');
+        console.log('게시글 수정 시도');
         if(limit.title === 0) {
             alert('제목을 입력해주세요.');
             return;
@@ -60,25 +90,16 @@ const BoardWrite = (): JSX.Element => {
             alert('내용을 입력해주세요.');
             return;
         }
-        const sizeArr: number[] = images.map((image: File): number => image.size);
         const boardData: string = JSON.stringify({
             boardCategoryCode: category,
             title: write.title,
-            content: write.content,
-            size: sizeArr
+            content: write.content
         });
         const formData = new FormData();
         //formData.append('boardData', boardData);
         formData.append('boardData', new Blob([boardData], {type : 'application/json'}));
         for(const image of images) {
             formData.append('images', image);
-        }
-
-        for(const keyItem of formData.keys()) {
-            console.log(`key : ${keyItem}`);
-        }
-        for(const value of formData.values()) {
-            console.log('values : ', value);
         }
         
         setUploadProgress(true);
@@ -88,7 +109,7 @@ const BoardWrite = (): JSX.Element => {
         }));
         
         setUploadProgress(false);
-        console.log('게시글 생성 종료');
+        console.log('게시글 수정 종료');
         navigate('/community/lists/all/1', {replace: true});
         window.location.reload();
     }
@@ -109,9 +130,13 @@ const BoardWrite = (): JSX.Element => {
     }
 
     const onImageRemoveClick = (target: number): void => {
+        if(position[target] > -1) {
+            setImageSize([...imageSize.filter((_: number, idx: number): boolean => idx !== target), 0]);
+            setImages(images.filter((_: File, idx: number): boolean => idx !== target));
+            setUrls(urls.filter((_: string, idx: number): boolean => idx !== target));
+            //setPosition()
+        }
         const removeSize = images.filter((_: File, idx: number): boolean => idx === target)[0].size;
-        setImages(images.filter((_: File, idx: number): boolean => idx !== target));
-        setUrls(urls.filter((_: string, idx: number): boolean => idx !== target));
         setLimit({
             ...limit,
             image: limit.image - 1,
@@ -120,11 +145,17 @@ const BoardWrite = (): JSX.Element => {
     }
 
     //비동기 방식인 파일 읽기를 기다리기 위해 Promise 함수를 사용한 Fileread 시작
-    async function refreshImage(): Promise<void> {
+    async function refreshImage(imageCount: number): Promise<void> {
         const urlTmps: string[] = [];
-        for(const image of images) {
-            urlTmps.push(await readFileAsync(image));
+        for(let i = 0; i < imageCount; i++) {
+            if(!images[i]) {
+                urlTmps.push(urls[i]);
+                continue;
+            }
+            urlTmps.push(await readFileAsync(images[i]));
         }
+        console.log('urlTmps : ', urlTmps);
+        
         setUrls(urlTmps);
     }
     function readFileAsync(file: File): Promise<string> {
@@ -133,7 +164,7 @@ const BoardWrite = (): JSX.Element => {
             fileReader.onload = (e: ProgressEvent<FileReader>) => {
                 try {
                     if(!e.target) throw new Error('e.target is null!');
-                    const urlGet = e.target.result as string
+                    const urlGet = e.target.result as string;
                     res(urlGet);
                 } catch(err) {
                     rej(err);
@@ -150,12 +181,13 @@ const BoardWrite = (): JSX.Element => {
 
         const imageTmp: File[] = [];
         let imageCount: number = limit.image;
-        let currSize = limit.size;
+        const beforeSize = limit.beforeSize
+        let currSize =  limit.size;
         let tooBig = 0;
         Array.from(imageList).forEach((file: File) => {
             if(imageCount === 10) return;
-            console.log((currSize + file.size) + " / " + LIMIT_PHOTO_SIZE);
-            if((currSize + file.size) >= LIMIT_PHOTO_SIZE) {
+            console.log((beforeSize + currSize + file.size) + " / " + LIMIT_PHOTO_SIZE);
+            if((beforeSize + currSize + file.size) >= LIMIT_PHOTO_SIZE) {
                 tooBig += 1;
                 return;
             }
@@ -164,7 +196,11 @@ const BoardWrite = (): JSX.Element => {
             imageTmp.push(file);
             imageCount += 1;
         });
-        setImages([...images, ...imageTmp]);
+        console.log('(setImages) images : ', images);
+        console.log('(setImages) imageTmp : ', imageTmp);
+        console.log('(setImages) setImages : ', [...images, ...imageTmp]);
+        
+        setImages(() => [...images, ...imageTmp]);
         setLimit({
             ...limit,
             image: imageCount,
@@ -173,6 +209,7 @@ const BoardWrite = (): JSX.Element => {
         if(tooBig > 0) {
             alert(`첨부 가능한 용량을 초과했습니다.\n${tooBig}건의 파일을 등록하지 못했습니다.`);
         }
+        refreshImage(imageCount);
     }
 
     const onInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -270,10 +307,14 @@ const BoardWrite = (): JSX.Element => {
                                 />
                                 <div className="write-image-limit">
                                     <p className='write-limit'>사진 : {limit.image} / {LIMIT_PHOTO_AMOUNT}</p>
-                                    <p className='write-limit'>용량 : {getBytesDisplay(limit.size)} / {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
+                                    <p className='write-limit'>용량 : {getBytesDisplay(limit.beforeSize + limit.size)} / {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
                                     <div className="size-limit-bar">
                                         <div className="size-limit-max"/>
-                                        <div className="size-limit-use" style={{width: `calc(${limit.size / LIMIT_PHOTO_SIZE * 100}%)`}}/>
+                                        <div className="size-limit-before" style={{width: `calc(${limit.beforeSize / LIMIT_PHOTO_SIZE * 100}%)`}}/>
+                                        <div className="size-limit-use" style={{
+                                            width: `calc(${limit.size / LIMIT_PHOTO_SIZE * 100}%)`,
+                                            left: `calc(${limit.beforeSize / LIMIT_PHOTO_SIZE * 100}%)`
+                                        }}/>
                                     </div>
                                 </div>
                             </div>
@@ -281,7 +322,13 @@ const BoardWrite = (): JSX.Element => {
                             {
                                 urls?.map((urlstr: string, idx: number): JSX.Element => (
                                     <div key={idx} className={`write-image-item${idx === 0 ? ' write-image-thumbnail' : ''}`}>
-                                        <img src={urlstr} alt="attachment"/>
+                                        <img 
+                                            src={!images[idx] ?
+                                                process.env.REACT_APP_IMAGE_DIR + 'board/' + urlstr :
+                                                urlstr
+                                            } 
+                                            alt="attachment"
+                                        />
                                         {
                                             idx === 0 &&
                                             <div className="write-icon write-thumbnail">대표</div>
@@ -311,4 +358,4 @@ const BoardWrite = (): JSX.Element => {
     );
 };
 
-export default BoardWrite;
+export default BoardUpdate;

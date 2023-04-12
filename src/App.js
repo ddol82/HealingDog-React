@@ -18,6 +18,7 @@ import Community from "./pages/community/Community";
 import Detail from "./pages/community/Detail";
 import BoardWrite from "./pages/community/BoardWrite";
 import MyPage from "./pages/mypage/MyPage";
+import BoardUpdate from "pages/community/BoardUpdate";
 
 function App() {
   return (
@@ -25,15 +26,10 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutUser />}>
           <Route index element={<Main />} />
-          <Route
-            path="/community/lists/:categoryType/:currPage"
-            element={<Community />}
-          />
-          <Route
-            path="/community/boards/detail/:boardCode"
-            element={<Detail />}
-          />
+          <Route path="/community/lists/:categoryType/:currPage" element={<Community />}/>
+          <Route path="/community/boards/detail/:boardCode" element={<Detail />}/>
           <Route path="/community/boards/write" element={<BoardWrite />} />
+          <Route path="/community/boards/update/:boardCode" element={<BoardUpdate/>}/>
           <Route path="/reviews/:serviceCategoryCode" element={<Review />} />
           <Route path="/mypage" element={<MyPage />} />
           {/* <Route path="/care" element={<Care />} />

@@ -457,6 +457,14 @@
     transition: width 1s;
 }
 
+.size-limit-before {
+    position: absolute;
+    height: 10px;
+    background-color: #ff7811;
+
+    transition: width 1s;
+}
+
 .size-limit-max {
     position: absolute;
     width: 100%;

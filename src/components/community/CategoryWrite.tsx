@@ -19,8 +19,6 @@ const CategoryWrite = ({ categoryList, category, setCategory }: CatWriteProps) =
             otherList[i].push(...categoryTemp.splice(0, 4));
         }
     }
-    console.log(importantList);
-    console.log(otherList);
 
 //function
     const onCategoryClick = (code: number): void => {
