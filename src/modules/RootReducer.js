@@ -16,6 +16,7 @@ import beautyReviewListReducer from "./BeautyReviewListModule";
 import boardingBookingDetailReducer from "./BoardingBookingDetailModule";
 import boardingBookingMypetReducer from "./BoardingBookingMypetModule";
 import boardingReviewReducer from "./BoardingReviewModule";
+import boardingIncomeReducer from "./BoardingIncomeModule";
 
 
 const rootReducer = combineReducers({
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   boardingReducer,
   boardingBookingReducer,
   boardingReviewReducer,
+  boardingIncomeReducer,
   beautyReducer,
   beautyReservationReducer,
   beautyReviewReducer,

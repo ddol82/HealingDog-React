@@ -10,6 +10,9 @@ import {
 import { 
   GET_BOARDING_REVIEW_SUMMARY
 } from "../modules/BoardingReviewModule";
+import { 
+  POST_BOARDING_INCOME
+} from "../modules/BoardingIncomeModule";
 
 
 // export const initializerAPI = () => {
@@ -114,6 +117,33 @@ export const callSelectBoardingReviewAPI = () => {
 
     if (result.status === 200) {
       dispatch({ type: GET_BOARDING_REVIEW_SUMMARY, payload: result });
+    }
+  };
+};
+
+
+export const callSelectBoardingIncomeAPI = (selectedDate) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/boarding-management/income`;
+  
+  return async (dispatch) => {
+    const result = await fetch(requestURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "*/*",
+        "Authorization": "Bearer " + window.localStorage.getItem("accessToken") 
+      },
+      body: JSON.stringify({
+        selectedDate: selectedDate
+      })
+    }).then((response) => response.json());
+
+    console.log("[BoardingAPICalls] callSelectBoardingIncomeAPI RESULT : ", result);
+
+    // alert(result.message);
+
+    if (result.status === 200) {
+      dispatch({ type: POST_BOARDING_INCOME, payload: result });
     }
   };
 };

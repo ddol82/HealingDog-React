@@ -98,6 +98,11 @@
   height: 130px;
   background: #ffffff;
   border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .boarding-active {
   width: 280px;

@@ -71,7 +71,7 @@ function BoardingReview() {
     return (
         <>
             <div className="score-average">평점 {form.scoreAverage}/5.0  {scoreToStar(form.scoreAverage)}</div>
-            <div className="review-count">리뷰 {form.reviewCount} 개</div>            
+            <div className="review-count">전체리뷰 {form.reviewCount} 개</div>            
         </>
     )
 }
