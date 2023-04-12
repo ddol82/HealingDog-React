@@ -89,8 +89,8 @@ export const callLogoutAPI = () => {
   };
 };
 
-export const callMypetAPI = ({ mypetCode }) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/mypage/mypet/${mypetCode}`;
+export const callMypetAPI = ({ beautyReservationListCode }) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/beauty-manage/reservation/${beautyReservationListCode}`;
 
   return async (dispatch, getState) => {
     const result = await fetch(requestURL, {

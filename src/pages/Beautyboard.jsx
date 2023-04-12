@@ -41,6 +41,7 @@ const Beautyboard = () => {
     playground: "",
     freeParking: "",
     wiFi: "",
+    beautyPricesCode: "",
 
     content: "",
     nickname: "",
@@ -95,6 +96,7 @@ const Beautyboard = () => {
         playground: beautyInfo?.playground,
         freeParking: beautyInfo?.freeParking,
         wiFi: beautyInfo?.wiFi,
+        beautyPricesCode: beautyInfo?.beautyPricesCode,
 
         content: beautyReview?.content,
         nickname: beautyReview?.nickname,
