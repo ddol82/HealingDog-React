@@ -25,15 +25,19 @@ function Reservation(props) {
 
   const navigate = useNavigate();
 
-  const onClickBeautyReservationHandler = (mypetCode) => {
-    navigate(`/provider/beauty-board/${mypetCode}`, { replace: false });
+  const onClickBeautyReservationHandler = (beautyReservationListCode) => {
+    navigate(`/provider/beauty-board/${beautyReservationListCode}`, {
+      replace: false,
+    });
   };
 
   return (
     <>
       <div
         className="reservation-box"
-        onClick={() => onClickBeautyReservationHandler(props.mypetCode)}
+        onClick={() =>
+          onClickBeautyReservationHandler(props.beautyReservationListCode)
+        }
       >
         <div className="user-img"></div>
         <div className="reservation-info">
