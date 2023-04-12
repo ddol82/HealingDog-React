@@ -1,0 +1,43 @@
+.boarding-detail-time {
+    width: 100%;
+    height: 50px;
+}
+
+.boarding-detail-time th {
+    font-weight: bold;
+}
+
+.boarding-detail-profile {
+    width: 90%;
+    height: 100px;
+    margin: 5%;
+    display: flex;
+}
+.boarding-detail-image {
+    width: 50%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boarding-detail-name {
+    width: 50%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.boarding-detail-mypet {
+    width: 100%;
+    height: 150px;
+}
+
+.boarding-detail-mypet th {
+    font-weight: bold;
+}
+
+#mypet-user {
+    font-weight: bold;
+}

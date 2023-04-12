@@ -17,7 +17,8 @@ export const callSelectReviewsAPI = ({ serviceCategoryCode }) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Accept: "*/*",
+        "Accept": "*/*",
+        "Authorization": "Bearer " + window.localStorage.getItem("accessToken") 
       }
     }).then((response) => response.json());
 

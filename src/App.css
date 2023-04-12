@@ -8,7 +8,6 @@
 .container {
   display: flex;
   background: #eee;
-  flex-direction: column;
 }
 .container-provider {
   display: flex;
