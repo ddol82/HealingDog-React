@@ -5,6 +5,7 @@ import BoardingReview from "components/boarding/BoardingReview";
 import BoardingIncome from "components/boarding/BoardingIncome";
 import React from "react";
 import "../styles/BoardingManagement.css";
+import HealingCalendar from "components/common/HealingCalendar";
 
 const BoardingManagement = () => {
 
@@ -29,7 +30,9 @@ const BoardingManagement = () => {
         </div>
 
         <div className="all-section-center">
-          <div className="boarding-calendar">캘린더</div>
+          <div className="boarding-calendar">
+            <HealingCalendar/>
+          </div>
           <div className="boarding-booking-list">
             <BoardingBookingList/>
           </div>
