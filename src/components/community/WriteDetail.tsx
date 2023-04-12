@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
 import { useDispatch, useSelector } from 'react-redux';
-import { callRegistCommentAPI } from 'apis/CommentAPICalls';
+import { callRegistCommentAPI } from 'apis/CommunityAPICalls';
 
 type DetailProps = {
     boardCode: number
@@ -33,28 +33,29 @@ const WriteDetail = ({ boardCode }: DetailProps) => {
         setWrite(e.target.value);
     }
 
-    const onCommentWriteClickHandler = (): void => {
+    const onCommentWriteClickHandler = async (): Promise<void> => {
         if(write === '') {
             alert('댓글 내용을 작성해주세요.');
             return;
         }
-        dispatch<any>(callRegistCommentAPI({
+        await dispatch<any>(callRegistCommentAPI({
             boardCode : boardCode,
             form : write
         }));
         setWrite('');
+        window.location.reload();
     }
 
     return (
         <div className='detail-border'>
             <div className='detail-write-block'>
                 <div className='detail-write-body'>
-                    <div className='detail-write-upper'>
+                    <div className='detail-write-upper community-drag-none'>
                         <div className='community-profile'>
                             <img className='img-profile' src={IconAfterLogin} alt='writer'/>
                             <p className='text-profile-name'>nickname</p>
                         </div>
-                        <p className='write-limit'>0 / 300</p>
+                        <p className='write-limit'>{write.length} / 300</p>
                     </div>
                     <textarea
                         name="content"
@@ -64,7 +65,7 @@ const WriteDetail = ({ boardCode }: DetailProps) => {
                         onChange={ onInputChangeHandler }
                     ></textarea>
                 </div>
-                <div className='detail-write-btn' onClick={ onCommentWriteClickHandler }>
+                <div className='detail-write-btn community-drag-none' onClick={ onCommentWriteClickHandler }>
                     <p>작성</p>
                 </div>
             </div>

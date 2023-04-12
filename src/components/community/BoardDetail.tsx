@@ -73,7 +73,7 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
         setImageCursor(idx);
     }
 
-    function onLikeClickHandler(): void {
+    async function onLikeClickHandler(): Promise<void> {
         const token: MyToken | null = decodeJwt<MyToken>(window.localStorage.getItem('accessToken'));
         // 토근 정보가 없거나 만료되었을 시 로그인
         if (token?.exp === undefined || (token.exp * 1000 < Date.now())) {
@@ -81,7 +81,7 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
             alert('사용자 정보가 유효하지 않습니다.');
             return navigate("/login");
         }
-        dispatch<any>(callLikeChangeAPI({activityData : activityData, boardCode : boardCode, isLike : isLike}));
+        await dispatch<any>(callLikeChangeAPI({activityData : activityData, boardCode : boardCode, isLike : isLike}));
         setIsLike(!isLike);
     }
     
@@ -92,6 +92,11 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
                     alert('주소가 클립보드에 복사되었습니다.');
                 });
         dispatch<any>(callShareIncrementAPI({activityData : activityData, boardCode : boardCode}));
+    }
+    
+    function onUpdateClickHandler(): void {
+        console.log("/community/boards/update/" + boardData.boardCode);
+        navigate("/community/boards/update/" + boardData.boardCode);
     }
 
     async function onRemoveClickHandler(): Promise<void> {
@@ -112,7 +117,7 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
                     <p className="detail-category">{boardData.boardCategoryName}</p>
                     <p className="detail-title">{boardData.title}</p>
                 </div>
-                <div className="detail-user-block">
+                <div className="detail-user-block community-drag-none">
                     <div className="community-profile">
                         <img className="img-profile" src={IconAfterLogin} alt="profile"/>
                         <p className="text-profile-name">{boardData.profileName}</p>
@@ -173,7 +178,7 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
 
                 <div className="detail-line"/>
                 
-                <div className="detail-footer">
+                <div className="detail-footer community-drag-none">
                     <div className="detail-footer-btn-list">
                         <div className={`detail-footer-button${isLike ? ' liked' : ''}`} onClick={onLikeClickHandler}>
                             <img src={isLike ? IconLikeTrue : IconLikeFalse} alt="detail-like" />
@@ -186,8 +191,8 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
                         {
                             !!boardData?.isAuthor &&
                             <>
-                                <div className="detail-footer-button">
-                                    <img src={IconEdit} alt="edit" />
+                                <div className="detail-footer-button" onClick={onUpdateClickHandler}>
+                                    <img src={IconEdit} alt="edit"/>
                                     <p>글 수정</p>
                                 </div>
                                 <div className="detail-footer-button" onClick={onRemoveClickHandler}>

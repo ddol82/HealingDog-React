@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import Banner from 'components/community/Banner';
 import BoardDetail from 'components/community/BoardDetail';
@@ -8,7 +8,8 @@ import WriteDetail from 'components/community/WriteDetail';
 const Detail = () => {
     const params = useParams();
 
-    const [boardCode, setBoardCode] = useState(Number(params.boardCode))
+//useState
+    const [boardCode, setBoardCode] = useState(Number(params.boardCode));
 
 //useEffect
     useEffect(() => {
