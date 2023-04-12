@@ -1,0 +1,25 @@
+.info-top {
+  display: flex;
+
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+}
+.info-top .review-btn-l {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: -34px;
+}
+.info-top .review-btn-r {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  right: -34px;
+}
+.beauty-info-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
