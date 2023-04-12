@@ -90,6 +90,8 @@
   height: 70px;
   background: #ffffff;
   border-radius: 10px;
+
+  text-align: center;
 }
 .boarding-income {
   width: 280px;

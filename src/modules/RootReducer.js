@@ -15,6 +15,7 @@ import viewActivityReducer from "./CommunityActivityModule";
 import beautyReviewListReducer from "./BeautyReviewListModule";
 import boardingBookingDetailReducer from "./BoardingBookingDetailModule";
 import boardingBookingMypetReducer from "./BoardingBookingMypetModule";
+import boardingReviewReducer from "./BoardingReviewModule";
 
 
 const rootReducer = combineReducers({
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   reviewReducer,
   boardingReducer,
   boardingBookingReducer,
+  boardingReviewReducer,
   beautyReducer,
   beautyReservationReducer,
   beautyReviewReducer,
