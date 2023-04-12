@@ -9,7 +9,7 @@ function HealingCalendar({ date, setDate }) {
       <Calendar locale="en-US" value={date} onChange={setDate} />
     </>
   );
+
 }
 
 export default HealingCalendar;
-HealingCalendar;
