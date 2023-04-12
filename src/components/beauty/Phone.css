@@ -1,0 +1,26 @@
+.phone {
+  display: flex;
+  gap: 10px;
+}
+.phone label {
+  font-weight: 400;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+
+  /* 서브1 */
+  color: #7c7c7c;
+}
+.phone-input {
+  border-bottom: 0.5px solid #eeeeee;
+  display: flex;
+  gap: 6px;
+}
+.phone-input input {
+  width: 152px;
+  font-weight: 400;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  border: none;
+}
