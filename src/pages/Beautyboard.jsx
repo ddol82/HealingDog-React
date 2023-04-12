@@ -71,6 +71,7 @@ const Beautyboard = () => {
     }, // eslint-disable-next-line
     []
   );
+
   const beautyReviewList = useSelector(
     (state) => state.beautyReviewListReducer.data
   );
@@ -138,10 +139,6 @@ const Beautyboard = () => {
               </div>
               <div className="beauty-review">
                 <BeautyReview />
-                {/* {Array.isArray(beautyReview) &&
-                  beautyReview.map((val) => (
-                    <BeautyReview key={val.reviewsCode} />
-                  ))} */}
               </div>
             </div>
             <div className="month-list">

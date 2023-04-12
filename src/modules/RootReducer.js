@@ -10,12 +10,12 @@ import headlineReducer from "./HeadlineModule";
 import boardReducer from "./BoardModule";
 import beautyReservationReducer from "./BeautyReservationModule";
 import beautyReviewReducer from "./BeautyReviewModule";
+import beautyPriceReducer from "./BeautyPriceModule";
 import myPetReducer from "./MyPetModule";
 import viewActivityReducer from "./CommunityActivityModule";
 import beautyReviewListReducer from "./BeautyReviewListModule";
 import boardingBookingDetailReducer from "./BoardingBookingDetailModule";
 import boardingBookingMypetReducer from "./BoardingBookingMypetModule";
-
 
 const rootReducer = combineReducers({
   boardingBookingMypetReducer,
@@ -29,11 +29,12 @@ const rootReducer = combineReducers({
   beautyReservationReducer,
   beautyReviewReducer,
   beautyReviewListReducer,
+  beautyPriceReducer,
   communityReducer,
   commentReducer,
   headlineReducer,
   boardReducer,
-  viewActivityReducer
+  viewActivityReducer,
 });
 
 export default rootReducer;
