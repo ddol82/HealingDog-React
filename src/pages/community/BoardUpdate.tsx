@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import IconArrowLeft from "../../assets/icon/icon=arrowleft.svg";
 import IconArrowRight from "../../assets/icon/icon=arrowright.svg";
 import { useNavigate, useParams } from "react-router-dom";
-import { callBoardRegistAPI, callGetBoardDetailAPI } from "apis/BoardAPICalls";
+import { callBoardUpdateAPI, callGetBoardDetailAPI } from "apis/BoardAPICalls";
 import UploadLoading from "components/community/UploadLoading";
 import { MyCategory } from "components/community/types/MyCategory";
 import { callGetCategoryAPI } from "apis/CommunityAPICalls";
@@ -14,6 +14,18 @@ const LIMIT_TITLE_LENGTH = 100;
 const LIMIT_CONTENT_LENGTH = 1000;
 const LIMIT_PHOTO_AMOUNT = 10;
 const LIMIT_PHOTO_SIZE = 64 * 1024 * 1024;
+
+type ImageObject = {
+    index: number,
+    attach: ImageAttach
+}
+
+type ImageAttach = {
+    position: number,
+    image?: File,
+    url: string,
+    fileSize: number
+}
 
 const BoardUpdate = (): JSX.Element => {
     const params = useParams();
@@ -37,17 +49,21 @@ const BoardUpdate = (): JSX.Element => {
         beforeSize: 0,
         size: 0
     });
-    const [images, setImages] = useState<File[]>([...Array(boardData.imageCount)]);
-    const [urls, setUrls] = useState<string[]>([]);
-    const [imageSize, setImageSize] = useState<number[]>([]);
-    const [position, setPosition] = useState<number[]>(
-        [...Array(10)].map((_: number, idx: number): number =>idx < boardData.imageCount ? idx : -1)
-    );
+    /*
+        const [imageData, setImageData] = useState({
+            index: 0,
+            attach: {
+                position: -1,
+                image: {},//including file data
+                url: '',
+                fileSize: 2147552
+            }
+        });
+    */
+    const [imageData, setImageData] = useState<ImageObject[]>([]);
     const [warnTitle, setWarnTitle] = useState(false);
     const [warnContent, setWarnContent] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(false);
-    //console.log(`urls : ${urls.length}`);
-    //console.log(`images : `, images);
 
 //useEffect
     useEffect(() => {
@@ -56,20 +72,27 @@ const BoardUpdate = (): JSX.Element => {
     }, []);
 
     useEffect(() => {
-        if(!boardData) return;
-        console.log('images : ', images);
-        console.log('position : ', position);
-        console.log('urls : ', urls);
+        if(!boardData.title) return;
         
         setCategory(boardData.boardCategoryCode);
         setWrite({
             title: boardData.title,
             content: boardData.content
         });
-        if(boardData.imageCount > 0) {
-            setUrls(boardData.originalImageUrl as string[]);
+        const imageTmp: ImageObject[] = [];
+        for(let i = 0; i < boardData.imageCount; i++) {
+            if(!boardData?.originalImageUrl) break;
+            imageTmp.push({
+                index: i,
+                attach: {
+                    position: i,
+                    image: undefined,
+                    url: boardData.originalImageUrl[i],
+                    fileSize: boardData.size[i]
+                }
+            });
         }
-        setImageSize(boardData.size);
+        setImageData(imageTmp);
         setLimit({
             title: boardData.title.length,
             content: boardData.content.length,
@@ -79,8 +102,12 @@ const BoardUpdate = (): JSX.Element => {
         });
     }, [boardData]);
 
+    useEffect(() => {
+        refreshImage();
+    }, [limit])
+
 //function
-    const onBoardCreateClick = async (): Promise<void> => {
+    const onBoardUpdateClick = async (): Promise<void> => {
         console.log('게시글 수정 시도');
         if(limit.title === 0) {
             alert('제목을 입력해주세요.');
@@ -90,27 +117,31 @@ const BoardUpdate = (): JSX.Element => {
             alert('내용을 입력해주세요.');
             return;
         }
-        const boardData: string = JSON.stringify({
+        const positionList: number[] = imageData.map<number>((imagePart: ImageObject): number => imagePart.attach.position);
+        const sizeList: number[] = imageData.map<number>((imagePart: ImageObject): number => imagePart.attach.fileSize);
+        const newBoardData: string = JSON.stringify({
             boardCategoryCode: category,
             title: write.title,
-            content: write.content
+            content: write.content,
+            size: sizeList,
+            boardCode: boardCode,
+            position: positionList,
+            beforeContains: boardData.imageCount
         });
         const formData = new FormData();
-        //formData.append('boardData', boardData);
-        formData.append('boardData', new Blob([boardData], {type : 'application/json'}));
-        for(const image of images) {
-            formData.append('images', image);
+        formData.append('boardData', new Blob([newBoardData], {type : 'application/json'}));
+        for(const imagePart of imageData) {
+            formData.append('images', imagePart.attach.image ?? '');
         }
         
         setUploadProgress(true);
-        //(dispatch: JSON, getState: unknown) => Promise<void>
-        await dispatch<any>(callBoardRegistAPI({
+        await dispatch<any>(callBoardUpdateAPI({
             form: formData
         }));
         
         setUploadProgress(false);
         console.log('게시글 수정 종료');
-        navigate('/community/lists/all/1', {replace: true});
+        navigate(`/community/boards/detail/${boardCode}`, {replace: true});
         window.location.reload();
     }
 
@@ -119,44 +150,50 @@ const BoardUpdate = (): JSX.Element => {
     }
 
     const onImageMoveClick = (from: number, to: number): void => {
-        const imagesTmp = [...images];
-        const urlsTmp = [...urls];
+        const imageTmp: ImageObject[] = [...imageData];
         
-        [imagesTmp[from], imagesTmp[to]] = [imagesTmp[to], imagesTmp[from]];
-        [urlsTmp[from], urlsTmp[to]] = [urlsTmp[to], urlsTmp[from]];
+        [imageTmp[from].attach, imageTmp[to].attach] = [imageTmp[to].attach, imageTmp[from].attach];
         
-        setUrls(urls);
-        setImages(imagesTmp);
+        setImageData(imageTmp);
+        setLimit({...limit});
     }
 
     const onImageRemoveClick = (target: number): void => {
-        if(position[target] > -1) {
-            setImageSize([...imageSize.filter((_: number, idx: number): boolean => idx !== target), 0]);
-            setImages(images.filter((_: File, idx: number): boolean => idx !== target));
-            setUrls(urls.filter((_: string, idx: number): boolean => idx !== target));
-            //setPosition()
+        const removeItem: ImageObject = imageData[target];
+
+        if(removeItem.attach.position === -1) {
+            setLimit({
+                ...limit,
+                image: limit.image - 1,
+                size: limit.size - removeItem.attach.fileSize
+            })
+        } else {
+            setLimit({
+                ...limit,
+                image: limit.image - 1,
+                beforeSize: limit.beforeSize - removeItem.attach.fileSize
+            })
         }
-        const removeSize = images.filter((_: File, idx: number): boolean => idx === target)[0].size;
-        setLimit({
-            ...limit,
-            image: limit.image - 1,
-            size: limit.size - removeSize
-        })
+        setImageData(imageData
+            .filter((_, idx: number): boolean => target !== idx)
+            .map<ImageObject>((imageItem: ImageObject, idx: number) => {
+                return {
+                    ...imageItem,
+                    index: idx
+                }
+            })
+        );
     }
 
     //비동기 방식인 파일 읽기를 기다리기 위해 Promise 함수를 사용한 Fileread 시작
-    async function refreshImage(imageCount: number): Promise<void> {
-        const urlTmps: string[] = [];
-        for(let i = 0; i < imageCount; i++) {
-            if(!images[i]) {
-                urlTmps.push(urls[i]);
-                continue;
+    async function refreshImage(): Promise<void> {
+        const imageTmp: ImageObject[] = [...imageData];
+        for(let i = 0; i < imageTmp.length; i++) {
+            if(imageTmp[i].attach.position === -1) {
+                imageTmp[i].attach.url = await readFileAsync(imageTmp[i].attach.image as File);
             }
-            urlTmps.push(await readFileAsync(images[i]));
         }
-        console.log('urlTmps : ', urlTmps);
-        
-        setUrls(urlTmps);
+        setImageData([...imageData]);
     }
     function readFileAsync(file: File): Promise<string> {
         return new Promise((res: (value: string) => void, rej: (reason: unknown) => void): void => {
@@ -179,7 +216,7 @@ const BoardUpdate = (): JSX.Element => {
         if(e.target.files === null) return;
         const imageList: FileList = e.target.files;
 
-        const imageTmp: File[] = [];
+        const imageTmp: ImageObject[] = [...imageData];
         let imageCount: number = limit.image;
         const beforeSize = limit.beforeSize
         let currSize =  limit.size;
@@ -193,14 +230,19 @@ const BoardUpdate = (): JSX.Element => {
             }
             currSize += file.size;
 
-            imageTmp.push(file);
+            imageTmp.push({
+                index: imageCount,
+                attach: {
+                    position: -1,
+                    image: file,
+                    url: '',
+                    fileSize: file.size
+                }
+            });
             imageCount += 1;
         });
-        console.log('(setImages) images : ', images);
-        console.log('(setImages) imageTmp : ', imageTmp);
-        console.log('(setImages) setImages : ', [...images, ...imageTmp]);
         
-        setImages(() => [...images, ...imageTmp]);
+        setImageData(imageTmp);
         setLimit({
             ...limit,
             image: imageCount,
@@ -209,7 +251,6 @@ const BoardUpdate = (): JSX.Element => {
         if(tooBig > 0) {
             alert(`첨부 가능한 용량을 초과했습니다.\n${tooBig}건의 파일을 등록하지 못했습니다.`);
         }
-        refreshImage(imageCount);
     }
 
     const onInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -254,11 +295,11 @@ const BoardUpdate = (): JSX.Element => {
                 <p className='category-text'>게시글 작성</p>
             </div>
             <div className='category-item cat-right'>
-                <button className='category-btn btn-active' onClick={onBoardCreateClick}>작성 완료</button>
+                <button className='category-btn btn-active' onClick={onBoardUpdateClick}>작성 완료</button>
             </div>
         </div>
     );
-
+    
     return (
         <>
             {
@@ -307,26 +348,34 @@ const BoardUpdate = (): JSX.Element => {
                                 />
                                 <div className="write-image-limit">
                                     <p className='write-limit'>사진 : {limit.image} / {LIMIT_PHOTO_AMOUNT}</p>
-                                    <p className='write-limit'>용량 : {getBytesDisplay(limit.beforeSize + limit.size)} / {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
+                                    {
+                                        limit.beforeSize > 0 ?
+                                            <p className='write-limit'>용량 :&nbsp;
+                                            {getBytesDisplay(limit.beforeSize)}{limit.size > 0 && `(+${getBytesDisplay(limit.size)})`} /&nbsp;
+                                            {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
+                                        :
+                                            <p className='write-limit'>용량 :&nbsp;
+                                            {getBytesDisplay(limit.size)} /&nbsp;
+                                            {getBytesDisplay(LIMIT_PHOTO_SIZE)}</p>
+                                    }
+                                    
                                     <div className="size-limit-bar">
                                         <div className="size-limit-max"/>
+                                        <div className="size-limit-use" style={{width: `calc(${(limit.beforeSize + limit.size) / LIMIT_PHOTO_SIZE * 100}%)`}}/>
                                         <div className="size-limit-before" style={{width: `calc(${limit.beforeSize / LIMIT_PHOTO_SIZE * 100}%)`}}/>
-                                        <div className="size-limit-use" style={{
-                                            width: `calc(${limit.size / LIMIT_PHOTO_SIZE * 100}%)`,
-                                            left: `calc(${limit.beforeSize / LIMIT_PHOTO_SIZE * 100}%)`
-                                        }}/>
                                     </div>
                                 </div>
                             </div>
                             <div className="write-image-list">
                             {
-                                urls?.map((urlstr: string, idx: number): JSX.Element => (
+                                imageData?.map((imagePart: ImageObject, idx: number): JSX.Element => (
                                     <div key={idx} className={`write-image-item${idx === 0 ? ' write-image-thumbnail' : ''}`}>
                                         <img 
-                                            src={!images[idx] ?
-                                                process.env.REACT_APP_IMAGE_DIR + 'board/' + urlstr :
-                                                urlstr
-                                            } 
+                                            className={imagePart.attach.position > -1 ? 'already-contains' : ''}
+                                            src={!imagePart.attach.image ?
+                                                `${process.env.REACT_APP_IMAGE_DIR}board/${imagePart.attach.url}` :
+                                                `${imagePart.attach.url}`
+                                            }
                                             alt="attachment"
                                         />
                                         {

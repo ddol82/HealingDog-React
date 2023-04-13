@@ -1,6 +1,8 @@
+import BannerImage from "../../assets/dummy-banner.png"
+
 const Banner = (): JSX.Element => (
     <div className='com-banner'>
-        <h1>배너 위치. 700x260</h1>
+        <img src={BannerImage} alt="Banner" />
     </div>
 );
 

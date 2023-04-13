@@ -104,7 +104,7 @@ const BoardWrite = (): JSX.Element => {
         [imagesTmp[from], imagesTmp[to]] = [imagesTmp[to], imagesTmp[from]];
         [urlsTmp[from], urlsTmp[to]] = [urlsTmp[to], urlsTmp[from]];
         
-        setUrls(urls);
+        setUrls(urlsTmp);
         setImages(imagesTmp);
     }
 
@@ -234,7 +234,6 @@ const BoardWrite = (): JSX.Element => {
                 <div className="com-write">
                     <div className="write-border">
                         <div className="write-block">
-                            <p className={`write-limit${warnTitle ? ' write-warning' : ''}`}>글자 수 : {limit.title} / {LIMIT_TITLE_LENGTH}</p>
                             <input
                                 type="text"
                                 name="title"
@@ -243,11 +242,11 @@ const BoardWrite = (): JSX.Element => {
                                 value={write.title}
                                 onChange={ onInputChangeHandler }
                             />
+                            <p className={`write-limit${warnTitle ? ' write-warning' : ''}`}>글자 수 : {limit.title} / {LIMIT_TITLE_LENGTH}</p>
                         </div>
                     </div>
                     <div className="write-border">
                         <div className="write-block">
-                            <p className={`write-limit${warnContent ? ' write-warning' : ''}`}>글자 수 : {limit.content} / {LIMIT_CONTENT_LENGTH}</p>
                             <textarea
                                 name="content"
                                 className="write-text write-textarea"
@@ -255,6 +254,7 @@ const BoardWrite = (): JSX.Element => {
                                 value={write.content}
                                 onChange={ onInputChangeHandler }
                             ></textarea>
+                            <p className={`write-limit${warnContent ? ' write-warning' : ''}`}>글자 수 : {limit.content} / {LIMIT_CONTENT_LENGTH}</p>
                         </div>
                         <div className="write-image-block community-drag-none">
                             <div className="write-image-insert">

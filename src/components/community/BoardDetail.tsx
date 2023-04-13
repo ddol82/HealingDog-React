@@ -124,7 +124,6 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
                     </div>
                     <p className="detail-text-info">{`${boardData.uptimestamp?.substring(0, 10)} ${boardData.uptimestamp?.substring(11, 16)}`}</p>
                     <p className="detail-text-info">조회 {boardData.view}</p>
-                    <p className="detail-text-info">좋아요 {boardData.like}</p>
                     <p className="detail-text-info">댓글 {boardData.commentCount}</p>
                 </div>
 
@@ -151,7 +150,7 @@ const BoardDetail = ({boardCode}: DetailProps): JSX.Element => {
                                 </div>
                                 <img src={process.env.REACT_APP_IMAGE_DIR + 'board/' +
                                         (boardData?.originalImageUrl as string[])
-                                        ?.filter((_: string, idx: number) => imageCursor === idx)[0]} alt="image" />
+                                        ?.filter((_, idx: number) => imageCursor === idx)[0]} alt="image" />
                                 <div className="detail-multi-arrow">
                                 {
                                     imageCursor < boardData.imageCount - 1 &&
