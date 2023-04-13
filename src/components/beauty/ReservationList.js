@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { callSelectBeautyReservationListAPI } from "apis/BeautyAPICalls";
-import { callMypetAPI } from "apis/MemberAPICalls";
 import Reservation from "./Reservation";
 
 function ReservationList() {
@@ -63,6 +62,7 @@ function ReservationList() {
           .map((val) => (
             <Reservation
               key={val.beautyReservationListCode}
+              beautyReservationListCode={val.beautyReservationListCode}
               userCode={val.userCode}
               mypetCode={val.mypetCode}
               date={timeFormatter(val.date)}
@@ -71,6 +71,7 @@ function ReservationList() {
               gender={val.gender}
               birthday={val.birthday}
               weight={val.weight}
+              beautyPricesCode={val.beautyPricesCode}
             />
           ))}
     </>

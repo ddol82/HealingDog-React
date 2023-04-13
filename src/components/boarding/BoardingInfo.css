@@ -1,0 +1,12 @@
+.boarding-info-table {
+    width: 100%;
+    height: 100px;
+}
+
+.boarding-info-table th {
+    font-weight: bold; 
+}
+
+.boarding-info-introduce {
+    width: 100%;
+}

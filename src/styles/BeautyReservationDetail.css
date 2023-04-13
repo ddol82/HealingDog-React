@@ -18,12 +18,25 @@
   width: 230px;
   height: 36px;
   border-style: none;
+  border: 0.5px solid #7c7c7c;
+  border-radius: 6px;
+  color: #7c7c7c;
+  background: none;
+  font-weight: 400;
+  font-size: 12px;
+  cursor: pointer;
+}
+.modal-btn-active {
+  width: 230px;
+  height: 36px;
+  border-style: none;
   background: #32b784;
   border-radius: 6px;
   color: #fff;
 
   font-weight: 700;
   font-size: 12px;
+  cursor: pointer;
 }
 .modal-face {
   display: flex;
@@ -97,8 +110,6 @@
 }
 .checks label {
   font-size: 16px;
-  color: #666;
-  margin-right: 10px;
   vertical-align: middle;
 }
 
@@ -128,7 +139,7 @@
   content: "";
   position: absolute;
   left: 4px;
-  top: 6px;
+  top: 2px;
   width: 14px;
   height: 14px;
   text-align: center;
@@ -149,7 +160,7 @@
 .checks input[type="radio"]:checked + label:after {
   content: "";
   position: absolute;
-  top: 7px;
+  top: 3px;
   left: 5px;
   width: 14px;
   height: 14px;
@@ -158,4 +169,83 @@
   box-shadow: none;
   font-weight: 400;
   font-size: 12px;
+}
+.modal-intro {
+  display: flex;
+  flex-direction: column;
+}
+.modal-intro div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.modal-intro div span {
+  font-weight: 400;
+  font-size: 10px;
+  color: #7c7c7c;
+}
+.modal-intro textarea {
+  resize: none;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  padding: 10px 20px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+
+  /* 블랙 */
+
+  color: #1d1d1d;
+}
+.modal-intro textarea:focus {
+  outline: 0;
+}
+
+.reservation-info-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.reservation-info1 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.reservation-info1 label {
+  font-weight: 400;
+  font-size: 12px;
+  color: #7c7c7c;
+  margin-right: 10px;
+}
+.reservation-info1 span {
+  font-weight: 400;
+  font-size: 10px;
+  color: #7c7c7c;
+}
+.reservation-info2 {
+  display: flex;
+  gap: 10px;
+}
+.reservation-info1 input {
+  border-style: none;
+  width: 152px;
+  height: 28px;
+  border-bottom: 0.5px solid #eeeeee;
+
+  font-weight: 400;
+  font-size: 12px;
+}
+.reservation-info1 input:focus {
+  outline: 0;
+}
+.reservation-info2 button {
+  width: 100px;
+  height: 30px;
+  border-style: none;
+  background: #32b784;
+  border-radius: 6px;
+  padding: auto;
+  color: #fff;
 }

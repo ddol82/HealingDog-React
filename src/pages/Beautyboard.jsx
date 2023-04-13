@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "../styles/Beauty.css";
 
 import { callSelectBeautyInfoAPI } from "apis/BeautyAPICalls";
@@ -10,11 +11,11 @@ import HealingCalendar from "../components/common/HealingCalendar";
 import Todo from "../components/beauty/Todo";
 import BeautyReview from "components/review/BeautyReview";
 import BeautyReviewOne from "components/review/BeautyReviewOne";
-import BeautyReservationDetail from "./beauty/BeautyReservationDetail";
 
 const Beautyboard = () => {
   // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const beautyInfo = useSelector((state) => state.beautyReducer.data);
 
   const beautyReview = useSelector((state) => state.beautyReviewReducer.data);
@@ -41,6 +42,7 @@ const Beautyboard = () => {
     playground: "",
     freeParking: "",
     wiFi: "",
+    beautyPricesCode: "",
 
     content: "",
     nickname: "",
@@ -69,6 +71,7 @@ const Beautyboard = () => {
     }, // eslint-disable-next-line
     []
   );
+
   const beautyReviewList = useSelector(
     (state) => state.beautyReviewListReducer.data
   );
@@ -95,6 +98,7 @@ const Beautyboard = () => {
         playground: beautyInfo?.playground,
         freeParking: beautyInfo?.freeParking,
         wiFi: beautyInfo?.wiFi,
+        beautyPricesCode: beautyInfo?.beautyPricesCode,
 
         content: beautyReview?.content,
         nickname: beautyReview?.nickname,
@@ -112,6 +116,10 @@ const Beautyboard = () => {
   const today = new Date(date.getTime() + 24 * 60 * 60 * 1000)
     .toISOString()
     .slice(0, 10);
+
+  const onClickBeautyCodeHandler = (beautyCode) => {
+    navigate(`/provider/beauty-board/beauty-info/${beautyCode}`);
+  };
 
   return (
     <div>
@@ -131,10 +139,6 @@ const Beautyboard = () => {
               </div>
               <div className="beauty-review">
                 <BeautyReview />
-                {/* {Array.isArray(beautyReview) &&
-                  beautyReview.map((val) => (
-                    <BeautyReview key={val.reviewsCode} />
-                  ))} */}
               </div>
             </div>
             <div className="month-list">
@@ -157,7 +161,12 @@ const Beautyboard = () => {
                 beautyReviewList={beautyReviewList}
               />
             </div>
-            <div className="beauty-info">
+            <div
+              className="beauty-info"
+              onClick={() => {
+                onClickBeautyCodeHandler(beautyInfo?.beautyCode);
+              }}
+            >
               <div className="beauty-info-items">
                 <h1>{form.name}</h1>
                 <div className="info-item">

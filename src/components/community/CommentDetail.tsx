@@ -1,17 +1,11 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callGetAllCommentAPI } from 'apis/CommentAPICalls';
+import CommentItem from './CommentItem';
+import { CommentType } from './types/CommentType';
 
 type DetailProps = {
     boardCode: number
-}
-type CommentType = {
-    commentCode: number,
-    boardCode: number,
-    userCode: number,
-    ref?: number,
-    uptime: string,
-    content: string
 }
 
 const CommentDetail = ({ boardCode }: DetailProps) => {
@@ -26,7 +20,7 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
 
     return (
         <div className='detail-border'>
-            <div className='comment-count'>
+            <div className='comment-count community-drag-none'>
                 <p>댓글 {commentData?.length}</p>
             </div>
             {
@@ -35,16 +29,14 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
                         <p>첫 댓글을 작성해보세요!</p>
                     </div>
                 :
-                    commentData.map((value: CommentType, idx: number) => (
-                        <>
+                    commentData.map((item: CommentType, idx: number) => (
+                        <React.Fragment key={item.commentCode}>
                             {
                                 idx > 0 &&
                                 <div className='detail-line'/>
                             }
-                            <div key={value.commentCode}>
-                                
-                            </div>
-                        </>
+                            <CommentItem item={item}/>
+                        </React.Fragment>
                     ))
             }
         </div>

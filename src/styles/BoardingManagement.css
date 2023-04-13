@@ -1,3 +1,5 @@
+/* 페이지 프레임 구성 */
+
 .top-section {
   display: flex;
   flex-direction: row;
@@ -39,6 +41,9 @@
 
   background: #ffffff;
   border-radius: 10px;
+
+  text-align: center;
+  overflow-y: auto;
 }
 .all-section-center {
   display: flex;
@@ -60,6 +65,9 @@
 
   background: #ffffff;
   border-radius: 10px;
+
+  text-align: center;
+  overflow-y: auto;
 }
 .all-section-right {
   display: flex;
@@ -73,6 +81,9 @@
   height: 560px;
   background: #ffffff;
   border-radius: 10px;
+
+  text-align: center;
+  overflow-y: auto;
 }
 .boarding-reviews {
   width: 280px;
@@ -95,4 +106,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* 페이지 공통 요소 */
+
+.menu-name {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: bold; /* 굵게 표시 */
+
+  color: #000000;
 }

@@ -2,7 +2,7 @@ import {
     GET_BOARD,
     GET_BOARD_DETAIL,
     POST_BOARD_REGIST,
-    POST_BOARD_DELETE
+    DELETE_BOARD
 } from '../modules/BoardModule.js';
 
 export const callGetBoardListAPI = ({categoryType, currPage}) => {
@@ -58,7 +58,6 @@ export const callBoardRegistAPI = ({form}) => {
     const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/boards/write/confirm`;
 
     return async (dispatch, getState) => {
-        let reader = null;
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
@@ -92,7 +91,7 @@ export const callDeleteBoardAPI = ({boardCode}) => {
         console.log('[ProduceAPICalls] callDeleteBoardAPI RESULT : ', result);
 
         dispatch({
-            type: POST_BOARD_DELETE,
+            type: DELETE_BOARD,
             payload: result.data
         })
     }

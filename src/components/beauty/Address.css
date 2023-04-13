@@ -1,0 +1,72 @@
+.address {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+.address label {
+  font-weight: 400;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+
+  /* 서브1 */
+  color: #7c7c7c;
+}
+.address-input {
+  display: flex;
+  gap: 6px;
+}
+.address-input input {
+  width: 152px;
+  font-weight: 400;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-bottom: 0.5px solid #eeeeee;
+}
+.modal-address {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.modal-address-div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.modal-address button {
+  margin-top: 1rem;
+  width: 80px;
+  height: 36px;
+  border-style: none;
+  background: #32b784;
+  border-radius: 4px;
+  color: #fff;
+
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.address-input button {
+  width: 50px;
+  height: 16px;
+  border-style: none;
+  background: #32b784;
+  border-radius: 4px;
+  color: #fff;
+
+  font-weight: 700;
+  font-size: 10px;
+  cursor: pointer;
+}

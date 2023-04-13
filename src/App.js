@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Beautyboard from "./pages/Beautyboard";
 import BoardingManagement from "./pages/BoardingManagement";
 import BeautyReservationDetail from "./pages/beauty/BeautyReservationDetail";
+import BeautyInfo from "./pages/beauty/BeautyInfo";
 import Careboard from "./pages/Careboard";
 import Kindergardenboard from "./pages/Kindergardenboard";
 import Trainingboard from "./pages/Trainingboard";
@@ -19,6 +20,7 @@ import Detail from "./pages/community/Detail";
 import BoardWrite from "./pages/community/BoardWrite";
 import MyPage from "./pages/mypage/MyPage";
 import MyProfile from "./pages/mypage/MyProfile";
+import BoardUpdate from "pages/community/BoardUpdate";
 
 function App() {
   return (
@@ -35,6 +37,10 @@ function App() {
             element={<Detail />}
           />
           <Route path="/community/boards/write" element={<BoardWrite />} />
+          <Route
+            path="/community/boards/update/:boardCode"
+            element={<BoardUpdate />}
+          />
           <Route path="/reviews/:serviceCategoryCode" element={<Review />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/myprofile/:userCode" element={<MyProfile />} />
@@ -55,6 +61,11 @@ function App() {
             path="/provider/beauty-board/:id"
             element={<BeautyReservationDetail />}
           />
+          <Route
+            path="/provider/beauty-board/beauty-info/:beautyCode"
+            element={<BeautyInfo />}
+          />
+
           <Route
             path="/provider/boarding-board"
             element={<BoardingManagement />}

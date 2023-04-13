@@ -45,7 +45,14 @@
   opacity: 0;
 }
 
+
 .signup-check-label {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px;
+}
+.signup-checkmember label {
   padding: 5px 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
