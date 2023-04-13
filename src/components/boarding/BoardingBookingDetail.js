@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import mypetIcon from "../../assets/icon/Login=true.svg";
 import "./BoardingBookingDetail.css"
 
 function BoardingBookingDetail() {
@@ -37,8 +38,8 @@ function BoardingBookingDetail() {
         mypetCode : "",
         bookingDate : "",
         boardingCategory : "",
-        checkIn : "",
-        checkOut : "",
+        checkIn : Date.now(),
+        checkOut : Date.now(),
         payment : ""
     });
 
@@ -49,6 +50,7 @@ function BoardingBookingDetail() {
         console.log(`[component-rendering] : BoardingBookingDetail`);
         if (!getBoardingBookingDetail != true) {
             setBoardingBookingForm({
+                ...boardingBookingForm,
                 boardingBookingCode : getBoardingBookingDetail.boardingBookingCode,
                 boardingServiceCode : getBoardingBookingDetail.boardingServiceCode,
                 userCode : getBoardingBookingDetail.userCode,
@@ -62,6 +64,7 @@ function BoardingBookingDetail() {
         }
         if (!getMypet != true) {
             setMypetForm({
+                ...mypetForm,
                 mypetCode : getMypet.mypet.mypetCode,
                 userCode : getMypet.mypet.userCode,
                 name : getMypet.mypet.name,
@@ -116,7 +119,9 @@ function BoardingBookingDetail() {
                 </tbody>
             </table>
             <div className="boarding-detail-profile">
-                <div className="boarding-detail-image">IMAGE</div>
+                <div className="boarding-detail-image">
+                    <img className="mypet-icon" src={mypetIcon}/>
+                </div>
                 <div className="boarding-detail-name">{mypetForm.name}</div>    
             </div>
             <table className="boarding-detail-mypet">                

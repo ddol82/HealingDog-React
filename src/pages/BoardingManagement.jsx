@@ -2,8 +2,10 @@ import BoardingInfo from "components/boarding/BoardingInfo";
 import BoardingBookingList from "components/boarding/BoardingBookingList";
 import BoardingBookingDetail from "components/boarding/BoardingBookingDetail";
 import BoardingReview from "components/boarding/BoardingReview";
+import BoardingIncome from "components/boarding/BoardingIncome";
 import React from "react";
 import "../styles/BoardingManagement.css";
+import HealingCalendar from "components/common/HealingCalendar";
 
 const BoardingManagement = () => {
 
@@ -28,7 +30,9 @@ const BoardingManagement = () => {
         </div>
 
         <div className="all-section-center">
-          <div className="boarding-calendar">캘린더</div>
+          <div className="boarding-calendar">
+            <HealingCalendar/>
+          </div>
           <div className="boarding-booking-list">
             <BoardingBookingList/>
           </div>
@@ -41,7 +45,9 @@ const BoardingManagement = () => {
           <div className="boarding-reviews">
             <BoardingReview/>
           </div>
-          <div className="boarding-income">위탁돌봄수익</div>
+          <div className="boarding-income">
+            <BoardingIncome/>
+          </div>
           <div className="boarding-active">현재 서비스 활성</div>
         </div>
 

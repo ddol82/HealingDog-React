@@ -1,4 +1,7 @@
-import { GET_REVIEWS } from "../modules/ReviewModule";
+import { 
+  GET_REVIEWS,
+  GET_REVIEWS_COUNT
+} from "../modules/ReviewModule";
 // export const initializerAPI = () => {
 
 //     return (dispatch) => {
@@ -31,3 +34,27 @@ export const callSelectReviewsAPI = ({ serviceCategoryCode }) => {
     }
   };
 };
+
+export const callSelectReviewsCountAPI = ({ serviceCategoryCode }) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/reviews/${serviceCategoryCode}/count`;
+
+  return async (dispatch) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "*/*",
+        "Authorization": "Bearer " + window.localStorage.getItem("accessToken") 
+      }
+    }).then((response) => response.json());
+
+    console.log("[ReviewAPICalls] callSelectReviewsCountAPI RESULT : ", result);
+
+    // alert(result.message);
+
+    if (result.status === 200) {
+      dispatch({ type: GET_REVIEWS_COUNT, payload: result });
+    }
+  };
+};
+
