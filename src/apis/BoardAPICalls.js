@@ -2,7 +2,8 @@ import {
     GET_BOARD,
     GET_BOARD_DETAIL,
     POST_BOARD_REGIST,
-    DELETE_BOARD
+    DELETE_BOARD,
+    PUT_BOARD_UPDATE
 } from '../modules/BoardModule.js';
 
 export const callGetBoardListAPI = ({categoryType, currPage}) => {
@@ -94,6 +95,29 @@ export const callDeleteBoardAPI = ({boardCode}) => {
             type: DELETE_BOARD,
             payload: result.data
         })
+    }
+}
+
+export const callBoardUpdateAPI = ({form}) => {
+    console.log('[CommunityAPICalls] callBoardUpdateAPI Call');
+
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/community/boards/update/confirm/${form.boardCode}`;
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "PUT",
+            headers: {
+                "Accept": "*/*",
+                "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+            },
+            body: form
+        }).then(response => response.json());
+        
+        console.log('[ProduceAPICalls] callBoardUpdateAPI RESULT : ', result);
+        dispatch({
+            type: PUT_BOARD_UPDATE,
+            payload: result.data
+        });
     }
 }
 

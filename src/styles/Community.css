@@ -173,6 +173,14 @@
 .board-title-text {
     font-weight: 700;
     font-size: 16px;
+
+    width: 680px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 .board-detail-block {
@@ -378,6 +386,10 @@
     max-height: 140px;
 }
 
+.already-contains:hover {
+    opacity: 1;
+}
+
 .write-icon {
     display: flex;
     position: absolute;
@@ -470,6 +482,10 @@
     width: 100%;
     height: 10px;
     background-color: #dddddd;
+}
+
+.already-contains {
+    opacity: .5;
 }
 
 /* Loading */   /* Loading */   /* Loading */   /* Loading */   /* Loading */   /* Loading */   /* Loading */   /* Loading */
