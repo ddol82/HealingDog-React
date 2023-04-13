@@ -130,7 +130,9 @@ function SignUp() {
               onChange={() => setSelectedOption("user")}
               onClick={onChangeHandler}
             />
-            <label htmlFor="id-check-01">사용자 회원가입</label>
+            <label htmlFor="id-check-01" className="signup-check-label">
+              사용자 회원가입
+            </label>
             <input
               className="signup-check"
               id="id-check-02"
@@ -141,7 +143,9 @@ function SignUp() {
               onChange={() => setSelectedOption("provider")}
               onClick={onChangeHandler}
             />
-            <label htmlFor="id-check-02">제공자 회원가입</label>
+            <label htmlFor="id-check-02" className="signup-check-label">
+              제공자 회원가입
+            </label>
           </div>
           <div className="signup-input">
             {selectedOption === "user" && (

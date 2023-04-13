@@ -19,6 +19,7 @@ import Community from "./pages/community/Community";
 import Detail from "./pages/community/Detail";
 import BoardWrite from "./pages/community/BoardWrite";
 import MyPage from "./pages/mypage/MyPage";
+import MyProfile from "./pages/mypage/MyProfile";
 import BoardUpdate from "pages/community/BoardUpdate";
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
           />
           <Route path="/reviews/:serviceCategoryCode" element={<Review />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/myprofile/:userCode" element={<MyProfile />} />
+
           {/* <Route path="/care" element={<Care />} />
           <Route path="/walking" element={<Walking />} />
           <Route path="/training" element={<Training />} />

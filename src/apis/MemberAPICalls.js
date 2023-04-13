@@ -1,5 +1,7 @@
 import {
   GET_MEMBER,
+  PUT_MEMBER,
+  DELETE_MEMBER,
   GET_MYPET,
   POST_LOGIN,
   POST_SIGNUP,
@@ -183,10 +185,83 @@ export const callMyPageUserInfoAPI = () => {
         Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
     }).then((response) => response.json());
+    console.log("[MemberAPICalls] callMyPageUserInfoAPI RESULT : ", result);
+    dispatch({ type: GET_MEMBER, payload: result });
+  };
+};
+
+export const callMyProfileUserDetailInfoAPI = () => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/mypage/user/detail`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
     console.log(
-      "[callMyPageUserInfoAPI] callMyPageUserInfoAPI RESULT : ",
+      "[MemberAPICalls] callMyProfileUserDetailInfoAPI RESULT : ",
       result
     );
     dispatch({ type: GET_MEMBER, payload: result });
+  };
+};
+
+export const callMyProfileUserDetailUpdateInfoAPI = ({ form }) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/mypage/user/detail`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        nickname: form.nickname,
+        address: form.address,
+        simpleIntro: form.simpleIntro,
+        selfIntro: form.selfIntro,
+      }),
+    }).then((response) => response.json());
+
+    console.log(
+      "[MemberAPICalls] callMyProfileUserDetailUpdateInfoAPI RESULT : ",
+      result
+    );
+
+    if (result.status === 201) {
+      dispatch({ type: PUT_MEMBER, payload: result });
+    }
+  };
+};
+
+export const callMyProfileUserDetailDeleteInfoAPI = ({ userCode }) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/mypage/user/detail`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: JSON.stringify({
+        userCode: userCode.userCode,
+      }),
+    }).then((response) => response.json());
+    console.log(
+      "[MemberAPICalls] callMyProfileUserDetailDeleteInfoAPI RESULT : ",
+      result
+    );
+    dispatch({ type: DELETE_MEMBER, payload: result });
   };
 };
