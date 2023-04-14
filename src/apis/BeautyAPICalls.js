@@ -29,7 +29,7 @@ export const callSelectBeautyInfoAPI = () => {
   };
 };
 export const callUpdateBeautyInfoAPI = ({ form }) => {
-  console.log(form);
+  console.log(JSON.stringify(form));
   console.log("[BeautyAPICalls] callUpdateBeautyInfoAPI Call" + form);
 
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}/api/v1/beauty-manage/info`;
