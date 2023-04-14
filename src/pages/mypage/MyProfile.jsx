@@ -5,6 +5,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { callMyProfileUserDetailInfoAPI } from "apis/MemberAPICalls";
 import { callMyProfileUserDetailUpdateInfoAPI } from "apis/MemberAPICalls";
 import { callMyProfileUserDetailDeleteInfoAPI } from "apis/MemberAPICalls";
+import { callLogoutAPI } from "apis/MemberAPICalls";
 import "../../styles/MyProfile.css";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
 function MyProfile() {
@@ -58,7 +59,10 @@ function MyProfile() {
         userCode: myInfoDetailList.userCode,
       })
     );
-    navigate(-1);
+    dispatch(callLogoutAPI());
+    alert("사용자 탈퇴 성공");
+    navigate("/", { replace: true });
+    window.location.reload();
   };
 
   const onClickBackHandler = () => {

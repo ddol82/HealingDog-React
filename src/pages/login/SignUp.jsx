@@ -92,6 +92,11 @@ function SignUp() {
     });
   };
 
+  const onClickMainHandler = () => {
+    // 메인 로고 클릭시 메인화면으로 이동
+    navigate("/", { replace: true });
+  };
+
   const onClickBackHandler = () => {
     // 돌아가기 클릭시 로그인으로 이동
     navigate("/login", { replace: true });
@@ -118,7 +123,9 @@ function SignUp() {
     <div className="signup-container">
       <main className="signup-main">
         <div className="signup-center">
-          <div className="signup-titlename">HEALING DOG</div>
+          <div className="signup-titlename" onClick={onClickMainHandler}>
+            HEALING DOG
+          </div>
           <div className="signup-checkmember">
             <input
               className="signup-check"

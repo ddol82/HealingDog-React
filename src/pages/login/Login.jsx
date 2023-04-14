@@ -34,10 +34,12 @@ function Login() {
       if (loginMember.status === 200) {
         console.log("[Login] Login SUCCESS {}", loginMember);
         if (form.type === "user") {
+          alert("사용자 로그인 성공");
           navigate("/", { replace: true });
         }
 
         if (form.type === "provider") {
+          alert("제공자 로그인 성공");
           navigate("/provider", { replace: true });
         }
       }
@@ -52,6 +54,11 @@ function Login() {
   }
 
   // event handler
+
+  const onClickMainHandler = () => {
+    // 메인 로고 클릭시 메인화면으로 이동
+    navigate("/", { replace: true });
+  };
 
   // useState 에 input 변화값 저장
   const onChangeHandler = (e) => {
@@ -87,7 +94,9 @@ function Login() {
     <div className="login-container">
       <main className="login-main">
         <div className="login-center">
-          <div className="lgoin-titlename">HEALING DOG</div>
+          <div className="lgoin-titlename" onClick={onClickMainHandler}>
+            HEALING DOG
+          </div>
           <div className="login-checkmember">
             <input
               className="login-check"
