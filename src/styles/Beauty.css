@@ -47,12 +47,13 @@
 }
 .beauty-review {
   display: flex;
-  width: 190px;
-  height: 220px;
+  width: 240px;
+  height: 240px;
 
   background: #ffffff;
   border-radius: 10px;
-  padding: 30px 45px;
+  /* padding: 30px 45px; */
+  padding: 20px 20px;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
@@ -130,4 +131,7 @@
   gap: 6px;
 }
 .month-list {
+}
+.beauty-elestic ::-webkit-scrollbar-track-piece:start {
+  margin-bottom: auto;
 }

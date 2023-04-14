@@ -40,7 +40,7 @@ const BeautyInfo = () => {
 
   const onClickUpdateHandler = () => {
     const formData = new FormData();
-    formData.append("name", form.providerCode);
+    formData.append("providerCode", form.providerCode);
     formData.append("name", form.name);
     formData.append("day", form.day);
     formData.append("startTime", form.startTime);

@@ -9,9 +9,10 @@ const Address = (props) => {
   const [addressDetail, setAddressDetail] = useState(props.addressDetail);
 
   const handleComplete = (data) => {
+    console.log(data.zonecode);
+    console.log(data.address);
     setZonecode(data.zonecode);
     setAddress(data.address);
-    setAddressDetail(data.addressDetail);
     closeModal();
   };
 
@@ -50,6 +51,7 @@ const Address = (props) => {
           id="zonecode"
           placeholder="우편번호"
           defaultValue={zonecode}
+          value={zonecode}
           readOnly="readonly"
         />
         <button onClick={openModal}>검색하기</button>
@@ -61,6 +63,7 @@ const Address = (props) => {
           name="address"
           id="address"
           defaultValue={address}
+          value={address}
           placeholder="주소"
           readOnly="readonly"
         />
@@ -73,6 +76,7 @@ const Address = (props) => {
           id="addressDetail"
           placeholder="상세주소"
           defaultValue={addressDetail}
+          value={addressDetail}
         />
       </div>
     </div>

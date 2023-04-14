@@ -5,16 +5,16 @@ const BeautyReviewOne = (props) => {
     let star = "";
     switch (Math.round(score)) {
       case 1:
-        star = "✭";
+        star = "✭☆☆☆☆";
         break;
       case 2:
-        star = "✭✭";
+        star = "✭✭☆☆☆";
         break;
       case 3:
-        star = "✭✭✭";
+        star = "✭✭✭☆☆";
         break;
       case 4:
-        star = "✭✭✭✭";
+        star = "✭✭✭✭☆";
         break;
       case 5:
         star = "✭✭✭✭✭";

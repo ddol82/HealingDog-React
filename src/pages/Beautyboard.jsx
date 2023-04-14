@@ -9,7 +9,7 @@ import { callSelectBeautyReviewsListAPI } from "apis/BeautyReviewListAPICalls";
 import ReservationList from "../components/beauty/ReservationList";
 import HealingCalendar from "../components/common/HealingCalendar";
 import Todo from "../components/beauty/Todo";
-import BeautyReview from "components/review/BeautyReview";
+// import BeautyReview from "components/review/BeautyReview";
 import BeautyReviewOne from "components/review/BeautyReviewOne";
 
 const Beautyboard = () => {
@@ -138,7 +138,17 @@ const Beautyboard = () => {
                 <Todo today={today} />
               </div>
               <div className="beauty-review">
-                <BeautyReview />
+                <iframe
+                  src="http://localhost:5601/goto/60e24cf0-d9f2-11ed-b2ea-dd65689fca4f"
+                  height="260"
+                  width="260"
+                  style={{
+                    display: "block",
+                    margin: "0 auto",
+                    frameBorder: "0",
+                    position: "relative",
+                  }}
+                ></iframe>
               </div>
             </div>
             <div className="month-list">
