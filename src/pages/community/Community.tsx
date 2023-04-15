@@ -88,10 +88,13 @@ const Community = () => {
                 <img className='category-switch-button' src={menuLogo} alt='category' onClick={onCategoryToggleClick}/>
             </div>
             <div className='category-item cat-right'>
-                <div className='category-item category-sort'>
-                    <p className='category-text'>{filterText}</p>
-                    <img className='category-switch-button' src={filterLogo} alt='filter' onClick={onFilterToggleClick}/>
-                </div>
+                { // 기능 추가 예정
+                    false &&
+                    <div className='category-item category-sort'>
+                        <p className='category-text'>{filterText}</p>
+                        <img className='category-switch-button' src={filterLogo} alt='filter' onClick={onFilterToggleClick}/>
+                    </div>
+                }
                 <button className='category-btn btn-active' onClick={onWriteClick}>글 작성</button>
             </div>
         </div>

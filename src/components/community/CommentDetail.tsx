@@ -11,7 +11,8 @@ type DetailProps = {
 const CommentDetail = ({ boardCode }: DetailProps) => {
     const dispatch = useDispatch();
     const commentData: CommentType[] = useSelector((state: any) => state.commentReducer);
-
+//useState
+    const [updateIndex, setUpdateIndex] = useState(-1); // 답글
 //useEffect
     useEffect(() => {
         console.log('useEffect - [] call');
