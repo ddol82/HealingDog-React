@@ -110,6 +110,8 @@ const BoardItem = ({ param, pageInfo, setPageInfo, category }: BoardItemProps): 
         if(timeParam < 60) return `${timeParam}분 전`
         timeParam = ~~(timeParam/60);
         if(timeParam < 24) return `${timeParam}시간 전`
+        timeParam = ~~(timeParam/24);
+        if(timeParam <= 3) return `${timeParam}일 전`
         return 'default';
     }
 

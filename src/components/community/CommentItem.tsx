@@ -22,14 +22,14 @@ const CommentItem = ({item}: ItemProps): JSX.Element => {
     const uptimeDisplay: string = getDisplayValue(elapsed);
 
 //function
-    async function onRemoveClickHandler(): Promise<void> {
-        if(!confirm('삭제된 게시글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
-        await dispatch<any>(callDeleteBoardAPI({
-            boardCode : boardData.boardCode
-        }))
-        .then(alert('게시글이 삭제되었습니다.'))
-        .then(navigate("/community/lists/all/1"));
-    }
+    // async function onRemoveClickHandler(): Promise<void> {
+    //     if(!confirm('삭제된 게시글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
+    //     await dispatch<any>(callDeleteBoardAPI({
+    //         boardCode : boardData.boardCode
+    //     }))
+    //     .then(alert('게시글이 삭제되었습니다.'))
+    //     .then(navigate("/community/lists/all/1"));
+    // }
     return (
         <div className="comment-list-block">
             <div className="comment-owner-block community-drag-none">
