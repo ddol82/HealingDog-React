@@ -12,7 +12,7 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
     const dispatch = useDispatch();
     const commentData: CommentType[] = useSelector((state: any) => state.commentReducer);
 //useState
-    const [updateIndex, setUpdateIndex] = useState(-1); // 답글
+    const [updateIndex, setUpdateIndex] = useState(-1); // 답글 작성(추후 수정)
 //useEffect
     useEffect(() => {
         console.log('useEffect - [] call');
