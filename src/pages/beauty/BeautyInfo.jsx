@@ -74,7 +74,7 @@ const BeautyInfo = () => {
       })
     );
 
-    // window.location.reload();
+    window.location.reload();
   };
 
   const [form, setForm] = useState({
@@ -207,9 +207,9 @@ const BeautyInfo = () => {
           <Phone phone={form.phone} form={form} setForm={setForm} />
           <HomePage web={form.web} form={form} setForm={setForm} />
           <Address
-            zoneCode={beautyInfo.zoneCode}
-            address={beautyInfo.address}
-            addressDetail={beautyInfo.addressDetail}
+            zoneCode={form.zoneCode}
+            address={form.address}
+            addressDetail={form.addressDetail}
             form={form}
             setForm={setForm}
           />
