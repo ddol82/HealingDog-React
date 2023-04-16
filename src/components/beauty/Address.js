@@ -4,15 +4,22 @@ import DaumPostcode from "react-daum-postcode";
 
 const Address = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [zonecode, setZonecode] = useState(props.zoneCode);
-  const [address, setAddress] = useState(props.address);
-  const [addressDetail, setAddressDetail] = useState(props.addressDetail);
+  // const [zonecode, setZonecode] = useState(props.zoneCode);
+  // const [address, setAddress] = useState(props.address);
+  // const [addressDetail, setAddressDetail] = useState(props.addressDetail);
+
+  const handleAddressDetailChange = (event) => {
+    props.setForm({ ...props.form, addressDetail: event.target.value });
+  };
 
   const handleComplete = (data) => {
     console.log(data.zonecode);
     console.log(data.address);
-    setZonecode(data.zonecode);
-    setAddress(data.address);
+    props.setForm({
+      ...props.form,
+      zoneCode: data.zonecode,
+      address: data.address,
+    });
     closeModal();
   };
 
@@ -24,14 +31,14 @@ const Address = (props) => {
     setIsModalOpen(false);
   };
 
-  useEffect(
-    () => {
-      setZonecode(props.zoneCode);
-      setAddress(props.address);
-      setAddressDetail(props.addressDetail);
-    }, // eslint-disable-next-line
-    []
-  );
+  // useEffect(
+  //   () => {
+  //     props.setFrom({ ...props.form, zonecode: props.zonecode });
+  //     props.setFrom({ ...props.form, address: props.address });
+  //     props.setFrom({ ...props.form, addressDetail: props.addressDetail });
+  //   }, // eslint-disable-next-line
+  //   []
+  // );
 
   return (
     <div className="address">
@@ -50,8 +57,8 @@ const Address = (props) => {
           name="zonecode"
           id="zonecode"
           placeholder="우편번호"
-          defaultValue={zonecode}
-          value={zonecode}
+          defaultValue={props.zoneCode}
+          value={props.zoneCode}
           readOnly="readonly"
         />
         <button onClick={openModal}>검색하기</button>
@@ -62,8 +69,8 @@ const Address = (props) => {
           type="text"
           name="address"
           id="address"
-          defaultValue={address}
-          value={address}
+          defaultValue={props.address}
+          value={props.address}
           placeholder="주소"
           readOnly="readonly"
         />
@@ -75,8 +82,9 @@ const Address = (props) => {
           name="addressDetail"
           id="addressDetail"
           placeholder="상세주소"
-          defaultValue={addressDetail}
-          value={addressDetail}
+          defaultValue={props.addressDetail}
+          value={props.addressDetail}
+          onChange={handleAddressDetailChange}
         />
       </div>
     </div>
