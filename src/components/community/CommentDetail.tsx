@@ -13,6 +13,7 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
     const commentData: CommentType[] = useSelector((state: any) => state.commentReducer);
 //useState
     const [updateIndex, setUpdateIndex] = useState(-1); // 답글 작성(추후 수정)
+
 //useEffect
     useEffect(() => {
         console.log('useEffect - [] call');
@@ -37,6 +38,10 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
                                 <div className='detail-line'/>
                             }
                             <CommentItem item={item}/>
+                            {/*
+                                updateIndex > -1 &&
+                                <답글 아이템 넣을 위치>
+                            */}
                         </React.Fragment>
                     ))
             }
