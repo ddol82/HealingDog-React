@@ -1,0 +1,90 @@
+.beauty-info-box {
+  display: flex;
+  background: #fff;
+  border-radius: 10px;
+  width: 480px;
+  padding: 34px 50px 30px 50px;
+  margin: 0 auto;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-top {
+  display: flex;
+
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  position: relative;
+}
+.info-top .review-btn-l {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: -34px;
+}
+.info-top .review-btn-r {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  right: -34px;
+}
+.beauty-info-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.price-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.beauty-info-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.beauty-info-intro textarea {
+  resize: none;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  padding: 10px 20px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+
+  /* 블랙 */
+
+  color: #1d1d1d;
+}
+.beauty-info-intro label {
+  font-weight: 400;
+  font-size: 12px;
+}
+.beauty-name {
+  display: flex;
+  font-weight: 700;
+  font-size: 16px;
+  width: 50%;
+  border: none;
+}
+.beauty-info-btn-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+.beauty-info-btn {
+  display: flex;
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+  height: 26px;
+  border-style: none;
+  background: #32b784;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}

@@ -1,0 +1,30 @@
+.income-yearly {
+    width: 90%;
+    margin: auto;    
+    text-align: center;
+}
+
+.income-monthly {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+
+.boarding-review-btn {
+    width: 24px;
+    height: 24px;
+    border-style: none;
+    background: #D9D9D9;
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.boarding-review-btn:hover {
+    background: #32b784;
+    color: #fff;
+}
+
+.date-span {
+    margin: 0% 5% 0% 5%;
+}

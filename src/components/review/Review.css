@@ -1,0 +1,40 @@
+.review {
+    width: 100%;
+    background-color: gainsboro;
+    border-radius: 10px;
+}
+
+.review-user {
+    width: 90%;
+    margin: 5% 5% 5% 5%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.review-user-regdate {
+    width: 40%;
+    padding-left: 5%;
+    text-align: left;
+}
+
+.review-user-star {
+    width: 40%;
+    padding-left: 5%;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.review-image {
+    width: 90%;
+    height: 50%;
+    margin: 5% 5% 5% 5%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.review-contest {
+    width: 90%;
+    margin: 5% 5% 5% 5%;
+    background-color: white;
+    border-radius: 10px;
+}
