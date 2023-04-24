@@ -1,12 +1,14 @@
 import { CommentType } from "./types/CommentType";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
+import { useDispatch } from "react-redux";
+import { callRegistCommentAPI } from 'apis/CommunityAPICalls';
 
 type ItemProps = {
     item: CommentType
 }
 
 const CommentItem = ({item}: ItemProps): JSX.Element => {
-
+    const dispatch = useDispatch();
     const getDisplayValue = (timeParam: number): string => {
         timeParam = ~~(timeParam/1000);
         if(timeParam < 60) return `${timeParam}초 전`
@@ -23,12 +25,11 @@ const CommentItem = ({item}: ItemProps): JSX.Element => {
 
 //function
     // async function onRemoveClickHandler(): Promise<void> {
-    //     if(!confirm('삭제된 게시글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
-    //     await dispatch<any>(callDeleteBoardAPI({
+    //     if(!confirm('삭제된 댓글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
+    //     await dispatch<any>(callDeleteCommentAPI({
     //         boardCode : boardData.boardCode
     //     }))
-    //     .then(alert('게시글이 삭제되었습니다.'))
-    //     .then(navigate("/community/lists/all/1"));
+    //     .then(alert('게시글이 삭제되었습니다.'));
     // }
     return (
         <div className="comment-list-block">
