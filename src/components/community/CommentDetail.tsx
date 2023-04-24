@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callGetAllCommentAPI } from 'apis/CommentAPICalls';
 import CommentItem from './CommentItem';
+import CommentUpdate from './CommentUpdate';
 import { CommentType } from './types/CommentType';
 
 type DetailProps = {
@@ -38,10 +39,13 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
                                 <div className='detail-line'/>
                             }
                             <CommentItem item={item}/>
-                            {/*
-                                updateIndex > -1 &&
-                                <답글 아이템 넣을 위치>
-                            */}
+                            {
+                                updateIndex === idx &&
+                                <>
+                                    <div className='detail-line'/>
+                                    <CommentUpdate />
+                                </>
+                            }
                         </React.Fragment>
                     ))
             }
