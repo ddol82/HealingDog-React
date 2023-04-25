@@ -38,7 +38,7 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
                                 idx > 0 &&
                                 <div className='detail-line'/>
                             }
-                            <CommentItem item={item}/>
+                            <CommentItem item={item} idx={idx} updateIndex={updateIndex} setUpdateIndex={setUpdateIndex}/>
                             {
                                 updateIndex === idx &&
                                 <>
