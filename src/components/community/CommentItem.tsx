@@ -4,10 +4,13 @@ import { useDispatch } from "react-redux";
 import { callRegistCommentAPI } from 'apis/CommunityAPICalls';
 
 type ItemProps = {
-    item: CommentType
+    item: CommentType,
+    idx: number,
+    updateIndex: number,
+    setUpdateIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
-const CommentItem = ({item}: ItemProps): JSX.Element => {
+const CommentItem = ({item, idx, updateIndex, setUpdateIndex}: ItemProps): JSX.Element => {
     const dispatch = useDispatch();
     const getDisplayValue = (timeParam: number): string => {
         timeParam = ~~(timeParam/1000);
@@ -31,6 +34,10 @@ const CommentItem = ({item}: ItemProps): JSX.Element => {
     //     }))
     //     .then(alert('게시글이 삭제되었습니다.'));
     // }
+
+    function onCommentClickHandler(): void {
+        setUpdateIndex(updateIndex === -1 ? idx : -1);
+    }
     return (
         <div className="comment-list-block">
             <div className="comment-owner-block community-drag-none">
@@ -40,7 +47,7 @@ const CommentItem = ({item}: ItemProps): JSX.Element => {
                 </div>
                 <p className="detail-text-info">{uptimeDisplay === 'default' ?
                              `${item.uptime?.substring(2, 10)} ${item.uptime?.substring(11, 16)}` : uptimeDisplay}</p>
-                <div className="comment-btn">
+                <div className="comment-btn" onClick={onCommentClickHandler}>
                     <p>답글 달기</p>
                 </div>
                 {
