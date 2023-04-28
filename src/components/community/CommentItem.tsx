@@ -7,10 +7,12 @@ type ItemProps = {
     item: CommentType,
     idx: number,
     updateIndex: number,
-    setUpdateIndex: React.Dispatch<React.SetStateAction<number>>
+    setUpdateIndex: React.Dispatch<React.SetStateAction<number>>,
+    replyIndex: number,
+    setReplyIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
-const CommentItem = ({item, idx, updateIndex, setUpdateIndex}: ItemProps): JSX.Element => {
+const CommentItem = ({item, idx, updateIndex, setUpdateIndex, replyIndex, setReplyIndex}: ItemProps): JSX.Element => {
     const dispatch = useDispatch();
     const getDisplayValue = (timeParam: number): string => {
         timeParam = ~~(timeParam/1000);
@@ -35,8 +37,15 @@ const CommentItem = ({item, idx, updateIndex, setUpdateIndex}: ItemProps): JSX.E
     //     .then(alert('게시글이 삭제되었습니다.'));
     // }
 
-    function onCommentClickHandler(): void {
-        setUpdateIndex(updateIndex === -1 ? idx : -1);
+    function onReplyClickHandler(): void {
+        setReplyIndex(replyIndex === idx ? -1 : idx);
+    }
+    function onUpdateClickHandler(): void {
+        setUpdateIndex(updateIndex === idx ? -1 : idx);
+        /*
+        reply와 update의 경우, 추후 변경 필요 :
+        작성되고 있는 글이 있는 경우에 대한 처리가 필요함.
+        */
     }
     return (
         <div className="comment-list-block">
@@ -47,13 +56,13 @@ const CommentItem = ({item, idx, updateIndex, setUpdateIndex}: ItemProps): JSX.E
                 </div>
                 <p className="detail-text-info">{uptimeDisplay === 'default' ?
                              `${item.uptime?.substring(2, 10)} ${item.uptime?.substring(11, 16)}` : uptimeDisplay}</p>
-                <div className="comment-btn" onClick={onCommentClickHandler}>
+                <div className="comment-btn" onClick={onReplyClickHandler}>
                     <p>답글 달기</p>
                 </div>
                 {
                     item.isMine ?
                     <>
-                        <div className="comment-btn">
+                        <div className="comment-btn" onClick={onUpdateClickHandler}>
                             <p>수정</p>
                         </div>
                         <div className="comment-btn">
