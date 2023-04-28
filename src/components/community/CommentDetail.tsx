@@ -13,7 +13,8 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
     const dispatch = useDispatch();
     const commentData: CommentType[] = useSelector((state: any) => state.commentReducer);
 //useState
-    const [updateIndex, setUpdateIndex] = useState(-1); // 답글 작성(추후 수정)
+    const [updateIndex, setUpdateIndex] = useState(-1); // 답글 작성
+    const [replyIndex, setReplyIndex] = useState(-1); // 답글 작성
 
 //useEffect
     useEffect(() => {
@@ -38,7 +39,14 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
                                 idx > 0 &&
                                 <div className='detail-line'/>
                             }
-                            <CommentItem item={item} idx={idx} updateIndex={updateIndex} setUpdateIndex={setUpdateIndex}/>
+                            <CommentItem
+                                item={item}
+                                idx={idx}
+                                updateIndex={updateIndex}
+                                setUpdateIndex={setUpdateIndex}
+                                replyIndex={replyIndex}
+                                setReplyIndex={setReplyIndex}
+                            />
                             {
                                 updateIndex === idx &&
                                 <>
