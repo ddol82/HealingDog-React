@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callGetAllCommentAPI } from 'apis/CommentAPICalls';
 import CommentItem from './CommentItem';
+import CommentUpdate from './CommentUpdate';
 import { CommentType } from './types/CommentType';
 
 type DetailProps = {
@@ -12,7 +13,8 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
     const dispatch = useDispatch();
     const commentData: CommentType[] = useSelector((state: any) => state.commentReducer);
 //useState
-    const [updateIndex, setUpdateIndex] = useState(-1); // 답글 작성(추후 수정)
+    const [updateIndex, setUpdateIndex] = useState(-1); // 답글 작성
+    const [replyIndex, setReplyIndex] = useState(-1); // 답글 작성
 
 //useEffect
     useEffect(() => {
@@ -37,11 +39,21 @@ const CommentDetail = ({ boardCode }: DetailProps) => {
                                 idx > 0 &&
                                 <div className='detail-line'/>
                             }
-                            <CommentItem item={item}/>
-                            {/*
-                                updateIndex > -1 &&
-                                <답글 아이템 넣을 위치>
-                            */}
+                            <CommentItem
+                                item={item}
+                                idx={idx}
+                                updateIndex={updateIndex}
+                                setUpdateIndex={setUpdateIndex}
+                                replyIndex={replyIndex}
+                                setReplyIndex={setReplyIndex}
+                            />
+                            {
+                                updateIndex === idx &&
+                                <>
+                                    <div className='detail-line'/>
+                                    <CommentUpdate />
+                                </>
+                            }
                         </React.Fragment>
                     ))
             }

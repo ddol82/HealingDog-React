@@ -1,12 +1,19 @@
 import { CommentType } from "./types/CommentType";
 import IconAfterLogin from "../../assets/icon/Login=true.svg";
+import { useDispatch } from "react-redux";
+import { callRegistCommentAPI } from 'apis/CommunityAPICalls';
 
 type ItemProps = {
-    item: CommentType
+    item: CommentType,
+    idx: number,
+    updateIndex: number,
+    setUpdateIndex: React.Dispatch<React.SetStateAction<number>>,
+    replyIndex: number,
+    setReplyIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
-const CommentItem = ({item}: ItemProps): JSX.Element => {
-
+const CommentItem = ({item, idx, updateIndex, setUpdateIndex, replyIndex, setReplyIndex}: ItemProps): JSX.Element => {
+    const dispatch = useDispatch();
     const getDisplayValue = (timeParam: number): string => {
         timeParam = ~~(timeParam/1000);
         if(timeParam < 60) return `${timeParam}초 전`
@@ -23,13 +30,23 @@ const CommentItem = ({item}: ItemProps): JSX.Element => {
 
 //function
     // async function onRemoveClickHandler(): Promise<void> {
-    //     if(!confirm('삭제된 게시글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
-    //     await dispatch<any>(callDeleteBoardAPI({
+    //     if(!confirm('삭제된 댓글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) return;
+    //     await dispatch<any>(callDeleteCommentAPI({
     //         boardCode : boardData.boardCode
     //     }))
-    //     .then(alert('게시글이 삭제되었습니다.'))
-    //     .then(navigate("/community/lists/all/1"));
+    //     .then(alert('게시글이 삭제되었습니다.'));
     // }
+
+    function onReplyClickHandler(): void {
+        setReplyIndex(replyIndex === idx ? -1 : idx);
+    }
+    function onUpdateClickHandler(): void {
+        setUpdateIndex(updateIndex === idx ? -1 : idx);
+        /*
+        reply와 update의 경우, 추후 변경 필요 :
+        작성되고 있는 글이 있는 경우에 대한 처리가 필요함.
+        */
+    }
     return (
         <div className="comment-list-block">
             <div className="comment-owner-block community-drag-none">
@@ -39,13 +56,13 @@ const CommentItem = ({item}: ItemProps): JSX.Element => {
                 </div>
                 <p className="detail-text-info">{uptimeDisplay === 'default' ?
                              `${item.uptime?.substring(2, 10)} ${item.uptime?.substring(11, 16)}` : uptimeDisplay}</p>
-                <div className="comment-btn">
+                <div className="comment-btn" onClick={onReplyClickHandler}>
                     <p>답글 달기</p>
                 </div>
                 {
                     item.isMine ?
                     <>
-                        <div className="comment-btn">
+                        <div className="comment-btn" onClick={onUpdateClickHandler}>
                             <p>수정</p>
                         </div>
                         <div className="comment-btn">
