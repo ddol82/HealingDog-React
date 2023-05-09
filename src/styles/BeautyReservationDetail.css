@@ -1,0 +1,251 @@
+.modal {
+  display: flex;
+  background: #fff;
+  border-radius: 10px;
+
+  width: 480px;
+  height: 830px;
+  padding: 34px 50px 0px 50px;
+  margin: 0 auto;
+  flex-direction: column;
+  gap: 30px;
+}
+.modal-btns {
+  display: flex;
+  gap: 20px;
+}
+.modal-btn {
+  width: 230px;
+  height: 36px;
+  border-style: none;
+  border: 0.5px solid #7c7c7c;
+  border-radius: 6px;
+  color: #7c7c7c;
+  background: none;
+  font-weight: 400;
+  font-size: 12px;
+  cursor: pointer;
+}
+.modal-btn-active {
+  width: 230px;
+  height: 36px;
+  border-style: none;
+  background: #32b784;
+  border-radius: 6px;
+  color: #fff;
+
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+.modal-face {
+  display: flex;
+  justify-content: space-between;
+}
+.modal-face h2 {
+  width: 160px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+}
+.modal-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: #eee;
+}
+.modal-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.modal-input {
+  display: flex;
+  gap: 10px;
+}
+.modal-input label {
+  border-style: none;
+
+  width: 50px;
+  height: 22px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+
+  color: #7c7c7c;
+}
+.modal-input .input {
+  border-style: none;
+  width: 152px;
+  height: 28px;
+  border-bottom: 0.5px solid #eeeeee;
+}
+.modal-input input:focus {
+  outline: 0;
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+[type="radio"] {
+  width: 18px;
+  height: 18px;
+}
+
+.radios {
+  display: flex;
+  gap: 10px;
+}
+
+.checks {
+  position: relative;
+  height: 20px;
+  line-height: 20px;
+}
+.checks label {
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.checks input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.checks input[type="radio"] + label {
+  display: inline-block;
+  position: relative;
+  padding-left: 26px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.checks input[type="radio"] + label:before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  width: 14px;
+  height: 14px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 100%;
+  box-shadow: none;
+  font-weight: 400;
+  font-size: 12px;
+}
+.checks input[type="radio"]:checked + label:before {
+  background: #fff;
+  border-color: #32b784;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.checks input[type="radio"]:checked + label:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 14px;
+  height: 14px;
+  background: #32b784;
+  border-radius: 100%;
+  box-shadow: none;
+  font-weight: 400;
+  font-size: 12px;
+}
+.modal-intro {
+  display: flex;
+  flex-direction: column;
+}
+.modal-intro div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.modal-intro div span {
+  font-weight: 400;
+  font-size: 10px;
+  color: #7c7c7c;
+}
+.modal-intro textarea {
+  resize: none;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  padding: 10px 20px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+
+  /* 블랙 */
+
+  color: #1d1d1d;
+}
+.modal-intro textarea:focus {
+  outline: 0;
+}
+
+.reservation-info-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.reservation-info1 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.reservation-info1 label {
+  font-weight: 400;
+  font-size: 12px;
+  color: #7c7c7c;
+  margin-right: 10px;
+}
+.reservation-info1 span {
+  font-weight: 400;
+  font-size: 10px;
+  color: #7c7c7c;
+}
+.reservation-info2 {
+  display: flex;
+  gap: 10px;
+}
+.reservation-info1 input {
+  border-style: none;
+  width: 152px;
+  height: 28px;
+  border-bottom: 0.5px solid #eeeeee;
+
+  font-weight: 400;
+  font-size: 12px;
+}
+.reservation-info1 input:focus {
+  outline: 0;
+}
+.reservation-info2 button {
+  width: 100px;
+  height: 30px;
+  border-style: none;
+  background: #32b784;
+  border-radius: 6px;
+  padding: auto;
+  color: #fff;
+}

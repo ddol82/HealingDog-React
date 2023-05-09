@@ -1,0 +1,26 @@
+.web {
+  display: flex;
+  gap: 10px;
+}
+.web label {
+  font-weight: 400;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+
+  /* 서브1 */
+  color: #7c7c7c;
+}
+.web-input {
+  border-bottom: 0.5px solid #eeeeee;
+  display: flex;
+  gap: 6px;
+}
+.web-input input {
+  width: 152px;
+  font-weight: 400;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  border: none;
+}
